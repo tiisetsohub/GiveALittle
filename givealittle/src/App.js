@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
 import './App.css';
-import Demo from './Pages/Demo'
+import Demo from './Pages/Demo'   //copy with your page name to call it
 
 function App() {
   return (
