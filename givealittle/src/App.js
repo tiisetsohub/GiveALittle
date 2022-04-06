@@ -1,15 +1,28 @@
-import {BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
 import './App.css';
-import Demo from './Pages/Demo'   //copy with your page name to call it
-
+import Products from './Components/Products'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
+import { Category } from "./Components/Category"
+import NavBar from "./Components/NavBar";
+import ProductView from './Components/ProductView';
 
 function App() {
+
   return (
-    <Router>
+    <div className="App">
+      <Router>
+        <NavBar />
         <Routes>
-             <Route path="/demo" element={<Demo />} />    
+          <Route path="/Category" element={<Category />} exact />
+          <Route path="/home" element={<Products />} exact />
+          <Route path="/" element={<Products />} exact />
+          <Route path="/product/:id" element={<ProductView />} exact/> 
         </Routes>
-    </Router>
+      </Router >
+    </div >
   );
 }
 
