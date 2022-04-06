@@ -14,7 +14,7 @@ function  Demo(){
     const userRef = collection(db, "Users");
 
     const createUser = async () => {
-        await addDoc(userRef, { name: newName, surname: newSurname,email: newEmail,cell: newCell });
+        await addDoc(userRef, { Name: newName, Surname: newSurname,Email: newEmail,Cell: newCell });
 
     }
 
