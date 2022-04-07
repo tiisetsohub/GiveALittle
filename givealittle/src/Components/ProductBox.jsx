@@ -1,21 +1,26 @@
+import './Product.css'
 import React from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Card, ListGroup } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 function ProductBox(props) {
   return (
-    <div className='a-box'>
-      <div className='a-b-img'>
-        <h2>{props.title}</h2>
-        <img src={`${props.image}`} alt='' />
-      </div>
-      <div className='a-b-text'>
-        <Link to={`/product/${props.id}`}>
-          <Button className='productBox-button'>Order Now</Button>
-        </Link>
-      </div>
+    <Card className="box">
+      <Card.Title>{props.title}</Card.Title>
+      <Card.Img variant="top" src={`${props.image}`} alt={props.title} />
+      <Card.Body>
+        <ListGroup>
+          <ListGroup.Item>Category: {props.cat}</ListGroup.Item>
+          <ListGroup.Item>{props.price}</ListGroup.Item>
+          <ListGroup.Item>
+            <Link to={`/product/${props.id}`}>
+              <Button className='productBox-button'>Order Now</Button>
+            </Link>
+          </ListGroup.Item>
+        </ListGroup>
+      </Card.Body>
       {' '}
-    </div>
+    </Card>
   )
 }
 

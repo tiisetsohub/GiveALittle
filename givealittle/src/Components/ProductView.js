@@ -7,8 +7,8 @@ function ProductView(props) {
     const {id} = useParams()
     
     //authentication
-    const [userName, setUsername] = useState('')
-    const [loggedIn, setLLoggedIn] = useState(false)
+    // const [userName, setUsername] = useState('')
+    // const [loggedIn, setLLoggedIn] = useState(false)
     //add authentication verification here
     
     const productObj = mockAPI.filter(product => product.id === id)
