@@ -1,4 +1,5 @@
 import './App.css';
+import Buyer from './Pages/Buyer';
 import Homepage from './Pages/Homepage'
 
 function App() {
