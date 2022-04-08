@@ -42,7 +42,7 @@ const mockAPI = [
     {
         id: '4',
         url: '/images/huawei-matebook-x-pro.webp',
-        name: 'Huawei MacBook X Pro',
+        name: 'Huawei MateBook X Pro',
         price: '25.00',
         cat: 'Electronics',
         menu: [

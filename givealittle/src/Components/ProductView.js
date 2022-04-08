@@ -37,7 +37,7 @@ function ProductView(props) {
                     {/* nothing here, just to give space */}
                     <Col md = {3}></Col>
                     <Col md={4}>
-                        <h3>Ingredients</h3>
+                        <h3>Description</h3>
                         {ingredients}
                     </Col>
                 </Row>

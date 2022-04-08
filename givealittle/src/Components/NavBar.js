@@ -1,5 +1,8 @@
 import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap"
 import { Link } from "react-router-dom";
+import { MdAddShoppingCart } from "react-icons/md";
+import { BsFillSuitHeartFill } from "react-icons/bs";
+
 
 const NavBar = () => {
     return (
@@ -20,8 +23,8 @@ const NavBar = () => {
                     </Nav>
                     <Nav>
                         <Nav.Link href="#seller">Sell on Givealittle</Nav.Link>
-                        <Nav.Link href="#wishlist">Wishlist</Nav.Link>
-                        <Nav.Link href="#cart">Cart</Nav.Link>
+                        <Nav.Link href="#wishlist"><BsFillSuitHeartFill/> Wishlist</Nav.Link>
+                        <Nav.Link href="#cart"><MdAddShoppingCart/>Cart</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
