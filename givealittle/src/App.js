@@ -15,14 +15,14 @@ function App() {
   return (
     <div className="App">
       <Router>
-        <Buyer/>
-        {/* <NavBar /> */}
-        {/* <Routes>
+        {/* <Buyer/> */}
+        <NavBar />
+        <Routes>
           <Route path="/Category" element={<Category />} exact />
           <Route path="/home" element={<Products />} exact />
           <Route path="/" element={<Products />} exact />
           <Route path="/product/:id" element={<ProductView />} exact/> 
-        </Routes> */}
+        </Routes>
       </Router >
     </div >
   );
