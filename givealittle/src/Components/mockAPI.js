@@ -1,52 +1,52 @@
 const mockAPI = [
     {
         id: '0',
-        url: '/images/s1.png',
-        name: 'WSS Burger',
+        url: '/images/Apple_IPhone_13_Pro_Max.jpg',
+        name: 'Apple IPhone 13 Pro Max',
         price: '25.00',
-        cat: "food",
+        cat: "Electronics",
         menu: [
-            "cheese", "beef burger", "onion"
+            
         ]
     },
     {
         id: '1',
-        url: '/images/s2.png',
-        name: 'OLS Burger',
+        url: '/images/Samsung_Galaxy_S21_Ultra_5G.webp',
+        name: 'Samsung Galaxy S21 Ultra 5G',
         price: '50.00',
-        cat: 'food',
+        cat: 'Electronics',
         menu: [
-            "cheese", "beef burger", "onion"
+            
         ]
     },
     {
         id: '2',
-        url: '/images/s1.png',
-        name: 'Umthombo Burger',
+        url: '/images/Huawei_Mate40_Pro.jpg',
+        name: 'Huawei Mate 40 Pro',
         price: '10.00',
-        cat: 'food',
+        cat: 'Electronics',
         menu: [
-            "cheese", "beef burger", "onion"
+        
         ]
     },
     {
         id: '3',
-        url: '/images/s1.png',
-        name: 'TWK Burger',
+        url: '/images/macbook-pro.jpg',
+        name: 'Apple MacBook Pro',
         price: '50.00',
-        cat: 'food',
+        cat: 'Electronics',
         menu: [
-            "cheese", "beef burger", "onion"
+        
         ]
     },
     {
         id: '4',
-        url: '/images/s2.png',
-        name: 'WSS Burger',
+        url: '/images/huawei-matebook-x-pro.webp',
+        name: 'Huawei MacBook X Pro',
         price: '25.00',
-        cat: 'food',
+        cat: 'Electronics',
         menu: [
-            "cheese", "chicken burger", "onion"
+            
         ]
     },
     {

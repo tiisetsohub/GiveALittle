@@ -19,10 +19,9 @@ const NavBar = () => {
                         </NavDropdown>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="#deets">More Items</Nav.Link>
-                        <Nav.Link eventKey={2} href="#memes">
-                            Even More Items
-                        </Nav.Link>
+                        <Nav.Link href="#seller">Sell on Givealittle</Nav.Link>
+                        <Nav.Link href="#wishlist">Wishlist</Nav.Link>
+                        <Nav.Link href="#cart">Cart</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
