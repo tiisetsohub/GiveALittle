@@ -1,13 +1,13 @@
 import React from 'react'
-import Products from '../Components/Products'
+import Products from '../Pages/Products'
 import {
   BrowserRouter as Router,
   Routes,
   Route
 } from "react-router-dom";
-import { Category } from "../Components/Category"
-import NavBar from "../Components/NavBar";
-import ProductView from '../Components/ProductView';
+import { Category } from "../Pages/Category"
+import NavBar from "../Pages/NavBar";
+import ProductView from '../Pages/ProductView';
 
 function Homepage() {
   return (
