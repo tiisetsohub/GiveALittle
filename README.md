@@ -1,3 +1,5 @@
+![CircleCI](https://img.shields.io/circleci/build/github/tiisetsohub/GiveALittle/main)
+
 # GiveALittle
 This is the repo for our group 
 
