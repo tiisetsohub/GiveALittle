@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
+
+.navbar {
+    background-color: #113E21;
+    width: 100%;
+    height: 80px;
+    display: flex;
+}
+
+button:hover {
+    cursor: pointer;
+}
+
+.bodydiv {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    justify-content: space-evenly;
+
+}
+
+.reviewdiv {
+    align-items: center;
+    text-align: center;
+}
+
+.reviewdiv div img {
+    width: 400px;
+    height: 400px;
+    margin-top: 10px;
+}
+
+.reviewdiv div div {
+    margin-bottom: 30px;
+}
+
+.btnclose {
+    border-radius: 5px;
+    color: white;
+    background-color: #B38B59;
+    border: 0px solid;
+    left: 2px;
+    position: absolute;
+    margin-top: 10px;
+}
+
+.btnadd {
+    height: 28px;
+    font-weight: bold;
+    background-color: #B38B59;
+    border-radius: 3px;
+    border: 0px solid;
+    color: white;
+}
+
+.edtnum {
+    width: 40px;
+    height: 26px;
+    background-color: #F0F0F0;
+    border-radius: 3px;
+    color: black;
+    border: 1px solid #113E21;
+}
+
+
+.itemdiv {
+    background-color: #F0F0F0;
+    width: 250px;
+    align-items: center;
+    padding: 15px;
+    margin: 10px;
+    border-radius: 5px;
+    transform: 1s
+}
+
+.itemdiv:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 2px 2px #113E21;
+}
+
+.itemname {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.itemprice {
+    font-weight: lighter;
+    font-size: 14px;
+}
+
+.textdiv {
+    height: 70px;
+}
+
+img {
+    width: 250px;
+    height: 250px;
+    background-color: white;
+    object-fit: contain;
+    border-radius: 5px;
+}
+
+.btnsearch {
+    height: 28px;
+    border-radius: 3px;
+    background-color: #B38B59;
+    border: 0px solid;
+    color: white;
+}
+
+.btnthings {
+    height: 28px;
+    border-radius: 3px;
+    background-color: #B38B59;
+    border: 0px solid;
+    color: white;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: #F0F0F0;
+}
+
+.edtsearch {
+    border-radius: 5px;
+    height: 25px;
+    width: 200px;
+    border: 1px solid #B38B59;
+}
+
+
+.navbar .leftside {
+    flex: 50%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.navbar .leftside #hidden {
+    display: flex;
+
+}
+
+.navbar .rightside {
+    flex: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 25px;
+}
+
+.navbar .leftside .links {
+    margin-left: 15px;
+    display: flex;
+
+}
+
+.navlink {
+    margin: 5px;
+    color: #FEFEFE;
+    text-decoration: none;
+}
+
+.navbar .leftside button {
+    display: none;
+    margin-left: 20px;
+}
+
+
+@media only screen and (max-width: 750px) {
+    .navlink {
+        font-size: 15px;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .navbar .leftside button {
+        display: flex;
+    }
+
+    .navbar .leftside .links {
+        display: none;
+    }
+
+    .navbar .leftside #hidden {
+        position: absolute;
+        margin-left: 0;
+        top: 80px;
+        max-height: 230px;
+        width: 100%;
+        background-color: #113E21;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.cartitemdiv {
+    background-color: #F0F0F0;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #B38B59;
+}
+
+.pic {
+    margin: 10px;
+    height: 80px;
+    border: 1px solid #B38B59;
+    width: 80px
+}
+
+.cartright {
+    padding-right: 30px;
+    justify-content: right;
+    text-align: right;
+}
+
+.cartleft {
+    padding-left: 30px;
+}
+
+h6 {
+    color: #113E21;
+}
+
+
+.demodiv {
+    background-color: #113E21;
+    text-align: right;
+}
+
+.textin {
+    margin: 10px;
+    color: #FEFEFE;
+    font-size: 12px;
+    margin-right: 10px;
+}
+
+.buttonin {
+    margin: 10px;
+    height: 28px;
+    border-radius: 3px;
+    background-color: #B38B59;
+    border: 0px solid;
+    color: white;
+    margin-right: 25px;
+}
+
+.cartpricep {
+    font-size: 8px;
+
+}
