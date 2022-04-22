@@ -1,0 +1,104 @@
+.add-product-button{
+    width: 220px;
+    height: 50px;
+    border: none;
+    background-color: green;
+    border-radius: 30px;
+    transition: 0.5s;
+    animation: ease-in;
+    box-shadow: 0px 0px 15px -5px rgb(80, 80, 80);
+    font-size:x-large;
+    font-weight: bold;
+    color: aliceblue;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.add-product-button:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px 0px rgb(136, 136, 136);
+}
+
+.card-container{
+    width: 300px;
+    height: 100%;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px -5px rgb(93, 93, 93);
+    overflow: hidden;
+    animation: ease-in;
+    margin: 10px;
+    transition: 0.5s;
+    animation: ease-in;
+}
+
+.card-container:hover{
+    transform: scale(1.03);
+    box-shadow: 0px 0px 15px 0px rgb(136, 136, 136);
+}
+
+.image-container{
+    position: relative;
+}
+
+.card-image{
+    display: block;
+    object-fit: cover;
+    width: 300px;
+    height: 300px;
+    border-radius: 20dp;
+}
+
+.edit-button{
+    position: absolute;
+    top: 3%;
+    left: 80%;
+    border-radius: 50px;
+    border-width: 0;
+    height: 30px;
+    width: 50px;
+    transition: 0.3s;
+    animation: ease-in;
+    font-size: medium;
+    background-color: aliceblue;
+    color: rgb(0, 5, 145);
+    font-weight: bold;
+}
+
+.edit-button:hover{
+    transform: scale(1.1);
+    box-shadow: 0px 0px 15px 0px rgb(70, 70, 70);
+    background-color: rgb(255, 255, 131);
+}
+
+.card-name{
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.card-price{
+    display: inline-block;
+    background-color:rgb(209, 209, 209);
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.card-details-container{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.card-quantity{
+    display: block;
+    font-weight:normal;
+    float: left;
+}
+
+.card-sold{
+    font-weight:normal;
+    display: block;
+    float: right;
+}
+

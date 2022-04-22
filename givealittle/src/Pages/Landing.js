@@ -57,7 +57,7 @@ export default function Landing() {
                 <div className="navbar">
                     <div className="leftside">
                         <div className="links" id={showLinks ? "hidden" : ""}>
-                            <Link className="navlink" to='/sell'>
+                            <Link className="navlink" to='/sellerslanding'>
                                 <p>Sell</p>
                             </Link>
                             <Link className="navlink" to='/about'>

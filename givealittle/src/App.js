@@ -4,6 +4,7 @@ import Home from './Pages/Home'
 import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import Landing from './Pages/Landing'
+import SellersLanding from './Pages/SellersLanding';
 import Sell from './Pages/Sell'
 import About from './Pages/About'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -37,6 +38,10 @@ function App() {
 
               <Route path="/landing">                 {/*route to landing page*/}
                 <Landing />
+              </Route>
+
+              <Route path="/sellerslanding">        {/*route to sellers landing page*/}
+                <SellersLanding />
               </Route>
 
               <Route path="/sell">                  {/*route to sell page*/}
