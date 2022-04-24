@@ -107,10 +107,10 @@ button:hover {
 }
 
 img {
-
+    height: 250px;
+    width:250px;
+    object-fit: contain;
     background-color: white;
-    height:fit-content;
-    width: 250px;
     border-radius: 5px;
     display: block;
     position: relative;

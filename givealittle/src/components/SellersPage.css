@@ -42,8 +42,8 @@
 
 .card-image{
     display: block;
-    object-fit: cover;
-    width: 450px;
+    object-fit: contain;
+        width: 450px;
     height: 450px;
     border-radius: 5px;
 }
