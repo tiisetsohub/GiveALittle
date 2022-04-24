@@ -89,11 +89,14 @@ button:hover {
 }
 
 .itemprice {
-    font-weight: lighter;
+    font-weight: bold;
+    background-color:rgb(219, 219, 219);
     font-size: 14px;
     float: left;
+    border-radius: 30px;
     padding-left: 5px;
     padding-right: 5px;
+    margin-left: 5px;
 }
 
 .item-quantity{
