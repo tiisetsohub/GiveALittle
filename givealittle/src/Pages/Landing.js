@@ -153,6 +153,8 @@ export default function Landing() {
                 </div> :
                     <div className="bodydiv" >
                         {Inventory.map((item) => {
+
+                            
                             return <div className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>

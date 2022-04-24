@@ -157,10 +157,9 @@ export default function Home() {
                                 ProductView(item)
                             }}>
                                 <img src={item.Image} alt="nope" />
-                                <div className="textdiv">
-                                    <h1 className="itemname">{item.Name}</h1>
-                                </div>
+                                <h1 className="itemname">{item.Name}</h1>
                                 <h1 className="itemprice">R{item.Price}</h1>
+                                <h1 className="item-quantity">in stock: {item.Quantity}</h1>
                             </div>
                         })}
                     </div>

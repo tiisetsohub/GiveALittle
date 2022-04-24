@@ -87,10 +87,13 @@ button:hover {
 .itemprice {
     font-weight: lighter;
     font-size: 14px;
+    float: left
 }
 
-.textdiv {
-    height: 70px;
+.item-quantity{
+    font-weight: lighter;
+    font-size: 14px;
+    float: right;
 }
 
 img {
