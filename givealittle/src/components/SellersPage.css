@@ -2,8 +2,8 @@
     width: 220px;
     height: 50px;
     border: none;
-    background-color: green;
-    border-radius: 30px;
+    background-color: #B38B59;
+    border-radius: 3px;
     transition: 0.5s;
     animation: ease-in;
     box-shadow: 0px 0px 15px -5px rgb(80, 80, 80);
@@ -20,9 +20,9 @@
 }
 
 .card-container{
-    width: 300px;
+    width: 450px;
     height: 100%;
-    border-radius: 15px;
+    border-radius: 5px;
     box-shadow: 0px 0px 10px -5px rgb(93, 93, 93);
     overflow: hidden;
     animation: ease-in;
@@ -43,9 +43,9 @@
 .card-image{
     display: block;
     object-fit: cover;
-    width: 300px;
-    height: 300px;
-    border-radius: 20dp;
+    width: 450px;
+    height: 450px;
+    border-radius: 5px;
 }
 
 .edit-button{
@@ -55,14 +55,32 @@
     border-radius: 50px;
     border-width: 0;
     height: 30px;
-    width: 50px;
+    width: 80px;
     transition: 0.3s;
     animation: ease-in;
     font-size: medium;
-    background-color: aliceblue;
-    color: rgb(0, 5, 145);
+    background-color:mediumspringgreen;
+    color: rgb(0, 0, 0);
     font-weight: bold;
 }
+
+
+.delete-button{
+    position: absolute;
+    top: 3%;
+    left: 60%;
+    border-radius: 50px;
+    border-width: 0;
+    height: 30px;
+    width: 80px;
+    transition: 0.3s;
+    animation: ease-in;
+    font-size: medium;
+    background-color:orangered;
+    color: rgb(0, 0, 0);
+    font-weight: bold;
+}
+
 
 .edit-button:hover{
     transform: scale(1.1);
