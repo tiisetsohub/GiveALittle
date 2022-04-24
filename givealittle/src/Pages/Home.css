@@ -68,10 +68,10 @@ button:hover {
     background-color: #F0F0F0;
     width: 250px;
     align-items: center;
-    padding: 15px;
     margin: 10px;
     border-radius: 5px;
     transform: 1s
+    
 }
 
 .itemdiv:hover {
@@ -100,8 +100,10 @@ img {
     width: 250px;
     height: 250px;
     background-color: white;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 5px;
+    display: block;
+    position: relative;
 }
 
 .btnsearch {
