@@ -35,11 +35,11 @@ export default function Sell() {
             <Navbar />
             <h1>Add Item</h1>
             <div className='logindiv'>          {/*form for item information*/}
-                <input className="edtname" id="input" placeholder="Name" onChange={(event) => {
+                <input className="edtname" id="input" placeholder="Item Name" onChange={(event) => {
                     setNewName(event.target.value)
                 }} />
                 <br />
-                <input className="edtdesc" id="input" placeholder="Description" onChange={(event) => {
+                <input className="edtdesc" id="input" placeholder="Item Description" onChange={(event) => {
                     setNewDesnewDescription(event.target.value)
                 }} />
                 <br />
@@ -47,7 +47,7 @@ export default function Sell() {
                     setnewImg(event.target.value)
                 }} />
                 <br />
-                <input className="edtprice" type="number" id="input" placeholder="Price" min="19.99" onChange={(event) => {
+                <input className="edtprice" type="number" id="input" placeholder="Item Price" min="19.99" onChange={(event) => {
                     let t = parseFloat(event.target.value)
                     setNewPrice(t)
                 }} />
