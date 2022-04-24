@@ -70,7 +70,6 @@ button:hover {
     align-items: center;
     margin: 10px;
     border-radius: 15px;
-    transform: 1s;
     transition: 0.5s;
     animation: ease-in;
     box-shadow: 0px 0px 15px -5px rgb(93, 93, 93);
