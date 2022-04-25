@@ -37,11 +37,10 @@ button:hover {
 
 .btnclose {
     border-radius: 5px;
-    color: white;
+    color: rgb(0, 0, 0);
     background-color: #B38B59;
     border: 0px solid;
     left: 2px;
-    position: absolute;
     margin-top: 10px;
 }
 
