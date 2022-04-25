@@ -126,7 +126,7 @@ export default function Landing() {
         setText(
             <div>
                 <div className="item-container">
-                    <button className="btnclose" onClick={() => setShow(false)}>X</button>
+                    <button className="btnclose" onClick={() => setShow(false)}>close</button>
 
                     <div>
                         <img src={item.Image} />
@@ -166,7 +166,7 @@ export default function Landing() {
                                 {(() => {
                                     if (item.Quantity == 0) {
                                     return (
-                                        <h1 style={{color: "red"}} className="item-quantity">sold out</h1>
+                                        <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
                                     )
                                     } else {
                                     return (
