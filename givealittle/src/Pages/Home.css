@@ -269,8 +269,13 @@ h6 {
 .textin {
     margin: 10px;
     color: #FEFEFE;
-    font-size: 12px;
     margin-right: 10px;
+    width: max-content;
+    background-color:#082412;
+    font-size: 14px;
+    border-radius: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .buttonin {
