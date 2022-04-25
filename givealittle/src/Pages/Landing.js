@@ -163,6 +163,17 @@ export default function Landing() {
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
                                 <h1 className="itemprice">R{item.Price}</h1>
+                                {(() => {
+                                    if (item.Quantity == 0) {
+                                    return (
+                                        <h1 style={{color: "red"}} className="item-quantity">sold out</h1>
+                                    )
+                                    } else {
+                                    return (
+                                        <h1 className="item-quantity">in stock</h1>
+                                    )
+                                    }
+                                })()}
                             </div>
                         })}
                     </div>

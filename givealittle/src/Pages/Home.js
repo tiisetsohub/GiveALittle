@@ -171,7 +171,20 @@ export default function Home() {
                                 <img src={item.Image} alt="nope" />
                                 <h1 className="itemname">{item.Name}</h1>
                                 <h1 className="itemprice">R{item.Price}</h1>
-                                <h1 className="item-quantity">in stock: {item.Quantity}</h1>
+
+
+                                {(() => {
+                                    if (item.Quantity == 0) {
+                                    return (
+                                        <h1 style={{color: "red"}} className="item-quantity">sold out</h1>
+                                    )
+                                    } else {
+                                    return (
+                                        <h1 className="item-quantity">in stock</h1>
+                                    )
+                                    }
+                                })()}
+
                             </div>
                         })}
                     </div>
