@@ -89,8 +89,20 @@ button:hover {
     padding-right: 5px;
 }
 
+.product-view-price{
+    width: max-content;
+    background-color:#eee8e0;
+    border-radius: 30px;
+    font-size: 18px;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
 .itemprice {
-    background-color:rgb(219, 219, 219);
+    width: max-content;
+    background-color:#eee8e0;
     font-size: 14px;
     float: left;
     border-radius: 30px;
@@ -100,7 +112,7 @@ button:hover {
 }
 
 .item-quantity{
-    font-weight: lighter;
+    font-weight: bold;
     font-size: 14px;
     float: right;
     padding-left: 5px;

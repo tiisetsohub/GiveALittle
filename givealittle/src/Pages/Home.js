@@ -138,7 +138,7 @@ export default function Home() {
                     
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
-                    <p>R{item.Price}</p>
+                    <h1 className="product-view-price">R{item.Price}</h1>
                     <div>
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
@@ -171,7 +171,7 @@ export default function Home() {
                                 {(() => {
                                     if (item.Quantity == 0) {
                                     return (
-                                        <h1 style={{color: "red"}} className="item-quantity">sold out</h1>
+                                        <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
                                     )
                                     } else {
                                     return (
