@@ -43,7 +43,7 @@ button:hover {
     left: 2px;
     margin-top: 10px;
     text-align: center;
-    
+    color: white;
 }
 
 .btnadd {
@@ -53,6 +53,7 @@ button:hover {
     border-radius: 3px;
     border: 0px solid;
     color: white;
+    margin-bottom: 50px;
 }
 
 .edtnum {
@@ -230,6 +231,11 @@ body {
     display: flex;
     justify-content: space-between;
     border: 1px solid #B38B59;
+}
+
+.item-container{
+    background-color: #F0F0F0;
+    height: 100%
 }
 
 .pic {
