@@ -164,21 +164,30 @@ export default function Home() {
                                 ProductView(item)
                             }}>
                                 <img src={item.Image} alt="nope" />
-                                <h1 className="itemname">{item.Name}</h1>
-                                <h1 className="itemprice">R{item.Price}</h1>
 
+                                <div className="item-info-container">
+                                <div className="textdiv">
+                                    <h1 className="itemname">{item.Name}</h1>
+                                </div>
 
-                                {(() => {
-                                    if (item.Quantity == 0) {
-                                    return (
-                                        <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
-                                    )
-                                    } else {
-                                    return (
-                                        <h1 className="item-quantity">in stock</h1>
-                                    )
-                                    }
-                                })()}
+                                    <div className="price-stock-container">
+                                    <h1 className="itemprice">R{item.Price}</h1>
+                                    {(() => {
+                                        if (item.Quantity == 0) {
+                                        return (
+                                            <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
+                                        )
+                                        } else {
+                                        return (
+                                            <h1 className="item-quantity">in stock</h1>
+                                        )
+                                        }
+                                    })()}
+                                    </div>
+                                    
+
+                                </div>
+                                
 
                             </div>
                         })}
