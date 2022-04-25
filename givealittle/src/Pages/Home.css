@@ -224,11 +224,12 @@ body {
     margin: 10px;
     height: 80px;
     border: 1px solid #B38B59;
-    width: 80px
+    width: 80px;
 }
 
 .cartright {
     padding-right: 30px;
+    padding-top: 30px;
     justify-content: right;
     text-align: right;
 }
