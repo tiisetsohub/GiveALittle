@@ -129,7 +129,7 @@ export default function Landing() {
                     <button className="btnclose" onClick={() => setShow(false)}>close</button>
 
                     <div>
-                        <img src={item.Image} />
+                        <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
                     
                     <h3>{item.Name}</h3>
