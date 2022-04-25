@@ -131,7 +131,11 @@ export default function Home() {
 
                 <div className="item-container">
                     <button className="btnclose" onClick={() => setShow(false)}>X</button>
-                    <img src={item.Image} />
+
+                    <div>
+                        <img src={item.Image} />
+                    </div>
+                    
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
                     <p>R{item.Price}</p>

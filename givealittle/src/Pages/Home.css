@@ -42,6 +42,8 @@ button:hover {
     border: 0px solid;
     left: 2px;
     margin-top: 10px;
+    text-align: center;
+    
 }
 
 .btnadd {
@@ -111,8 +113,7 @@ img {
     object-fit: contain;
     background-color: white;
     border-radius: 5px;
-    display: block;
-    position: relative;
+
 }
 
 .btnsearch {
