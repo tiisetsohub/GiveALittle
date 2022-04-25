@@ -134,7 +134,7 @@ export default function Landing() {
                     
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
-                    <p>R{item.Price}</p>
+                    <h1 className="product-view-price">R{item.Price}</h1>
                     <div>
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
