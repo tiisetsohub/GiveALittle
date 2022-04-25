@@ -36,6 +36,8 @@ button:hover {
 }
 
 .btnclose {
+    transition: 0.5s;
+    animation: ease-in;
     border-radius: 5px;
     color: rgb(0, 0, 0);
     background-color: #B38B59;
@@ -47,6 +49,8 @@ button:hover {
 }
 
 .btnadd {
+    transition: 0.5s;
+    animation: ease-in;
     height: 28px;
     font-weight: bold;
     background-color: #B38B59;
@@ -139,6 +143,8 @@ img {
 }
 
 .btnsearch {
+    transition: 0.5s;
+    animation: ease-in;
     height: 28px;
     border-radius: 3px;
     background-color: #B38B59;
@@ -147,11 +153,17 @@ img {
 }
 
 .btnthings {
+    transition: 0.5s;
+    animation: ease-in;
     height: 28px;
     border-radius: 3px;
     background-color: #B38B59;
     border: 0px solid;
     color: white;
+}
+
+.btnsearch:hover, .btnadd:hover, .btnclose:hover, .buttonin:hover{
+    transform: scale(0.9);
 }
 
 body {
@@ -295,6 +307,8 @@ h6 {
     border: 0px solid;
     color: white;
     margin-right: 25px;
+    transition: 0.5s;
+    animation: ease-in;
 }
 
 .cartpricep {
