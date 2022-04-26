@@ -36,6 +36,7 @@ button:hover {
 }
 
 .btnclose {
+    height: 28px;
     transition: 0.5s;
     animation: ease-in;
     border-radius: 5px;

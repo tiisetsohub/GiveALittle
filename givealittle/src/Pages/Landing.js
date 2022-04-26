@@ -126,7 +126,7 @@ export default function Landing() {
         setText(
             <div>
                 <div className="item-container">
-                    <button className="btnclose" onClick={() => setShow(false)}>close</button>
+                    <button className="btnclose" onClick={() => setShow(false)}>Close</button>
 
                     <div>
                         <img src={item.Image} />
