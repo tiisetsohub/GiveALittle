@@ -7,6 +7,7 @@ import Landing from './Pages/Landing'
 import SellersLanding from './Pages/SellersLanding';
 import Sell from './Pages/Sell'
 import About from './Pages/About'
+import MakeTransaction from "./Pages/MakeTransaction";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NameContext, LoginContext, CartContext } from './Context'      //imports all global contexts in here where they will be initialized
 import { useState } from 'react'
@@ -51,6 +52,10 @@ function App() {
               <Route path="/about">                 {/*route to about page*/}
                 <About />
               </Route>
+
+              <Router path="/MakeTransaction">
+                <MakeTransaction />
+              </Router>
 
             </Switch>
           </Router>

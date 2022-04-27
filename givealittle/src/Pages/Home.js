@@ -5,6 +5,7 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context';
+import { useHistory } from "react-router-dom";
 
 export default function Home() {
     const [cartitems, setCartItems] = useState([])      //state for local cart array
@@ -90,7 +91,9 @@ export default function Home() {
                         {summary}
                         <div className="demodiv">
                             <text className='textin'>R{total}</text>
-                            <button className='buttonin'>Check out</button>
+                            <Link to='/MakeTransaction'>
+                                <button className ="buttonin" >Check out</button>
+                            </Link>  
                         </div>
                     </div> : null
                 }

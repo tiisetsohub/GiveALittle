@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context'
 
@@ -89,7 +90,10 @@ export default function Landing() {
                         {summary}
                         <div className="demodiv">
                             <text className='textin'>R{total}</text>
-                            <button className='buttonin'>Check out</button>
+
+                            <Link  to='/MakeTransaction'>
+                                <button className ="buttonin" >Check out</button>
+                            </Link>                         
                         </div>
                     </div> : null
                 }
