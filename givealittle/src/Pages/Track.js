@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
+import "./Login.css";
 import { Container, Row } from "reactstrap";
 import ProductInsightsCard from "../components/Purchased";
 import * as React from "react";
@@ -24,12 +25,11 @@ export default function Track() {
     getproducts();
   }, []);
   function ProductView(product) {
-    setShow(true); 
-
+    setShow(true);
     setText(
       <div>
         <button className="btnclose" onClick={() => setShow(false)}>
-          X
+        X
         </button>
 
         <img src={product.Image} alt=''/>
