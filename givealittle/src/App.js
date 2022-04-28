@@ -7,7 +7,6 @@ import Signup from "./Pages/Signup";
 import Landing from "./Pages/Landing";
 import SellersLanding from "./Pages/SellersLanding";
 import Sell from "./Pages/Sell";
-import Test from "./Pages/StepperForm";
 import About from "./Pages/About";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { NameContext, LoginContext, CartContext } from "./Context"; //imports all global contexts in here where they will be initialized
@@ -49,11 +48,6 @@ function App() {
                 {" "}
                 {/*route to signup page*/}
                 <Signup />
-              </Route>
-              <Route path="/test">
-                {" "}
-                {/*route to signup page*/}
-                <Test />
               </Route>
               <Route path="/landing">
                 {" "}
