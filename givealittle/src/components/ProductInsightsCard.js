@@ -15,7 +15,8 @@ function ProductInsightsCard(product) {
 
             <div className='image-container'>
                 <img className='card-image' alt='' src={product.image}></img>
-                {/*<button className='edit-button'>edit</button> */}
+                {/*<button className='edit-button'>edit</button>*/}
+                {/*<button className='delete-button'>delete</button>*/}
             </div>
             
 

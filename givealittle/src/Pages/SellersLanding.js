@@ -48,7 +48,8 @@ function SellersLanding() {
         
       </div>  
 
-      <Container fluid="lg">
+      <Container  className="bg-light border"
+    fluid="lg">
         <Row style={{justifyContent: "center"}}>
           {Inventory.map((product) => {
             return(
