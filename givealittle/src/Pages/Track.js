@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
-import { BrowserRouter as Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Login.css";
 import { Container, Row } from "reactstrap";
 import ProductInsightsCard from "../components/Purchased";
