@@ -4,7 +4,7 @@ import './Home.css';
 import './MakeTransaction.css';
 
 
-export default function MakeTransaction() {
+export default function MakeTransactionAddress() {
 
 
   return (
@@ -24,7 +24,7 @@ export default function MakeTransaction() {
                   </div>
               </div>
           </div>
-          <Payment />
+          <Address />
 
 
       </div>
@@ -45,29 +45,33 @@ function Address() {
               <input className="edtemail" id="input"  placeholder="City" />
               <br />
               <input className="edtemail" id="input"  placeholder="street" />
-              <br />
-              <input className="edtemail" id="input" placeholder="Country" />
+
           </div>
 
   )
 }
 
 function Payment() {
+
     return (
           <div className='container'>      {/*form containing all inputs for user*/}
-              <text className="itemname" > Add Card</text>   
-              <br />
-              <text>Card number</text>
-              <input className="edtemail" id="input"  placeholder="Card" />
-              <br />
-              <br />
-              <text>Exp. Date </text>
-              <input className="edtemail" id="input"  placeholder="MM/YY" />
-              <br />
-              <br />
-              <text>CVV</text>
-              <input className="edtemail" id="input"  placeholder="123" />
-              <br />
+            <text className="itemname" > Add Card</text>
+            <br />
+            
+            <text className='payement-text-cardno' >Card No.</text>
+            <input className="input" id="input" placeholder="Card" />
+            <br />
+                
+              
+            <br />
+            <text   className='payement-text-expdate'>Exp.Date </text>
+            <input className="input" id="input"  placeholder="MM/YY" />
+            <br />
+             
+            <br />
+            <text  className='payement-text-cvv'>CVV</text>
+            <input className="input" id="input"  placeholder="123" />
+            <br />
 
           </div>
 
