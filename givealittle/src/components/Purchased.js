@@ -16,7 +16,6 @@ function Purchased(product) {
                 <img className='card-image' alt='' src={product.image}></img>
                 {/*<button className='edit-button'>edit</button> */}
             </div>
-            
 
             <div className='card-details-container'>
                 
