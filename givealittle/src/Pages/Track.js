@@ -29,7 +29,7 @@ export default function Track() {
     setText(
       <div>
         <button className="btnclose" onClick={() => setShow(false)}>
-          X
+        X
         </button>
 
         <img src={product.Image} alt=''/>
