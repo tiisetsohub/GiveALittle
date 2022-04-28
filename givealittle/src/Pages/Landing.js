@@ -66,6 +66,9 @@ export default function Landing() {
                             <Link className="navlink" to='/login'>
                                 <p>Contact</p>
                             </Link>
+                            <Link className="navlink" to='/track'>
+                                <p>Track</p>
+                            </Link>
                             <Link className="navlink" onClick={() => {
                                 CartView()
                             }}>
