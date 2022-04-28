@@ -72,7 +72,7 @@ function App() {
               <Route path="/track">
                 {" "}
                 {/*route to about page*/}
-                <Track />
+                <Track  />
               </Route>
             </Switch>
           </Router>
