@@ -158,9 +158,6 @@ export default function Landing() {
                 <p>Track</p>
               </Link>
 
-              <Link className="navlink" to="/test">
-                <p>Test</p>
-              </Link>
             </div>
             <button
               onClick={() => setShowLinks(!showLinks)}
