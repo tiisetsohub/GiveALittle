@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { db } from '../firebase-config';
+import { db, storage } from '../firebase-config';
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Login.css';
@@ -8,7 +8,6 @@ import './Login.css';
 export default function Sell() {
     const [newName, setNewName] = useState("");     //state for item name
     const [newDescription, setNewDesnewDescription] = useState("");         //state for description 
-    const [newImg, setnewImg] = useState("");                   //state for image
     const [newPrice, setNewPrice] = useState(0);                    //state for price
     const [newQuantity, setNewQuantity] = useState(0);              //state for quantity
 
@@ -29,6 +28,36 @@ export default function Sell() {
         getItems()
     }, []);
 
+    
+    const [image, newImg]=useState("");           //state for image
+    const [url, setURL]=useState("")
+    const handleChange =e=>{
+        if(e.target.files[0]){
+            newImg(e.target.files[0]);
+        }
+    };
+
+    const handleUpload = ()=>{
+        const uploadTask = storage.ref('images/${image.name}').put(image);
+        uploadTask.on(
+            "state_change",
+            snapshot=>{
+            },
+            error =>{
+                console.log(error);
+            },
+            ()=>{
+                storage
+                    .ref("images")
+                    .child(image.name)
+                    .getDownloadURL()
+                    .then(url=>{
+                        setURL(url);
+                    });
+            }
+
+        );
+    };
 
     return (
         <div className="bigdiv">
@@ -43,9 +72,8 @@ export default function Sell() {
                     setNewDesnewDescription(event.target.value)
                 }} />
                 <br />
-                <input className="edtimg" id="input" placeholder="Image Link" onChange={(event) => {
-                    setnewImg(event.target.value)
-                }} />
+                <input ClassName="file" id="input" placeholder="Image" onChange={handleChange} />
+                <button onClick={handleUpload}>Upload</button>
                 <br />
                 <input className="edtprice" type="number" id="input" placeholder="Price" min="19.99" onChange={(event) => {
                     let t = parseFloat(event.target.value)
