@@ -7,6 +7,7 @@ import { Container, Row } from "reactstrap";
 import ProductInsightsCard from "../components/Purchased";
 import * as React from "react";
 
+
 export default function Track() {
   const [Inventory, setproducts] = useState([]); //state for inventory
   const productRef = collection(db, "Bought"); //reference to inventory in database
