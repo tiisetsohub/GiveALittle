@@ -6,7 +6,6 @@ import React from 'react'
  * 
  */
 
-
 function Purchased(product) {
   return (
     <div>
