@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context';
 // import SearchIcon from '@mui/icons-material/Search';
-import { BsSearch } from "react-icons/bs";
+//import { BsSearch } from "react-icons/bs";
 
 
 export default function Home() {
@@ -18,8 +18,13 @@ export default function Home() {
     const { cart, setCart } = useContext(CartContext);          //context for global cart
 
 
+    const [testText, settestText] = useState("")        //////
+
     const [searchTerm, setSearchTerm] = useState("");
 
+    function SearchItem() {
+        setSearchTerm(testText)
+    }
 
 
 
@@ -90,7 +95,7 @@ export default function Home() {
                             setSearchTerm(event.target.value)
                             }}
                             />
-                        <button className="btnsearch">
+                        <button className="btnsearch" onClick={() =>{setSearchTerm("MacBook")}}>
                             {/* <SearchIcon/> */}
                             Search
                         </button>
@@ -162,19 +167,10 @@ export default function Home() {
 
 
 
+
     return (
         <div>
-            {/* <Navbar /> */}
-            <input type="text" 
-                        placeholder="Search..." 
-                        onChange={(event) => {
-                            setSearchTerm(event.target.value)
-                            }}
-                            />
-                        <button className="btnsearch">
-                            {/* <BsSearch/>  */}
-                            Search
-                        </button>
+            <Navbar />
             {
                 show ? <div className="reviewdiv">
                     {text}      {/*ternary to show cart*/}
