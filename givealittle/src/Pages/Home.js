@@ -91,9 +91,9 @@ export default function Home() {
                         {summary}
                         <div className="demodiv">
                             <text className='textin'>R{total}</text>
-                            <Link to='/MakeTransaction'>
+                            <Link to='/MakeTransactionAddress'>
                                 <button className ="buttonin" >Check out</button>
-                            </Link>  
+                            </Link> 
                         </div>
                     </div> : null
                 }

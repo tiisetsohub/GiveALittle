@@ -27,7 +27,7 @@ export default function Login() {
             alert('Error!')
         }
         setLoading(false);
-        console.log(move)
+
 
         return move;
     }

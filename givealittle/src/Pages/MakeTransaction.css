@@ -104,3 +104,21 @@ text {
     border-radius: 5px;
 }
 
+.buyttonin-cont-pay{
+    margin: 10px;
+    height: 28px;
+    border-radius: 3px;
+    background-color: #B38B59;
+    border: 0px solid;
+    color: white;
+    justify-content: center;
+
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+ 
+}

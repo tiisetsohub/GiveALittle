@@ -19,6 +19,8 @@ export default function Landing() {
     const { cart, setCart } = useContext(CartContext)
 
 
+
+
     function Navbar() {
         const [total, setTotal] = useState(0);
         const [showLinks, setShowLinks] = useState(false);
@@ -91,9 +93,10 @@ export default function Landing() {
                         <div className="demodiv">
                             <text className='textin'>R{total}</text>
 
-                            <Link  to='/MakeTransaction'>
+                            <Link  to='/maketransactionaddress'>
                                 <button className ="buttonin" >Check out</button>
-                            </Link>                         
+                            </Link>  
+                            
                         </div>
                     </div> : null
                 }

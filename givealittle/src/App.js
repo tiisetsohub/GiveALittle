@@ -8,6 +8,7 @@ import SellersLanding from './Pages/SellersLanding';
 import Sell from './Pages/Sell'
 import About from './Pages/About'
 import MakeTransactionAddress from "./Pages/MakeTransactionAddress";
+import Payment from "./Pages/Payment";
 import MakeTransactionPayment from "./Pages/MakeTransactionPayment";
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NameContext, LoginContext, CartContext } from './Context'      //imports all global contexts in here where they will be initialized
@@ -54,13 +55,19 @@ function App() {
                 <About />
               </Route>
 
-              <Router path="/MakeTransactionAddress">
+              <Router path="/maketransactionaddress">
                 <MakeTransactionAddress />
               </Router>
 
-              <Router path="/MakeTransactionPayment">
+              <Router path="/maketransactionpayment">
                 <MakeTransactionPayment />
               </Router>
+
+              <Router path="/payment">
+                <Payment />
+              </Router>
+
+
 
             </Switch>
           </Router>
