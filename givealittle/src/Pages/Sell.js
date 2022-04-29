@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { db, storage } from '../firebase-config';
+import { ref, uploadBytes, listAll, getDownloadURL } from "firebase/storage";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Login.css';
@@ -15,7 +16,7 @@ export default function Sell() {
     const itemRef = collection(db, "Inventory");            //refernce for item
 
     const addItem = async () => {           //handles adding an item to database
-        await addDoc(itemRef, { Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg });
+        await addDoc(itemRef, { Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image1: imageList[0], Image2: imageList[1], Image3: imageList[2] });
         alert("Added")
     }
 
@@ -30,33 +31,32 @@ export default function Sell() {
 
     
     const [image, newImg]=useState("");           //state for image
-    const [url, setURL]=useState("")
-    const handleChange =e=>{
-        if(e.target.files[0]){
-            newImg(e.target.files[0]);
+    const [imageList, setImageList]=useState([]);
+    const [url, setUrl]=useState();
+    
+    const handleUpload = async ()=>{
+        if(image==null) {
+            return;
         }
-    };
+        else{
+        while (imageList.length<=3){
+            const imageRef = ref(storage, `imagefolder/${image.name}`);
+            uploadBytes(imageRef, image).then(()=>{
+                alert("image uploaded")
+            })
+            await getDownloadURL(imageRef).then((x)=> {
+                setUrl(x);
+            })
+            imageList.add(url);
 
-    const handleUpload = ()=>{
-        const uploadTask = storage.ref('images/${image.name}').put(image);
-        uploadTask.on(
-            "state_change",
-            snapshot=>{
-            },
-            error =>{
-                console.log(error);
-            },
-            ()=>{
-                storage
-                    .ref("images")
-                    .child(image.name)
-                    .getDownloadURL()
-                    .then(url=>{
-                        setURL(url);
-                    });
-            }
+        }
+    }
 
-        );
+        if(imageList.size==3){
+            alert("only 3 images per product");
+            return;
+        }
+          
     };
 
     return (
@@ -72,8 +72,8 @@ export default function Sell() {
                     setNewDesnewDescription(event.target.value)
                 }} />
                 <br />
-                <input ClassName="file" id="input" placeholder="Image" onChange={handleChange} />
-                <button onClick={handleUpload}>Upload</button>
+                <input type="file" id="input" onChange={(event)=>{newImg(event.target.files[0])}} />
+                <button className="btnimg" onClick={handleUpload}>Upload</button>
                 <br />
                 <input className="edtprice" type="number" id="input" placeholder="Price" min="19.99" onChange={(event) => {
                     let t = parseFloat(event.target.value)
