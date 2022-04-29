@@ -5,6 +5,9 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context';
+// import SearchIcon from '@mui/icons-material/Search';
+import { BsSearch } from "react-icons/bs";
+
 
 export default function Home() {
     const [cartitems, setCartItems] = useState([])      //state for local cart array
@@ -13,6 +16,9 @@ export default function Home() {
     const [Inventory, setItems] = useState([]);           //state for inventory
     const itemRef = collection(db, "Inventory");            //reference to inventory in database
     const { cart, setCart } = useContext(CartContext);          //context for global cart
+
+
+    const [searchTerm, setSearchTerm] = useState("");
 
 
 
@@ -78,8 +84,14 @@ export default function Home() {
                         </button>
                     </div>
                     <div className="rightside">
-                        <input className="edtsearch" placeholder="Search" />
+                        <input type="text" 
+                        placeholder="Search..." 
+                        onChange={(event) => {
+                            setSearchTerm(event.target.value)
+                            }}
+                            />
                         <button className="btnsearch">
+                            {/* <SearchIcon/> */}
                             Search
                         </button>
                     </div>
@@ -152,14 +164,29 @@ export default function Home() {
 
     return (
         <div>
-            <Navbar />
-
+            {/* <Navbar /> */}
+            <input type="text" 
+                        placeholder="Search..." 
+                        onChange={(event) => {
+                            setSearchTerm(event.target.value)
+                            }}
+                            />
+                        <button className="btnsearch">
+                            {/* <BsSearch/>  */}
+                            Search
+                        </button>
             {
                 show ? <div className="reviewdiv">
                     {text}      {/*ternary to show cart*/}
                 </div> :
                     <div className="bodydiv" >
-                        {Inventory.map((item) => {
+                        {Inventory.filter((item) => {
+                            if (searchTerm == ""){
+                            return item
+                        } else if (item.Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())){
+                            return item
+                        }
+                        }).map((item) => {
                             return <div className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
