@@ -5,7 +5,6 @@ import React from 'react'
  * Picture, Name, Price, Delivery
  * 
  */
-
 function Purchased(product) {
   return (
     <div>

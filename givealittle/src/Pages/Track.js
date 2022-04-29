@@ -3,10 +3,11 @@ import { db } from "../firebase-config";
 import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "./Login.css";
+import "./Track.css";
 import { Container, Row } from "reactstrap";
-import ProductInsightsCard from "../components/Purchased";
+import Purchased from "../components/Purchased";
+import Steper from "../Pages/Stepper";
 import * as React from "react";
-
 
 export default function Track() {
   const [Inventory, setproducts] = useState([]); //state for inventory
@@ -15,7 +16,6 @@ export default function Track() {
   const [show, setShow] = useState(false);
   const [text, setText] = useState("hey");
 
-  
   useEffect(() => {
     //loads data from database
     const getproducts = async () => {
@@ -28,20 +28,24 @@ export default function Track() {
   function ProductView(product) {
     setShow(true);
     setText(
-      <div>
-        <button className="btnclose" onClick={() => setShow(false)}>
-        X
-        </button>
-
-        <img src={product.Image} alt=''/>
-        <h3>{product.Name}</h3>
-        <p>{product.Description}</p>
-        <p>{product.Price}</p>
+      <div className='cont-div'>
+        <div>
+          <button className="btnclose" onClick={() => setShow(false)}>
+            Back
+          </button>
+          <img src={product.Image} alt="" />
+          <h3>{product.Name}</h3>
+          <p>{product.Description}</p>
+          <p>{product.Price}</p>
+        </div>
+        <div>
+          <Steper />
+        </div>
       </div>
     );
-}
+  }
 
-return (
+  return (
     <div>
       <Navbar />
       {show ? (
@@ -57,7 +61,7 @@ return (
                     ProductView(product);
                   }}
                 >
-                  <ProductInsightsCard
+                  <Purchased
                     image={product.Image}
                     name={product.Name}
                     price={product.Price}

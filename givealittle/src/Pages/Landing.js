@@ -155,7 +155,7 @@ export default function Landing() {
               </Link>
 
               <Link className="navlink" to="/track">
-                <p>Track</p>
+                <p>Track order</p>
               </Link>
 
             </div>

@@ -1,0 +1,15 @@
+.heading{
+    text-align: center;
+    font-weight: bold;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    
+}
+.btnclose{
+    background-color: rgb(8, 85, 59);
+}
+.cont-div{    
+    display: flex;
+    justify-content: space-between;
+    row-gap: 10px;
+}
