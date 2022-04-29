@@ -5,6 +5,8 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context';
+import { BsStarFill } from "react-icons/bs";
+
 
 export default function Home() {
     const [cartitems, setCartItems] = useState([])      //state for local cart array
@@ -170,8 +172,9 @@ export default function Home() {
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
 
-                                    <div className="price-stock-container">
+                                    <div className="price-star-stock-container">
                                     <h1 className="itemprice">R{item.Price}</h1>
+                                    <h1 className="itemstar"><BsStarFill/> {item.Review/0/Comment}</h1>
                                     {(() => {
                                         if (item.Quantity == 0) {
                                         return (
