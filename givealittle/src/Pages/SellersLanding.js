@@ -41,7 +41,7 @@ function SellersLanding() {
 
 
       <Link to="/sell">
-        <button className='add-product-button'>Add Product</button>
+        <button className='add-product-button'>Add</button>
       </Link>
 
       <h1>name</h1>
