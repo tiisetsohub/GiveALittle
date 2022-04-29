@@ -1,3 +1,8 @@
+.products-container {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
 .add-product-button{
     width: 220px;
     height: 50px;
@@ -17,103 +22,117 @@
     transform: scale(0.9);
 }
 
-.card-container{
-    width: 450px;
-    height: 100%;
-    border-radius: 5px;
+.card {
+    position: static;
+    width: auto;
+    height: auto;
+    display: flex;
     box-shadow: 0px 0px 10px -5px rgb(93, 93, 93);
-    overflow: hidden;
-    margin: 10px;
+    margin: 30px;
+    border-radius: 5px;
     transition: 0.5s;
-    animation: ease-in;
+    animation: ease-in-out;
 }
 
-.card-container:hover{
+.card:hover{
     transform: scale(1.03);
-    box-shadow: 0px 0px 15px 0px rgb(136, 136, 136);
 }
 
-.image-container{
-    position: relative;
-}
 
 .card-image{
-    display: block;
     object-fit: contain;
-        width: 450px;
-    height: 450px;
+    width: 250px;
+    height: 250px;
     border-radius: 5px;
+    box-shadow: 0px 0px 10px -5px rgb(93, 93, 93);
+    position: relative;
+    top: 0px;
+    left: 0px
 }
 
-.edit-button{
+.info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 15px;
+    border-radius: 5px;
+    background-color: #F0F0F0;
     position: absolute;
-    top: 3%;
-    left: 80%;
-    border-radius: 50px;
-    border-width: 0;
-    height: 30px;
-    width: 80px;
-    transition: 0.3s;
-    animation: ease-in;
-    font-size: medium;
-    background-color:mediumspringgreen;
-    color: rgb(0, 0, 0);
-    font-weight: bold;
+    top: 0;
+    left: 250px;
+    right: 0px;
 }
 
+.name{
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 30px;
+}
 
-.delete-button{
+.delete-button {
+    width: 100px;
     position: absolute;
-    top: 3%;
-    left: 60%;
-    border-radius: 50px;
-    border-width: 0;
-    height: 30px;
-    width: 80px;
-    transition: 0.3s;
-    animation: ease-in;
-    font-size: medium;
-    background-color:orangered;
-    color: rgb(0, 0, 0);
-    font-weight: bold;
+    right: 15px;
+    top: 15px;
+    border: none;
+    background-color: #C25450;
+    border-radius: 15px;
+    color: white;
+    transition: 0.5s;
+    animation:alternate;
 }
 
+.delete-button:hover{
+    transform: scale(0.9);
+}
+
+.edit-button {
+    width: 100px;
+    position: absolute;
+    right: 120px;
+    top: 15px;
+    border: none;
+    background-color: #50A181;
+    border-radius: 15px;
+    color: white;
+    transition: 0.5s;
+    animation:alternate;
+}
 
 .edit-button:hover{
-    transform: scale(1.1);
-    box-shadow: 0px 0px 15px 0px rgb(70, 70, 70);
-    background-color: rgb(255, 255, 131);
+    transform: scale(0.9);
 }
 
-.card-name{
-    margin-top: 5px;
-    margin-bottom: 5px;
+.description {
+    font-size: 14px;
 }
 
-.card-price{
-    display: inline-block;
-    background-color:rgb(239, 239, 239);
-    margin-top: 0;
-    margin-bottom: 0;
-    border-radius: 30px;
-    padding-left: 5px;
-    padding-right: 5px;
+.numbers-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #eee8e0;
+    border-radius: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
-.card-details-container{
-    margin-left: 10px;
-    margin-right: 10px;
+.price {
+    font-size: 16px;
 }
 
-.card-quantity{
-    display: block;
-    font-weight:normal;
-    float: left;
+.stock {
+    font-size: 16px;
 }
 
-.card-sold{
-    font-weight:normal;
-    display: block;
-    float: right;
-}
+.sold {
+    font-size: 16px;}
+
+
+
+
+
+
+
+
 
