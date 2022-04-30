@@ -3,13 +3,12 @@ import ProductInsightsCard from '../components/ProductInsightsCard'
 import '../components/SellersPage.css'
 import firebase from '../firebase-config';
 import {Link} from 'react-router-dom'
-import { NameContext } from '../Context'
-import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from '../firebase-config';
-import { QuerySnapshot } from 'firebase/firestore';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+// To get current user imports
 
 import {
   Container, Row, Col
