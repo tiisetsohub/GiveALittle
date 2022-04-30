@@ -8,7 +8,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import './MakeTransaction.css';
 
-function MakeTransactionAddress() {
+export default function MakeTransactionAddress() {
 
     const { login, setLogin } = useContext(LoginContext)  
     const { cart, setCart } = useContext(CartContext);
@@ -25,7 +25,23 @@ function MakeTransactionAddress() {
 
   return (
       <div>
-          <Navbar/>
+          <Login/>
+          {console.log(arr)}        
+          <div className="navbar">
+              <div className="leftside">
+                  <div className="links">
+                    <Link className="navlink" to='/'>
+                        <p>Home</p>
+                    </Link>
+                      <Link className="navlink" to='/about'>
+                          <p>About</p>
+                      </Link>
+                      <Link className="navlink" to='/contact'>
+                          <p>Contact</p>
+                      </Link>
+                  </div>
+              </div>
+          </div>
           <Address />
       </div>
     )
@@ -71,10 +87,6 @@ function Name() {
     )
 }
 
-function refreshPage() {
-    window.location.reload(false);
-  }
-
 function Navbar() {
     const [showLinks, setShowLinks] = useState(false);
     return (
@@ -98,8 +110,6 @@ function Navbar() {
         </div>
     )
   }
-
-export default MakeTransactionAddress;
 
 
 
