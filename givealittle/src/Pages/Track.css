@@ -1,6 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@1,300&display=swap');
+.Track{
+    font-family: 'Roboto', sans-serif;
+}
 .heading{
     text-align: center;
-    font-weight: bold;
     padding-top: 10px;
     padding-bottom: 20px;
     
@@ -11,5 +14,11 @@
 .cont-div{    
     display: flex;
     justify-content: space-between;
-    row-gap: 10px;
+}
+.left{
+    width: 50%;
+}
+.right{
+    width: 50%;
+    padding-top: 70px;
 }
