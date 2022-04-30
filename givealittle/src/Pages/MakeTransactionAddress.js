@@ -15,6 +15,10 @@ export default function MakeTransactionAddress() {
     const { cart, setCart } = useContext(CartContext);
     const { name, setName } = useContext(NameContext)
 
+    const arr = ["comment", 5];
+
+
+
     function Login() {
  
         console.log({login} ,{name} , {cart})
@@ -23,7 +27,7 @@ export default function MakeTransactionAddress() {
   return (
       <div>
           <Login/>
-
+          {console.log(arr)}        
           <div className="navbar">
               <div className="leftside">
                   <div className="links">

@@ -55,15 +55,15 @@ function App() {
                 <About />
               </Route>
 
-              <Router path="/maketransactionaddress">
+              <Router path="/makeTransactionAddress">
                 <MakeTransactionAddress />
               </Router>
 
-              <Router path="/maketransactionpayment">
+              <Router path="/MakeTranscationPayment">
                 <MakeTransactionPayment />
               </Router>
 
-              <Router path="/payment">
+              <Router path="/Payment">
                 <Payment />
               </Router>
 
