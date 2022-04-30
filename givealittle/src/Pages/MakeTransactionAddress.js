@@ -8,8 +8,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import './MakeTransaction.css';
 
-
-export default function MakeTransactionAddress() {
+function MakeTransactionAddress() {
 
     const { login, setLogin } = useContext(LoginContext)  
     const { cart, setCart } = useContext(CartContext);
@@ -26,26 +25,8 @@ export default function MakeTransactionAddress() {
 
   return (
       <div>
-          <Login/>
-          {console.log(arr)}        
-          <div className="navbar">
-              <div className="leftside">
-                  <div className="links">
-                    <Link className="navlink" to='/'>
-                        <p>Home</p>
-                    </Link>
-                      <Link className="navlink" to='/about'>
-                          <p>About</p>
-                      </Link>
-                      <Link className="navlink" to='/contact'>
-                          <p>Contact</p>
-                      </Link>
-                  </div>
-              </div>
-          </div>
+          <Navbar/>
           <Address />
-
-
       </div>
     )
 
@@ -89,6 +70,36 @@ function Name() {
 
     )
 }
+
+function refreshPage() {
+    window.location.reload(false);
+  }
+
+function Navbar() {
+    const [showLinks, setShowLinks] = useState(false);
+    return (
+        <div className="navbar">
+            <div className="leftside">
+                <div className="links" id={showLinks ? "hidden" : ""}>
+                    <Link className="navlink"  onClick={() => {window.location.href="/landing"}}>
+                        <p>Home</p>
+                    </Link>
+                    <Link className="navlink" onClick={() => {window.location.href="/login"}}>
+                        <p>About</p>
+                    </Link>
+                    <Link className="navlink" onClick={() => {window.location.href="/login"}}>
+                        <p>Contact</p>
+                    </Link>
+                </div>
+                <button onClick={() => setShowLinks(!showLinks)} className="btnthings">
+                    ≡
+                </button>
+            </div>
+        </div>
+    )
+  }
+
+export default MakeTransactionAddress;
 
 
 
