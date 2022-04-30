@@ -8,33 +8,35 @@ import React from 'react'
  */
 
 function ProductInsightsCard(product) {
-  return (
-    <div>
 
-        <div className='card-container'>
+    return (
 
-            <div className='image-container'>
-                <img className='card-image' alt='' src={product.image}></img>
-                {/*<button className='edit-button'>edit</button> */}
+    <li className='card'>
+
+        
+        <img className='card-image' alt='' src={product.image}></img>
+        
+
+        <div className='info-container'>
+            <h5 className='name'>{product.name}</h5>
+            <button className='delete-button'>Delete</button>
+            <button className='edit-button'> Edit</button>
+            <h6 className='description'>{product.description}</h6>
+
+            <div className='numbers-container'>
+                <h5 className='price'>Price: R{product.price}</h5>
+                <h5 className='stock'>In Stock: {product.quantity}</h5>
+                <h5 className='sold'>Sold: 00</h5>
             </div>
             
-
-            <div className='card-details-container'>
-                
-                <h4 className='card-name'>{product.name}</h4>
-                <h5 className='card-price'>R {product.price}</h5>
-
-                <div>
-                    <h6 className='card-quantity'>In Stock: {product.stock}</h6>
-                    <h6 className='card-sold'>Sold: {product.sold}</h6>
-                </div>
-
-            </div>
-
         </div>
-
-    </div>
-  )
+        
+        
+        
+    </li>
+    )
+  
+  
 }
 
 export default ProductInsightsCard

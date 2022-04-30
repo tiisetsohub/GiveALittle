@@ -3,13 +3,12 @@ import ProductInsightsCard from '../components/ProductInsightsCard'
 import '../components/SellersPage.css'
 import firebase from '../firebase-config';
 import {Link} from 'react-router-dom'
-import { NameContext } from '../Context'
-import { useContext } from 'react';
 import { useEffect, useState } from 'react';
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from '../firebase-config';
-import { QuerySnapshot } from 'firebase/firestore';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+// To get current user imports
 
 import {
   Container, Row, Col
@@ -34,7 +33,7 @@ function SellersLanding() {
   
   
   return (
-    <div>
+    <div className='body'>
 
       <Navbar/>
       <div style={{textAlign: "center"}}>
@@ -44,27 +43,25 @@ function SellersLanding() {
         <button className='add-product-button'>Add Product</button>
       </Link>
 
-      <h1>name</h1>
+      <h3>This is The Company Name</h3>
         
-      </div>  
+      </div> 
 
-      <Container fluid="lg">
-        <Row style={{justifyContent: "center"}}>
-          {Inventory.map((product) => {
-            return(
-              <Col xs="auto">
-                <ProductInsightsCard
-                  image={product.Image}
-                  name={product.Name}
-                  price={product.Price}
-                  stock={product.Quantity}
-                
-                ></ProductInsightsCard>
-              </Col>
-            )
-          })}
-        </Row>
-      </Container>
+
+      <div className='products-container'>
+      <ul>
+          {Inventory.map((product, index) => (
+            <ProductInsightsCard key={product.Name}
+              image={product.Image}
+              name={product.Name}
+              description={product.Description}
+              price={product.Price}
+              quantity={product.Quantity}
+            />
+          ))}
+      </ul> 
+      </div>
+      
         
     </div>
   )

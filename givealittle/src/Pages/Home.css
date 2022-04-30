@@ -36,22 +36,29 @@ button:hover {
 }
 
 .btnclose {
+    height: 28px;
+    transition: 0.5s;
+    animation: ease-in;
     border-radius: 5px;
-    color: white;
+    color: rgb(0, 0, 0);
     background-color: #B38B59;
     border: 0px solid;
     left: 2px;
-    position: absolute;
     margin-top: 10px;
+    text-align: center;
+    color: white;
 }
 
 .btnadd {
+    transition: 0.5s;
+    animation: ease-in;
     height: 28px;
     font-weight: bold;
     background-color: #B38B59;
     border-radius: 3px;
     border: 0px solid;
     color: white;
+    margin-bottom: 50px;
 }
 
 .edtnum {
@@ -68,43 +75,77 @@ button:hover {
     background-color: #F0F0F0;
     width: 250px;
     align-items: center;
-    padding: 15px;
     margin: 10px;
+    position: relative;
     border-radius: 5px;
-    transform: 1s
+    transition: 0.5s;
+    animation: ease-in;
+    box-shadow: 0px 0px 15px -5px rgb(93, 93, 93);
+
 }
 
 .itemdiv:hover {
-    transform: scale(1.1);
-    box-shadow: 0px 2px 2px #113E21;
+    transform: scale(1.05);
+    box-shadow: 0px 0px 15px 0px rgb(136, 136, 136);
 }
 
 .itemname {
     font-weight: bold;
     font-size: 20px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.product-view-price{
+    width: max-content;
+    background-color:#eee8e0;
+    border-radius: 30px;
+    font-size: 18px;
+    padding-left: 5px;
+    padding-right: 5px;
+    display: inline-block;
+    margin-bottom: 15px;
 }
 
 .itemprice {
-    font-weight: lighter;
+    width: max-content;
+    background-color:#eee8e0;
     font-size: 14px;
-    float: left
+    float: left;
+    border-radius: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-left: 5px;
 }
 
 .item-quantity{
-    font-weight: lighter;
-    font-size: 14px;
     float: right;
+    font-weight: bold;
+    font-size: 14px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.price-stock-container{
+    display: block;
+}
+
+.textdiv{
+    height: 70px;
 }
 
 img {
-    width: 250px;
     height: 250px;
-    background-color: white;
+    width:250px;
     object-fit: contain;
+    background-color: white;
     border-radius: 5px;
+
 }
 
 .btnsearch {
+    transition: 0.5s;
+    animation: ease-in;
     height: 28px;
     border-radius: 3px;
     background-color: #B38B59;
@@ -113,11 +154,17 @@ img {
 }
 
 .btnthings {
+    transition: 0.5s;
+    animation: ease-in;
     height: 28px;
     border-radius: 3px;
     background-color: #B38B59;
     border: 0px solid;
     color: white;
+}
+
+.btnsearch:hover, .btnadd:hover, .btnclose:hover, .buttonin:hover{
+    transform: scale(0.9);
 }
 
 body {
@@ -129,7 +176,7 @@ body {
 
 .edtsearch {
     border-radius: 5px;
-    height: 25px;
+    height: 28px;
     width: 200px;
     border: 1px solid #B38B59;
 }
@@ -208,15 +255,21 @@ body {
     border: 1px solid #B38B59;
 }
 
+.item-container{
+    background-color: #F0F0F0;
+    height: 100%
+}
+
 .pic {
     margin: 10px;
     height: 80px;
     border: 1px solid #B38B59;
-    width: 80px
+    width: 80px;
 }
 
 .cartright {
     padding-right: 30px;
+    padding-top: 30px;
     justify-content: right;
     text-align: right;
 }
@@ -238,8 +291,13 @@ h6 {
 .textin {
     margin: 10px;
     color: #FEFEFE;
-    font-size: 12px;
     margin-right: 10px;
+    width: max-content;
+    background-color:#082412;
+    font-size: 14px;
+    border-radius: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 .buttonin {
@@ -250,9 +308,16 @@ h6 {
     border: 0px solid;
     color: white;
     margin-right: 25px;
+    transition: 0.5s;
+    animation: ease-in;
 }
 
 .cartpricep {
-    font-size: 8px;
-
+    width: max-content;
+    background-color:#eee8e0;
+    font-size: 14px;
+    float: right;
+    border-radius: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
 }

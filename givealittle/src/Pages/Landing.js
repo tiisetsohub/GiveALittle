@@ -125,20 +125,20 @@ export default function Landing() {
         setShow(true)
         setText(
             <div>
-                <button className="btnclose" onClick={() => setShow(false)}>X</button>
-                <img src={item.Image} />
-                <h3>{item.Name}</h3>
-                <p>{item.Description}</p>
-                <p>{item.Price}</p>
-                <div>
-                    <input
-                        type="number"
-                        className="edtnum"
-                        placeholder="1"
-                        min='1'
-                        max={item.Quantity}
-                    />
-                    <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
+                <div className="item-container">
+                    <button className="btnclose" onClick={() => setShow(false)}>Close</button>
+
+                    <div>
+                        <img src={item.Image} />
+                    </div>
+                    
+                    <h3>{item.Name}</h3>
+                    <p>{item.Description}</p>
+                    <p>R{item.Price}</p>
+                    <div>
+                        <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
+                        <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
+                    </div>
                 </div>
             </div>
         )
@@ -163,6 +163,17 @@ export default function Landing() {
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
                                 <h1 className="itemprice">R{item.Price}</h1>
+                                {(() => {
+                                    if (item.Quantity == 0) {
+                                    return (
+                                        <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
+                                    )
+                                    } else {
+                                    return (
+                                        <h1 className="item-quantity">in stock</h1>
+                                    )
+                                    }
+                                })()}
                             </div>
                         })}
                     </div>
