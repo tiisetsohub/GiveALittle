@@ -103,6 +103,7 @@ export default function Home() {
 
 
 
+    const [count, setCount] = useState(0)
 
     useEffect(() => {       //loads data from database
         const getItems = async () => {
@@ -124,7 +125,15 @@ export default function Home() {
         setCart(cartitems)
     }, [cartitems])
 
+    function handleCount(event) {
+        console.log("Befroe: ", count)
+        setCount(count+1);
+        console.log("After: ", count)
+    }
 
+    useEffect(() => {
+        setCount(count)
+    }, [count])
 
     function ProductView(item) {     //handles the viewing of a product in isolation
         setShow(true)
@@ -142,7 +151,7 @@ export default function Home() {
                     <p>{item.Description}</p>
                     <h1 className="product-view-price">R{item.Price}</h1>
                     <div>
-                        <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
+                        <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} onChange={handleCount}/>
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
                     </div>
                 </div>
