@@ -128,7 +128,28 @@
 .sold {
     font-size: 16px;}
 
+.seller-details-container {
+    margin-top: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 30px;
+    background-color: #eee8e0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
 
+.detail-bg {
+    background-color: #fffaf4;
+    border-radius: 30px;
+    padding: 5px;
+}
+
+.detail{
+    font-weight: bold;
+    font-size: 14px;
+    margin-top: 10px;
+}
 
 
 
