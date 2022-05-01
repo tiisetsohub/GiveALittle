@@ -27,6 +27,9 @@ export default function Home() {
         const [summary, setSummary] = useState("")              //state for cart summary
         let t = 0           //total = 0
 
+        
+        let sum = 0 
+
         function CartView() {       //function to display the cart
             setShowCart(!showcart)          //changes show cart state
 
@@ -150,7 +153,15 @@ export default function Home() {
         )
     }
 
-
+    function starCount(stars){
+        const list = stars.split("");
+        let sum = 0;
+        for (let i = 0; i <= list.length; i++){
+            sum = sum + parseInt(list[i]);
+        }
+        return sum/5;
+    }
+    // <h1>console.log(starCount("54"));</h1>
 
     return (
         <div>
@@ -165,6 +176,7 @@ export default function Home() {
                             return <div className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
+                                let j = starCount(item.Review)
                                 <img src={item.Image} alt="nope" />
 
                                 <div className="item-info-container">
@@ -174,7 +186,7 @@ export default function Home() {
 
                                     <div className="price-star-stock-container">
                                     <h1 className="itemprice">R{item.Price}</h1>
-                                    <h1 className="itemstar"><BsStarFill/> {item.Review/0/Comment}</h1>
+                                    <h1 className="itemstar"><BsStarFill/></h1>
                                     {(() => {
                                         if (item.Quantity == 0) {
                                         return (
