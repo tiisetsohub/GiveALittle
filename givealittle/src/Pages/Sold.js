@@ -1,16 +1,22 @@
 import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc, Firestore } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import './Sold.css';
+import "./Sold.css";
+import Box from "@mui/material/Box";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import ListItem from "@mui/material/ListItem";
+import { doc, setDoc, deleteDoc, update } from "firebase/firestore";
+import { updateDoc,  FieldValue } from "firebase/firestore";
+
 //identical to home.js
 
 export default function Sold() {
   const [show, setShow] = useState(false);
-  const [prodViewshow, setProdViewShow] = useState(false);
   const [text, setText] = useState("hey");
-  const [prodText, setProdText] = useState("hey");
   const [Inventory, setItems] = useState([]);
   const itemRef = collection(db, "Inventory");
 
@@ -57,33 +63,137 @@ export default function Sold() {
     getItems();
   }, []);
 
-  function update(item) {
-    setProdViewShow(true);
-    setProdText(
-      <div>
-        <button className="btnclose" onClick={() => setProdViewShow(false)}>
-          Back
-        </button>
+  const [location, updateLocation] = useState(""); //state for item name
+  const [time, updateTime] = useState(""); //state for description
 
-        <img src={item.Image} />
-        <h3>{item.Name}</h3>
-        <p>{item.Description}</p>
-        <p>{item.Price}</p>
+  const ref = collection(db, "Bought"); //refernce for item
+
+  const addItem = async () => {
+    //handles adding an item to database
+    // await addDoc(ref, { Location: location, Time: time });
+    // alert("Deleted");
+    // await setDoc(doc(db, "Bought", "item1"), {
+    //   Description: "Los",
+    //   Image: "CA",
+    //   ItemOwner: "USA",
+    //   Location: "USA",
+    //   LocationDescription: "USA",
+    //   Name: "USA",
+    //   Price: "USA",
+    //   Location: "USA",
+    //   Time: "01 May 2022 10:16 a.m",
+    // }, {merge:true});
+    // await deleteDoc(doc(db, "Bought", "zfSm8pVVmtHqg1TQ1yil"));
+
+    // const washingtonRef = doc(db, "Bought", "item1");
+
+    // Set the "capital" field of the city 'DC'
+    // await updateDoc(washingtonRef, {
+    //   Location: "Braam",
+    // });
+
+
+    const washingtonRef = collection(db, 'Bought', 'item1');
+
+    await washingtonRef.update({
+      Time: FieldValue.arrayUnion("3"),
+    });
+  };
+
+  function Drawer() {
+    const [state, setState] = React.useState({
+      right: false,
+    });
+
+    const toggleDrawer = (anchor, open) => (event) => {
+      if (
+        event &&
+        event.type === "keydown" &&
+        (event.key === "Tab" || event.key === "Shift")
+      ) {
+        return;
+      }
+
+      setState({ ...state, [anchor]: open });
+    };
+
+    const list = (anchor) => (
+      <Box
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "25ch" },
+        }}
+        role="presentation"
+        component="form"
+        noValidate
+      >
+        <div>
+          <ListItem>
+            <TextField
+              label="Location"
+              type="text"
+              className="location"
+              id="location"
+              onChange={(event) => {
+                updateLocation(event.target.value);
+              }}
+            />
+          </ListItem>
+
+          <ListItem>
+            <TextField
+              label="Time"
+              type="text"
+              className="time"
+              id="time"
+              onChange={(event) => {
+                updateTime(event.target.value);
+              }}
+            />
+          </ListItem>
+        </div>
+        <p className="btnadd" id="btn" onClick={addItem}>
+          Create
+        </p>
+      </Box>
+    );
+
+    return (
+      <div>
+        {["right"].map((anchor) => (
+          <React.Fragment key={anchor}>
+            <Button onClick={toggleDrawer(anchor, true)}>
+              Delivery Details
+            </Button>
+            <SwipeableDrawer
+              anchor={anchor}
+              open={state[anchor]}
+              onClose={toggleDrawer(anchor, false)}
+              onOpen={toggleDrawer(anchor, true)}
+            >
+              {list(anchor)}
+            </SwipeableDrawer>
+          </React.Fragment>
+        ))}
+        <br />
       </div>
     );
   }
+
   function ProductView(item) {
     setShow(true);
     setText(
-      <div>
-        <button className="btnclose" onClick={() => setShow(false)}>
-          Back
-        </button>
+      <div className="prodView">
+        <div>
+          <button className="btnclose" onClick={() => setShow(false)}>
+            Back
+          </button>
 
-        <img src={item.Image} />
-        <h3>{item.Name}</h3>
-        <p>{item.Description}</p>
-        <p>{item.Price}</p>
+          <img src={item.Image} />
+          <h3>{item.Name}</h3>
+          <p>{item.Description}</p>
+          <p>{item.Price}</p>
+        </div>
+        <Drawer />
       </div>
     );
   }

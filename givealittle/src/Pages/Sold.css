@@ -1,3 +1,7 @@
 .sold-items{
     align-content: center;
 }
+.prodView{    
+    display: flex;
+    justify-content: space-between;
+}

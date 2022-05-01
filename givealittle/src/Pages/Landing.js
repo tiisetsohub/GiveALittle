@@ -160,6 +160,9 @@ export default function Landing() {
               <Link className="navlink" to="/sold">
                 <p>Sold</p>
               </Link>
+              <Link className="navlink" to="/drawer">
+                <p>Drawer</p>
+              </Link>
 
             </div>
             <button

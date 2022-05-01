@@ -1,41 +1,62 @@
-import React, { useContext } from "react";
-import { useState, useEffect } from "react";
-import { db } from "../firebase-config";
-import { collection, getDocs } from "firebase/firestore";
-import "./Home.css";
+import * as React from "react";
 import Box from "@mui/material/Box";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
+import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 
-//identical to home.js
+export default function SwipeableTemporaryDrawer() {
+  const [state, setState] = React.useState({
+    top: false,
+  });
 
-export default function Stepp() {
-  const [Bought, setItems] = useState([]);
-  const itemRef = collection(db, "Bought");
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
 
-  useEffect(() => {
-    const getItems = async () => {
-      const data = await getDocs(itemRef);
-      setItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
+    setState({ ...state, [anchor]: open });
+  };
 
-    getItems();
-  }, []);
+  const list = (anchor) => (
+    <Box
+      sx={{
+        "& .MuiTextField-root": { m: 1, width: "25ch" }
+      }}
+      role="presentation"
+      component="form"
+      noValidate
+      autoComplete="on"
+    >
+      <div>
+        <TextField
+          id="outlined-password-input"
+          label="Name"
+          type="text"
+          autoComplete="current-password"
+        />
+      </div>
+    </Box>
+  );
 
   return (
-    <Box sx={{ maxWidth: 400 }}>
-      <Stepper activeStep={Bought.length - 1} orientation="vertical">
-        {Bought.map((step) => {
-          return (
-            <Step>
-              <StepLabel className="step-label">
-                {step.LocationDescription} - {step.Time}
-              </StepLabel>
-            </Step>
-          );
-        })}
-      </Stepper>
-    </Box>
+    <div>
+      {["top"].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <SwipeableDrawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+            onOpen={toggleDrawer(anchor, true)}
+          >
+            {list(anchor)}
+          </SwipeableDrawer>
+        </React.Fragment>
+      ))}
+    </div>
   );
 }
