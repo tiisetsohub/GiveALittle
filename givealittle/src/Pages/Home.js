@@ -5,6 +5,7 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context';
+import { LoginContext } from '../Context';
 import { BsStarFill } from "react-icons/bs";
 
 
@@ -15,7 +16,7 @@ export default function Home() {
     const [Inventory, setItems] = useState([]);           //state for inventory
     const itemRef = collection(db, "Inventory");            //reference to inventory in database
     const { cart, setCart } = useContext(CartContext);          //context for global cart
-
+    const { login, setLogin } = useContext(LoginContext)  
 
 
 
@@ -92,7 +93,10 @@ export default function Home() {
                         {summary}
                         <div className="demodiv">
                             <text className='textin'>R{total}</text>
-                            <button className='buttonin'>Check out</button>
+                            
+                            <Link  to='/maketransactionaddress'>
+                                <button className ="buttonin" >Check out</button>
+                            </Link>  
                         </div>
                     </div> : null
                 }
