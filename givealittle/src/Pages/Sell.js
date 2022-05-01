@@ -18,9 +18,11 @@ export default function Sell() {
     const [item, setItem] = useState([]);           //state for item
     const itemRef = collection(db, "Inventory");            //refernce for item
 
+
     const addItem = async () => {           //handles adding an item to database
         await addDoc(itemRef, { Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg, Seller: name });
         alert("Added")
+        
     }
 
     useEffect(() => {           //gets data from database
@@ -60,7 +62,9 @@ export default function Sell() {
                     setNewQuantity(t)
                 }} />
                 <br />
-                <button className="btnadd" id="btn" onClick={addItem}>Add</button>
+                <Link to="/sellerslanding">
+                    <button className="btnadd" id="btn" onClick={addItem}>Add</button>
+                </Link>
             </div>
         </div>
     )
