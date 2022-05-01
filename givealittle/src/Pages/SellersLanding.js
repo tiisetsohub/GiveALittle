@@ -3,12 +3,13 @@ import ProductInsightsCard from '../components/ProductInsightsCard'
 import '../components/SellersPage.css'
 import firebase from '../firebase-config';
 import {Link} from 'react-router-dom'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { db } from '../firebase-config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // To get current user imports
+import { NameContext } from '../Context';
 
 import {
   Container, Row, Col
@@ -17,7 +18,7 @@ import { applyActionCode } from 'firebase/auth';
 
 function SellersLanding() {
 
-  const [currentUser, setCurrentUser] = useState();
+  const {name, setName} = useContext(NameContext);
   const [Inventory, setItems] = useState([]);           //state for inventory
   const itemRef = collection(db, "Inventory");            //reference to inventory in database
 
@@ -43,7 +44,7 @@ function SellersLanding() {
         <button className='add-product-button'>Add Product</button>
       </Link>
 
-      <h3>This is The Company Name</h3>
+      <h3>{name}</h3>
         
       </div> 
 
