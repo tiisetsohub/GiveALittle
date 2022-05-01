@@ -37,7 +37,6 @@ export default function Sell() {
         <div className="bigdiv">
             <Navbar />
             <h1>Add Item</h1>
-            <h1>{name}</h1>
             <div className='logindiv'>          {/*form for item information*/}
                 <input className="edtname" id="input" placeholder="Item Name" onChange={(event) => {
                     setNewName(event.target.value)

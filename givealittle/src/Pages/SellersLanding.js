@@ -72,13 +72,17 @@ useEffect(() => {
       <div className='products-container'>
       <ul>
           {Inventory.map((product, index) => (
-            <ProductInsightsCard key={product.Name}
+            product.Seller == name
+            ? (
+              <ProductInsightsCard key={product.Name}
               image={product.Image}
               name={product.Name}
               description={product.Description}
               price={product.Price}
               quantity={product.Quantity}
             />
+            )
+            : null
           ))}
       </ul> 
       </div>
