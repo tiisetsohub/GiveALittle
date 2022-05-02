@@ -16,7 +16,7 @@ export default function Sell() {
     const itemRef = collection(db, "Inventory");            //refernce for item
 
     const addItem = async () => {           //handles adding an item to database
-        await addDoc(itemRef, { Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image1: imageList[0], Image2: imageList[1], Image3: imageList[2] });
+        await addDoc(itemRef, { Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image1: url1, Image2: url2, Image3: url3 });
         alert("Added")
     }
 
@@ -30,32 +30,62 @@ export default function Sell() {
     }, []);
 
     
-    const [image, newImg]=useState("");           //state for image
-    const [imageList, setImageList]=useState([]);
-    const [url, setUrl]=useState();
+    const [image1, newImg1]=useState("");   
+    const [image2, newImg2]=useState(""); 
+    const [image3, newImg3]=useState("");         //state for image
+    const [url1, setUrl1]=useState("");
+    const [url2, setUrl2]=useState("");
+    const [url3, setUrl3]=useState("");
     
-    const handleUpload = async ()=>{
-        if(image==null) {
+    const handle1stUpload = async ()=>{
+        if(image1==null) {
             return;
         }
         else{
-        while (imageList.length<=3){
-            const imageRef = ref(storage, `imagefolder/${image.name}`);
-            uploadBytes(imageRef, image).then(()=>{
+            const imageRef = ref(storage, `imagefolder/${image1.name}`);
+            uploadBytes(imageRef, image1).then(()=>{
                 alert("image uploaded")
             })
             await getDownloadURL(imageRef).then((x)=> {
-                setUrl(x);
+                setUrl1(x);
             })
-            imageList.add(url);
 
-        }
+        
     }
-
-        if(imageList.size==3){
-            alert("only 3 images per product");
+          
+    };
+    const handle2ndUpload = async ()=>{
+        if(image2==null) {
             return;
         }
+        else{
+            const imageRef = ref(storage, `imagefolder/${image2.name}`);
+            uploadBytes(imageRef, image2).then(()=>{
+                alert("image uploaded")
+            })
+            await getDownloadURL(imageRef).then((x)=> {
+                setUrl2(x);
+            })
+
+        
+    }
+          
+    };
+    const handle3rdUpload = async ()=>{
+        if(image3==null) {
+            return;
+        }
+        else{
+            const imageRef = ref(storage, `imagefolder/${image3.name}`);
+            uploadBytes(imageRef, image3).then(()=>{
+                alert("image uploaded")
+            })
+            await getDownloadURL(imageRef).then((x)=> {
+                setUrl3(x);
+            })
+
+        
+    }
           
     };
 
@@ -71,10 +101,7 @@ export default function Sell() {
                 <input className="edtdesc" id="input" placeholder="Description" onChange={(event) => {
                     setNewDesnewDescription(event.target.value)
                 }} />
-                <br />
-                <input type="file" id="input" onChange={(event)=>{newImg(event.target.files[0])}} />
-                <button className="btnimg" onClick={handleUpload}>Upload</button>
-                <br />
+               <br />
                 <input className="edtprice" type="number" id="input" placeholder="Price" min="19.99" onChange={(event) => {
                     let t = parseFloat(event.target.value)
                     setNewPrice(t)
@@ -85,6 +112,19 @@ export default function Sell() {
                     setNewQuantity(t)
                 }} />
                 <br />
+                <br />
+                <input type="file" id="input" onChange={(event)=>{newImg1(event.target.files[0])}} />
+                <button className="btnimg" onClick={handle1stUpload}>Upload</button>
+                <br />
+                <br />
+                <input type="file" id="input" onChange={(event)=>{newImg2(event.target.files[0])}} />
+                <button className="btnimg" onClick={handle2ndUpload}>Upload</button>
+                <br />
+                <br />
+                <input type="file" id="input" onChange={(event)=>{newImg3(event.target.files[0])}} />
+                <button className="btnimg" onClick={handle3rdUpload}>Upload</button>
+                <br />
+
                 <button className="btnadd" id="btn" onClick={addItem}>Add</button>
             </div>
         </div>
