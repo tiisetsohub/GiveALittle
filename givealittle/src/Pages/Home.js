@@ -16,7 +16,7 @@ export default function Home() {
 
 
 
-
+    
     function Navbar() {         //function for navbar component
         const [quant, setQuant] = useState(0);      //to be used
         const [total, setTotal] = useState(0);         //state for cart total
