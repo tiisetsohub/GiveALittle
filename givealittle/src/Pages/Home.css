@@ -118,6 +118,16 @@ button:hover {
     margin-left: 5px;
 }
 
+.itemstar {
+    width: max-content;
+    font-size: 17px;
+    float: left;
+
+    padding-left: 20px;
+    padding-right: 5px;
+    
+}
+
 .item-quantity{
     float: right;
     font-weight: bold;
@@ -126,7 +136,7 @@ button:hover {
     padding-right: 5px;
 }
 
-.price-stock-container{
+.price-star-stock-container{
     display: block;
 }
 
