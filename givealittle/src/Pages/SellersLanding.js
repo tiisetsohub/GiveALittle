@@ -48,14 +48,13 @@ function SellersLanding() {
         
       </div>  
 
-      <Container  className="bg-light border"
-    fluid="lg">
+      <Container fluid="lg">
         <Row style={{justifyContent: "center"}}>
           {Inventory.map((product) => {
             return(
               <Col xs="auto">
                 <ProductInsightsCard
-                  image={product.Image}
+                  image={product.Image1}
                   name={product.Name}
                   price={product.Price}
                   stock={product.Quantity}
