@@ -18,13 +18,8 @@ export default function Home() {
     const { cart, setCart } = useContext(CartContext);          //context for global cart
     const searchRef = useRef();
 
-    const [testText, settestText] = useState("")        //////
-
     const [searchTerm, setSearchTerm] = useState("");
 
-    function SearchItem() {
-        setSearchTerm(testText)
-    }
 
 
 
