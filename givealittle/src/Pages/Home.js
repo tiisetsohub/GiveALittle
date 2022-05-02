@@ -114,8 +114,9 @@ export default function Home() {
         getItems()
     }, []);
 
-    function handleCartItems(item) {        //handles adding an item to the cart
+    function handleCartItems(item,num) {        //handles adding an item to the cart
         alert('Item added to cart')
+        alert(num)
         setCartItems(prev => {
             return cartitems.includes(item) ? prev : [...prev, item];
         })
@@ -125,17 +126,18 @@ export default function Home() {
         setCart(cartitems)
     }, [cartitems])
 
-    function handleCount(event) {
-        console.log("Befroe: ", count)
-        setCount(count+1);
-        console.log("After: ", count)
-    }
-
-    useEffect(() => {
-        setCount(count)
-    }, [count])
+    
 
     function ProductView(item) {     //handles the viewing of a product in isolation
+        /////////////////////////
+        let num = 0         
+        function handleCount(event) {
+            num = +event.target.value;
+            console.log(num)
+            
+        }
+        console.log(num)
+        //////////////////////////
         setShow(true)
         setText(
             <div>
@@ -151,8 +153,8 @@ export default function Home() {
                     <p>{item.Description}</p>
                     <h1 className="product-view-price">R{item.Price}</h1>
                     <div>
-                        <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} onChange={handleCount}/>
-                        <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
+                        <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity}  onChange={handleCount}/>
+                        <button className="btnadd" onClick={() => handleCartItems(item,num)}>Add to cart</button>
                     </div>
                 </div>
             </div>
