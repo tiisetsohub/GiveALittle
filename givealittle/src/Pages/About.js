@@ -7,15 +7,12 @@ export default function About() {
     const { login, setLogin } = useContext(LoginContext)
     const { cart, setCart } = useContext(CartContext)
 
+    const today = new Date();
+
     return (
         <div>
-            {login ?
-                <div>
-                    <h1>hi there </h1>
-                    <h1>{cart[0].Name}</h1>
-                </div>
-                : <h1>Get outta here</h1>}
-            <button onClick={() => setLogin(!login)}>click me</button>
+            <h1>Givealittle</h1>
+            <p>Copyright &copy; {today.getFullYear()}</p>
         </div>
     )
 }
