@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs, addDoc } from "firebase/firestore";
@@ -16,7 +16,7 @@ export default function Home() {
     const [Inventory, setItems] = useState([]);           //state for inventory
     const itemRef = collection(db, "Inventory");            //reference to inventory in database
     const { cart, setCart } = useContext(CartContext);          //context for global cart
-
+    const searchRef = useRef();
 
     const [testText, settestText] = useState("")        //////
 
@@ -91,11 +91,11 @@ export default function Home() {
                     <div className="rightside">
                         <input type="text" 
                         placeholder="Search..." 
-                        onChange={(event) => {
-                            setSearchTerm(event.target.value)
-                            }}
-                            />
-                        <button className="btnsearch" onClick={() =>{setSearchTerm("MacBook")}}>
+                        ref={searchRef} 
+                        />
+                        <button className="btnsearch" onClick={() =>{
+                            setSearchTerm(searchRef.current.value)
+                            }}>
                             {/* <SearchIcon/> */}
                             Search
                         </button>
