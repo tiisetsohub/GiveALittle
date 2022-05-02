@@ -17,18 +17,30 @@ export default function Home() {
     const { cart, setCart } = useContext(CartContext);          //context for global cart
     
 
-    
-    function starCount(stars){
-        // console.log(stars)
-        const fruits = stars.data();
-        let starCount = fruits.toString();
+    // The following function count the average rating of each item (using stars)
+    function avgStars(stars){
+        let starCount = ""+ stars;
         let wholeSum = 0;
+        let check = 0;
 
-        for (let i = 0; i < fruits.length*2; i+=2){
-            wholeSum = wholeSum + parseInt(starCount[i]);
+        for (let i = 0; i <starCount.length ; i++){
+            if (starCount[i] == "*"){
+                check++;
+            }
+            else{
+                wholeSum = wholeSum + parseInt(starCount[i]);
+            }
         }
-        return wholeSum/fruits.length;
+
+        if (starCount.length == 0){
+            return ;
+        }
+        else{
+            return wholeSum/(starCount.length-check);
+        }    
     }
+
+    
 
 
 
@@ -191,7 +203,7 @@ export default function Home() {
 
                                     <div className="price-star-stock-container">
                                     <h1 className="itemprice">R{item.Price}</h1>
-                                    <h1 className="itemstar"><BsStarFill/>{starCount(item.Review)}</h1>
+                                    <h1 className="itemstar"><BsStarFill/>{avgStars(item.Stars)}</h1>
                                     {(() => {
                                         if (item.Quantity == 0) {
                                         return (

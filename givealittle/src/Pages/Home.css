@@ -61,6 +61,19 @@ button:hover {
     margin-bottom: 50px;
 }
 
+.btnReview {
+    transition: 0.5s;
+    animation: ease-in;
+    height: 28px;
+    font-weight: bold;
+    background-color: #113E21;
+    border-radius: 3px;
+    border: 0px solid;
+    color: white;
+    margin-bottom: 50px;
+    
+}
+
 .edtnum {
     width: 40px;
     height: 26px;

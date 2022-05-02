@@ -16,7 +16,7 @@ export default function Sell() {
     const itemRef = collection(db, "Inventory");            //refernce for item
 
     const addItem = async () => {           //handles adding an item to database
-        await addDoc(itemRef, { Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg });
+        await addDoc(itemRef, { Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg, Stars:"", Review:"" });
         alert("Added")
     }
 

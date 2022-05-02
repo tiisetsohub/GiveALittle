@@ -5,6 +5,8 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context'
+import { BsStarFill } from "react-icons/bs";
+
 
 //identical to home.js
 
@@ -17,6 +19,22 @@ export default function Landing() {
     const itemRef = collection(db, "Inventory");
     const { cart, setCart } = useContext(CartContext)
 
+    // The following function count the average rating of each item (using stars)
+    function avgStars(stars){
+        let starCount = ""+ stars;
+        let wholeSum = 0;
+        let check = 0;
+
+        for (let i = 0; i <starCount.length ; i++){
+            if (starCount[i] == "*"){
+                check++;
+            }
+            else{
+                wholeSum = wholeSum + parseInt(starCount[i]);
+            }
+        }
+        return wholeSum/(starCount.length-check);
+    }
 
     function Navbar() {
         const [total, setTotal] = useState(0);
@@ -141,6 +159,10 @@ export default function Landing() {
                     <div>
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
+                        <button className="btnReview" onClick={() => handleCartItems(item)}>Review Item</button>
+                    </div>
+                    <div>
+                        
                     </div>
                 </div>
             </div>
@@ -166,6 +188,7 @@ export default function Landing() {
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
                                 <h1 className="itemprice">R{item.Price}</h1>
+                                <h1 className="itemstar"><BsStarFill/>{avgStars(item.Stars)}</h1>
                                 {(() => {
                                     if (item.Quantity == 0) {
                                     return (
