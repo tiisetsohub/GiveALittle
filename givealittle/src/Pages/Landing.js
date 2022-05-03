@@ -5,6 +5,7 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context'
+import { Review } from './Review'
 import { BsStarFill } from "react-icons/bs";
 
 
@@ -15,6 +16,8 @@ export default function Landing() {
     const [cartitems, setCartItems] = useState([])
     const [show, setShow] = useState(false);
     const [text, setText] = useState("hey");
+    const [showReview, setShowReview] = useState(false);
+    const [textReview, setTextReview] = useState("hey");
     const [Inventory, setItems] = useState([]);
     const itemRef = collection(db, "Inventory");
     const { cart, setCart } = useContext(CartContext)
@@ -141,6 +144,31 @@ export default function Landing() {
         setCart(cartitems)
     }, [cartitems])
 
+    function handleReviews(item) {
+        setShowReview(true)
+        setTextReview(
+            <div>
+                <div className="item-container">
+                    <button className="btnclose" onClick={() => setShow(false)}>Close</button>
+
+                    <div>
+                        <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
+                    </div>
+                    
+                    <h3>{item.Name}</h3>
+                    <p>{item.Description}</p>
+                    <h1 className="product-view-price">R{item.Price}</h1>
+                    <div>
+                        
+                        <button className="btnReview" onClick={() => handleReviews(item)}>Review Item</button>
+                    </div>
+                    <div>
+                        
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     function ProductView(item) {
         setShow(true)
@@ -159,7 +187,9 @@ export default function Landing() {
                     <div>
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
-                        <button className="btnReview" onClick={() => handleCartItems(item)}>Review Item</button>
+                        <Link className="navlink" to='/Review'>
+                            <button className='btnReview'>Review Item</button>
+                        </Link>
                     </div>
                     <div>
                         
