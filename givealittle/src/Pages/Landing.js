@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context'
 import { BsStarFill } from "react-icons/bs";
-import { FaStar } from "react-icons/fa"
+import ReactStars from "react-rating-stars-component"
 
 
 //identical to home.js
@@ -24,31 +24,21 @@ export default function Landing() {
     const itemRef = collection(db, "Inventory");
     const { cart, setCart } = useContext(CartContext)
 
-    const [rating, setRating] = useState(null);
-    const [hover, setHover] = useState(null);
-
     // Variables for reviews
     let str = ""
     let rev = ""
 
-    const AddReview = async (item, review) => {           //handles adding a review to database
+
+    const AddReview = async (item, star, review) => {           //handles adding a review to database
         await setDoc(
             doc(db, "Inventory", item.id),
             {
                 Review:  review,
+                Stars: star
             },
             {merge: true}
         );
         alert("Review submitted")
-    }
-    const AddStar = async (item, review) => {           //handles adding a review to database
-        await setDoc(
-            doc(db, "Inventory", item.id),
-            {
-                Stars: review,
-            },
-            {merge: true}
-        );
     }
 
     
@@ -184,6 +174,9 @@ export default function Landing() {
     }, [cartitems])
 
     function handleReviews(item) {
+        const ratingChanged = (rating) => {
+            let str = ""+item.Stars+"*"+rating.toString()
+        }
         setShowReview(true)
         setText(
             <div>
@@ -199,44 +192,24 @@ export default function Landing() {
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
 
-                    {/* <div>
-                        {[ ...Array(5).map((star, i) => {
-                            const ratingValue = i + 1;
+                    <div>
+                        < ReactStars
+                        size={30}
+                        count={5}
+                        isHalf={true}
+                        onChange={ratingChanged}
+                        />
 
-                            return (
-                                <label>
-                                    <input
-                                    type="radio"
-                                    name="rating"
-                                    value={ratingValue}
-                                    onClick={() => setRating(ratingValue)}
-                                />
-                                <FaStar
-                                    className="star"
-                                    color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
-                                    size={50}
-                                    onMouseEnter={() => setHover(ratingValue)}
-                                    onMouseLeave={() => setHover(null)}
-                                />
-                                </label>
-                            );
-                        })]}
-                    </div> */}
-
+                    </div>
                     
-                    <input type="number" id="input" placeholder="Stars" min="1" max="5" onChange={(event) => {
-                    let t = parseInt(event.target.value)
-                    str = ""+item.Stars+"*"+t.toString()
-    
-                    }} />
                     <input className="edtdesc" id="input" placeholder="Item Review" onChange={(event) => {
                         rev = item.Review+"*"+event.target.value
+                        
                     }} />
                     
                     <div>
                     <button className="btnclose" onClick={() => {
-                        AddStar(item, str)
-                        AddReview(item, rev)
+                        AddReview(item, str, rev)
                         setShowReview(false)
                         ProductView(item)
                     }}>Submit</button>
@@ -262,29 +235,6 @@ export default function Landing() {
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
 
-                    {/* <div>
-                        {[ ...Array(5).map((star, i) => {
-                            const ratingValue = i + 1;
-
-                            return (
-                                <label>
-                                    <input
-                                    type="radio"
-                                    name="rating"
-                                    value={ratingValue}
-                                    onClick={() => setRating(ratingValue)}
-                                />
-                                <FaStar
-                                    className="star"
-                                    color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
-                                    size={50}
-                                    onMouseEnter={() => setHover(ratingValue)}
-                                    onMouseLeave={() => setHover(null)}
-                                />
-                                </label>
-                            );
-                        })]}
-                    </div> */}
                 </div>
             </div>
         )
