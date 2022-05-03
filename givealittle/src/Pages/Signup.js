@@ -54,7 +54,7 @@ export default function Signup() {
             }
             <Navbar />
             <h1>Sign up</h1>
-            <div className='logindivb'>    {/*form for entering user input*/}
+            <div className='logindiv'>    {/*form for entering user input*/}
                 <input className="edtname" id="input" placeholder="Name" onChange={(event) => {
                     setNewName(event.target.value)
                 }} />
