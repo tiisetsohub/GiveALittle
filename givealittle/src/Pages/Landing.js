@@ -5,6 +5,8 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context'
+import { NameContext } from '../Context';
+
 
 //identical to home.js
 
@@ -16,7 +18,17 @@ export default function Landing() {
     const [Inventory, setItems] = useState([]);
     const itemRef = collection(db, "Inventory");
     const { cart, setCart } = useContext(CartContext)
+    const {name, setName} = useContext(NameContext);
+    const [Users, setUsers] = useState([]);
 
+
+    useEffect(() => {
+        const getUsers = async () => {
+          const data = await getDocs(collection(db, "Users"));
+          setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        }
+        getUsers()
+      }, []);
 
     function Navbar() {
         const [total, setTotal] = useState(0);
@@ -136,7 +148,15 @@ export default function Landing() {
                     <div>
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
+                    {Users.map((user, idx) => (
+                        user.Email == item.Seller
+                    ? (
+                        <p>Sold By : {user.Name}</p>
+                    )
+                    : null
+                    ))}
                     
+
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
                     <h1 className="product-view-price">R{item.Price}</h1>

@@ -7,6 +7,7 @@ import './Home.css';
 import { CartContext } from '../Context';
 import { LoginContext } from '../Context';
 import { BsStarFill } from "react-icons/bs";
+import { NameContext } from '../Context';
 
 
 export default function Home() {
