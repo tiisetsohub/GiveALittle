@@ -74,10 +74,6 @@ function App() {
                 <Payment />
               </Route>
 
-              <Route path="/specspage">             {/*route to login page*/}
-                <SpecsPage />
-              </Route>
-
             </Switch>
           </Router>
           </CarddetailsContext.Provider>

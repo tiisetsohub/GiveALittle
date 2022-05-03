@@ -3,12 +3,11 @@ import { useState} from 'react'
 
 import React from 'react'
 
-function SpecsPage() {
+function SpecsPage({Specs, setSpecs}) {
 
     const [specName, setSpecName] = useState("");
     const [specDetail, setSpecDetail] = useState("");
 
-    const [Specs, setSpecs] = useState([]);
 
     const [newSpec, setNewSpec] = useState({
         id: 0,
@@ -38,7 +37,7 @@ function SpecsPage() {
                 
             )
         })}
-        <button onClick={addNewSpec}>Add Field</button>
+        <button onClick={addNewSpec}>Add Spec</button>
     </div>
   )
 }

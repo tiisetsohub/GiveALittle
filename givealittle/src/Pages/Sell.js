@@ -5,6 +5,7 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Login.css';
 import { NameContext } from '../Context';
+import SpecsPage from './SpecsPage';
 
 export default function Sell() {
     const [newName, setNewName] = useState("");     //state for item name
@@ -19,8 +20,11 @@ export default function Sell() {
     const itemRef = collection(db, "Inventory");            //refernce for item
 
 
+    const [Specs, setSpecs] = useState([]);     //State for the specs
+
+
     const addItem = async () => {           //handles adding an item to database
-        await addDoc(itemRef, {Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg, Seller: name });
+        await addDoc(itemRef, {Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg, Seller: name, Specs: Specs });
         alert("Added") 
         
     }
@@ -30,7 +34,6 @@ export default function Sell() {
             const data = await getDocs(itemRef);
             setItem(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
         }
-
         getItems()
     }, []);
 
@@ -62,13 +65,17 @@ export default function Sell() {
                     setNewQuantity(t)
                 }} />
                 <br />
+
+                <h2>Product Specifications</h2>
+                <SpecsPage Specs={Specs} setSpecs={setSpecs}/>
+
                 <Link to="/sellerslanding">
                     <button className="btnadd" id="btn" onClick={addItem}>Add</button>
                 </Link>
 
-                <Link to="/specspage">
-                    <button>Go to Specs Page</button>
-                </Link>
+                
+                
+                
             </div>
         </div>
     )

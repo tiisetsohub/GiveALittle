@@ -27,7 +27,7 @@ export default function Spec({Specs, setSpecs, addNewSpec, idx}) {
 
   return (
     <div>
-        <input type="text" value={specName} placeholder="Spec" onChange={handleChangeSpecName}></input>
+        <input type="text" value={specName} placeholder="Spec Type" onChange={handleChangeSpecName}></input>
         <input type="text" value={specDetail} placeholder="Detail" onChange={handleChangeSpecDetail}></input>
     </div>
   )
