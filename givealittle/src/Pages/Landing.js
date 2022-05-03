@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, setDoc, updateDoc, doc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context'
-import { Review } from './Review'
 import { BsStarFill } from "react-icons/bs";
+import { FaStar } from "react-icons/fa"
 
 
 //identical to home.js
@@ -17,10 +17,30 @@ export default function Landing() {
     const [show, setShow] = useState(false);
     const [text, setText] = useState("hey");
     const [showReview, setShowReview] = useState(false);
-    const [textReview, setTextReview] = useState("hey");
     const [Inventory, setItems] = useState([]);
     const itemRef = collection(db, "Inventory");
     const { cart, setCart } = useContext(CartContext)
+
+    const [rating, setRating] = useState(null);
+    const [hover, setHover] = useState(null);
+
+    const [newStar, setNewStar] = useState("");              //state for star review
+    const [newReview, setNewReview] = useState("");              //state for star review
+
+    // const Ref = collection(db, "Inventory", "01vlFmkEwTlQbjOxqPI0");
+    const AddReview = async (item) => {           //handles adding a review to database
+        await setDoc(
+            doc(db, "Inventory", item.id),
+            {
+                Stars: newStar,
+                Review:  newReview,
+            },
+            {merge: true}
+        );
+        alert("Added")
+    }
+
+    
 
     // The following function count the average rating of each item (using stars)
     function avgStars(stars){
@@ -146,24 +166,63 @@ export default function Landing() {
 
     function handleReviews(item) {
         setShowReview(true)
-        setTextReview(
+        setText(
             <div>
                 <div className="item-container">
-                    <button className="btnclose" onClick={() => setShow(false)}>Close</button>
+                    <button className="btnclose" onClick={() => {
+                        setShowReview(false)
+                        ProductView(item)
+                    }}>Close</button>
 
                     <div>
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
-                    
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
-                    <h1 className="product-view-price">R{item.Price}</h1>
+
+                    {/* <div>
+                        {[ ...Array(5).map((star, i) => {
+                            const ratingValue = i + 1;
+
+                            return (
+                                <label>
+                                    <input
+                                    type="radio"
+                                    name="rating"
+                                    value={ratingValue}
+                                    onClick={() => setRating(ratingValue)}
+                                />
+                                <FaStar
+                                    className="star"
+                                    color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                    size={50}
+                                    onMouseEnter={() => setHover(ratingValue)}
+                                    onMouseLeave={() => setHover(null)}
+                                />
+                                </label>
+                            );
+                        })]}
+                    </div> */}
+
+                    
+                    <input type="number" id="input" placeholder="Stars" min="1" max="5" onChange={(event) => {
+                    let t = parseInt(event.target.value)
+                    let str = ""+item.Stars+"*"+t.toString()
+                    setNewStar(str.toString())
+                    
+                    
+                    console.log(newStar)
+                    }} />
+                    <input className="edtdesc" id="input" placeholder="Item Review" onChange={(event) => {
+                        setNewReview(item.Review+"*"+event.target.value)
+                    }} />
+                    
                     <div>
-                        
-                        <button className="btnReview" onClick={() => handleReviews(item)}>Review Item</button>
-                    </div>
-                    <div>
-                        
+                    <button className="btnclose" onClick={() => {
+                        AddReview(item)
+                        // setShowReview(false)
+                        // ProductView(item)
+                    }}>Submit</button>
                     </div>
                 </div>
             </div>
@@ -187,9 +246,16 @@ export default function Landing() {
                     <div>
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
-                        <Link className="navlink" to='/Review'>
+                        {/* <Link className="navlink" to='/Review'>
                             <button className='btnReview'>Review Item</button>
-                        </Link>
+                        </Link> */}
+                        {showReview ? <div className="reviewdiv">
+                        {text}
+                        </div> :
+                        <button className="btnReview" onClick={() => handleReviews(item)}>Review Item</button>
+
+
+                    }
                     </div>
                     <div>
                         
