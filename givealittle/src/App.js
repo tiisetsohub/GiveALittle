@@ -7,7 +7,6 @@ import Landing from './Pages/Landing'
 import SellersLanding from './Pages/SellersLanding';
 import Sell from './Pages/Sell'
 import Sold from './Pages/Sold'
-import Drawer from './Pages/Draw'
 import Track from './Pages/Track'
 import About from './Pages/About'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -49,10 +48,6 @@ function App() {
               <Route path="/sell">                  {/*route to sell page*/}
                 <Sell />
               </Route>
-              <Route path="/drawer">                  {/*route to sell page*/}
-                <Drawer />
-              </Route>
-
               <Route path="/about">                 {/*route to about page*/}
                 <About />
               </Route>

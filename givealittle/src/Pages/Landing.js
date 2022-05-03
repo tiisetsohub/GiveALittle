@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import "./Home.css";
 import { CartContext } from "../Context";
+import ReorderIcon from "@mui/icons-material/Reorder";
 
 //identical to home.js
 
@@ -15,7 +16,6 @@ export default function Landing() {
   const [Inventory, setItems] = useState([]);
   const itemRef = collection(db, "Inventory");
   const { cart, setCart } = useContext(CartContext);
-
   function Navbar() {
     const [total, setTotal] = useState(0);
     const [showLinks, setShowLinks] = useState(false);
@@ -24,85 +24,88 @@ export default function Landing() {
     let t = 0;
 
     function Navbar() {
-        const [total, setTotal] = useState(0);
-        const [showLinks, setShowLinks] = useState(false);
-        const [showcart, setShowCart] = useState(false);
-        const [summary, setSummary] = useState("")
-        let t = 0
+      const [total, setTotal] = useState(0);
+      const [showLinks, setShowLinks] = useState(false);
+      const [showcart, setShowCart] = useState(false);
+      const [summary, setSummary] = useState("");
+      let t = 0;
 
-        function CartView() {
-
-            setShowCart(!showcart)
-            setSummary(
-                cartitems.map(function (currentValue, index, array) {
-                    return index >= 0 ? <div className="cartitemdiv">
-                        <div className="cartleft">
-                            <img src={currentValue.Image} className="pic" />
-                        </div>
-                        <div className="cartright">
-                            <h6 className="cartid">{currentValue.Name}</h6>
-                            <h6 className="cartpricep">R{currentValue.Price}</h6>
-                        </div>
-                    </div> : null
-                })
-            )
-
-            for (let i = 0; i < cartitems.length; i++) {
-                const element = cartitems[i];
-                t += element.Price
-
-            }
-            t = t.toFixed(2)
-
-            setTotal(t)
-
-        }
-        return (
-            <div>
-                <div className="navbar">
-                    <div className="leftside">
-                        <div className="links" id={showLinks ? "hidden" : ""}>
-                            <Link className="navlink" to='/sellerslanding'>
-                                <p>Sell</p>
-                            </Link>
-                            <Link className="navlink" to='/about'>
-                                <p>About</p>
-                            </Link>
-                            <Link className="navlink" to='/login'>
-                                <p>Contact</p>
-                            </Link>
-                            <Link className="navlink" to='/track'>
-                                <p>Track</p>
-                            </Link>
-                            <Link className="navlink" onClick={() => {
-                                CartView()
-                            }}>
-                                <p>Cart</p>
-                            </Link>
-                        </div>
-                        <button onClick={() => setShowLinks(!showLinks)} className="btnthings">
-                            ≡
-                        </button>
-                    </div>
-                    <div className="rightside">
-                        <input className="edtsearch" placeholder="Search" />
-                        <button className="btnsearch">
-                            Search
-                        </button>
-                    </div>
-
+      function CartView() {
+        setShowCart(!showcart);
+        setSummary(
+          cartitems.map(function (currentValue, index, array) {
+            return index >= 0 ? (
+              <div className="cartitemdiv">
+                <div className="cartleft">
+                  <img src={currentValue.Image} className="pic" />
                 </div>
-                {
-                    showcart ? <div className="cartdiv">
-                        {summary}
-                        <div className="demodiv">
-                            <text className='textin'>R{total}</text>
-                            <button className='buttonin'>Check out</button>
-                        </div>
-                    </div> : null
-                }
-            </div>    
-        )}
+                <div className="cartright">
+                  <h6 className="cartid">{currentValue.Name}</h6>
+                  <h6 className="cartpricep">R{currentValue.Price}</h6>
+                </div>
+              </div>
+            ) : null;
+          })
+        );
+
+        for (let i = 0; i < cartitems.length; i++) {
+          const element = cartitems[i];
+          t += element.Price;
+        }
+        t = t.toFixed(2);
+
+        setTotal(t);
+      }
+      return (
+        <div>
+          <div className="navbar">
+            <div className="leftside">
+              <div className="links" id={showLinks ? "hidden" : ""}>
+                <Link className="navlink" to="/sellerslanding">
+                  <p>Sell</p>
+                </Link>
+                <Link className="navlink" to="/about">
+                  <p>About</p>
+                </Link>
+                <Link className="navlink" to="/login">
+                  <p>Contact</p>
+                </Link>
+                <Link className="navlink" to="/track">
+                  <p>Track</p>
+                </Link>
+                <Link
+                  className="navlink"
+                  onClick={() => {
+                    CartView();
+                  }}
+                >
+                  <p>Cart</p>
+                </Link>
+              </div>
+              <button
+                onClick={() => setShowLinks(!showLinks)}
+                className="btnthings"
+              >
+                ≡
+              </button>
+            </div>
+            <div className="rightside">
+              <input className="edtsearch" placeholder="Search" />
+              <button className="btnsearch">Search</button>
+            </div>
+          </div>
+          {showcart ? (
+            <div className="cartdiv">
+              {summary}
+              <div className="demodiv">
+                <text className="textin">R{total}</text>
+                <button className="buttonin">Check out</button>
+              </div>
+            </div>
+          ) : null}
+        </div>
+      );
+    }
     function CartView() {
       setShowCart(!showcart);
       setSummary(
@@ -129,15 +132,14 @@ export default function Landing() {
 
       setTotal(t);
     }
-    
-  
+
     return (
       <div>
         <div className="navbar">
           <div className="leftside">
             <div className="links" id={showLinks ? "hidden" : ""}>
               <Link className="navlink" to="/sellerslanding">
-                <p>Sell </p>
+                <p>Sell</p>
               </Link>
               <Link className="navlink" to="/about">
                 <p>About</p>
@@ -155,21 +157,17 @@ export default function Landing() {
               </Link>
 
               <Link className="navlink" to="/track">
-                <p>Track order</p>
+                <p> Track order</p>
               </Link>
               <Link className="navlink" to="/sold">
-                <p>Sold</p>
+                <p> Sold</p>
               </Link>
-              <Link className="navlink" to="/drawer">
-                <p>Drawer</p>
-              </Link>
-
             </div>
             <button
               onClick={() => setShowLinks(!showLinks)}
               className="btnthings"
             >
-              ≡
+              <ReorderIcon />
             </button>
           </div>
           <div className="rightside">
@@ -261,7 +259,7 @@ export default function Landing() {
               </div>
             );
           })}
-        </div> 
+        </div>
       )}
     </div>
   );

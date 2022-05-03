@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, doc, setDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./Login.css";
+import { NameContext } from "../Context";
 
 export default function Sell() {
   const [newName, setNewName] = useState(""); //state for item name
@@ -14,15 +15,16 @@ export default function Sell() {
 
   const [item, setItem] = useState([]); //state for item
   const itemRef = collection(db, "Bought"); //refernce for item
-
+  const { name, setName } = useContext(NameContext);
   const addItem = async () => {
     //handles adding an item to database
-    await addDoc(itemRef, {
-      Name: 'fdgf',
-      Description: "erfgbh",
-      Price: "wer",
-      Quantity: "sedrftgh",
+    await setDoc(doc(db, "Inventory", "prime"), {
+      Name: newName,
+      Description: newDescription,
+      Price: newPrice,
+      Quantity: newQuantity,
       Image: newImg,
+      ItemOwner: name,
     });
     alert("Added");
   };
@@ -40,6 +42,7 @@ export default function Sell() {
   return (
     <div className="bigdiv">
       <Navbar />
+
       <h1>Add Item</h1>
       <div className="logindiv">
         {" "}
