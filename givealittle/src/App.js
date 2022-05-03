@@ -1,4 +1,5 @@
 //All pages imported to this folder
+import SpecsPage from './Pages/SpecsPage';
 import './App.css';
 import Home from './Pages/Home'
 import Login from './Pages/Login'
@@ -71,6 +72,10 @@ function App() {
 
               <Route path="/payment">                 {/*route to about page*/}
                 <Payment />
+              </Route>
+
+              <Route path="/specspage">             {/*route to login page*/}
+                <SpecsPage />
               </Route>
 
             </Switch>

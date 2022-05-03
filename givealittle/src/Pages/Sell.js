@@ -65,6 +65,10 @@ export default function Sell() {
                 <Link to="/sellerslanding">
                     <button className="btnadd" id="btn" onClick={addItem}>Add</button>
                 </Link>
+
+                <Link to="/specspage">
+                    <button>Go to Specs Page</button>
+                </Link>
             </div>
         </div>
     )
