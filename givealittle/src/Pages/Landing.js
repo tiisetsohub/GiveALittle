@@ -92,7 +92,9 @@ export default function Landing() {
                         {summary}
                         <div className="demodiv">
                             <text className='textin'>R{total}</text>
-                            <button className='buttonin'>Check out</button>
+                            <Link  to='/maketransactionaddress'>
+                                <button className ="buttonin" >Check out</button>
+                            </Link>  
                         </div>
                     </div> : null
                 }
