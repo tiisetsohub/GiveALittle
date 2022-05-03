@@ -16,7 +16,10 @@ export default function Landing() {
     const [cartitems, setCartItems] = useState([])
     const [show, setShow] = useState(false);
     const [text, setText] = useState("hey");
+
     const [showReview, setShowReview] = useState(false);
+    const [showRating, setShowRating] = useState(false);
+
     const [Inventory, setItems] = useState([]);
     const itemRef = collection(db, "Inventory");
     const { cart, setCart } = useContext(CartContext)
@@ -243,6 +246,50 @@ export default function Landing() {
         )
     }
 
+    function viewReviews(item){
+        setShowReview(true)
+        setText(
+            <div>
+                <div className="item-container">
+                    <button className="btnclose" onClick={() => {
+                        setShowReview(false)
+                        ProductView(item)
+                    }}>Close</button>
+
+                    <div>
+                        <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
+                    </div>
+                    <h3>{item.Name}</h3>
+                    <p>{item.Description}</p>
+
+                    {/* <div>
+                        {[ ...Array(5).map((star, i) => {
+                            const ratingValue = i + 1;
+
+                            return (
+                                <label>
+                                    <input
+                                    type="radio"
+                                    name="rating"
+                                    value={ratingValue}
+                                    onClick={() => setRating(ratingValue)}
+                                />
+                                <FaStar
+                                    className="star"
+                                    color={ratingValue <= (hover || rating) ? "#ffc107" : "#e4e5e9"}
+                                    size={50}
+                                    onMouseEnter={() => setHover(ratingValue)}
+                                    onMouseLeave={() => setHover(null)}
+                                />
+                                </label>
+                            );
+                        })]}
+                    </div> */}
+                </div>
+            </div>
+        )
+    }
+
     function ProductView(item) {
         setShow(true)
         setText(
@@ -260,16 +307,20 @@ export default function Landing() {
                     <div>
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
-                        {/* <Link className="navlink" to='/Review'>
-                            <button className='btnReview'>Review Item</button>
-                        </Link> */}
+                       
                         {showReview ? <div className="reviewdiv">
                         {text}
                         </div> :
                         <button className="btnReview" onClick={() => handleReviews(item)}>Review Item</button>
+                        }
 
-
-                    }
+                        <div>
+                        {showRating ? <div className="reviewdiv">
+                        {text}
+                        </div> :
+                        <button className="btnReview" onClick={() => viewReviews(item)}>View reviews</button>
+                        }
+                        </div>
                     </div>
                     <div>
                         
