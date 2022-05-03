@@ -7,6 +7,8 @@ import { useHistory } from 'react-router-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import './MakeTransaction.css';
+import { db } from '../firebase-config';
+import { collection, getDocs, addDoc } from "firebase/firestore";
 
 
 export default function MakeTransactionAddress() {
@@ -14,17 +16,59 @@ export default function MakeTransactionAddress() {
     const { login, setLogin } = useContext(LoginContext)  
     const { cart, setCart } = useContext(CartContext);
     const { name, setName } = useContext(NameContext)
-    const [newCountry, setNewCountry] = useState("");  
+    const [newCountry, setNewCountry] = useState(""); 
+
+    const [country, setCountry] = useState("");
+    const [province, setProvince] = useState("");
+    const [city, setCity] = useState("");
+    const [street, setStreet] = useState("");
+    
+    const itemRef = collection(db, "address");            //refernce for item
+
+
+    const addItem = async () => {           //handles adding an item to database
+      await addDoc(itemRef, { Name: name, Country: country, Province: province, City: city, Street: street })
+        
+    }
+
+
 
     function Login() {
  
-        console.log({login} ,{name} , {cart})
+        console.log({login}  , {cart})
     }
 
   return (
       <div>
           < Navbar />
-          <Address />
+          <div className='container'>      {/*form containing all inputs for user*/}
+            
+            <text className="itemname"> Enter Address to proceed</text>   
+            <br /> 
+            <input className="edtemail" id="input"  placeholder="Country" onChange={(event) => {
+                    setCountry(event.target.value)
+            }}/> 
+            <br />
+            <input  className="edtpassword" id="input" placeholder="province"onChange={(event) => {
+                    setProvince(event.target.value)
+            }} />
+            <br />
+            <input className="edtemail" id="input"  placeholder="City" onChange={(event) => {
+                    setCity(event.target.value)
+            }}/>
+            <br />
+            <input className="edtemail" id="input" placeholder="street " onChange={(event) => {
+                    setStreet(event.target.value)
+            }}/>
+            <br />
+            <br />
+            <button className="buttonin" onClick={addItem}>Confirm</button>
+            <Link to='/maketransactionpayment'>
+                <button className="buttonin" >Add Card details</button>
+            </Link> 
+
+          </div>
+          
       </div>
     )
 
@@ -33,29 +77,41 @@ export default function MakeTransactionAddress() {
 
 
 
-function Address() {
-    return (
-        <div className='container'>      {/*form containing all inputs for user*/}
+// function Address() {
+//   const [country, setCountry] = useState("");
+//   const [province, setProvince] = useState("");
+//   const [city, setCity] = useState("");
+//   const [street, setStreet] = useState("");
+//     return (
+//         <div className='container'>      {/*form containing all inputs for user*/}
             
-            <text className="itemname"> Enter Address to proceed</text>   
-            <br /> 
-            <input className="edtemail" id="input"  placeholder="Country" />
-            <br />
-            <input type="password" className="edtpassword" id="input" placeholder="province" />
-            <br />
-            <input className="edtemail" id="input"  placeholder="City" />
-            <br />
-            <input className="edtemail" id="input" placeholder="street " />
-            <br />
-            <br />
-            <Link to='/maketransactionpayment'>
-                <button className="buttonin" >Add Card details</button>
-            </Link> 
+//             <text className="itemname"> Enter Address to proceed</text>   
+//             <br /> 
+//             <input className="edtemail" id="input"  placeholder="Country" onChange={(event) => {
+//                     setCountry(event.target.value)
+//             }}/> 
+//             <br />
+//             <input  className="edtpassword" id="input" placeholder="province"onChange={(event) => {
+//                     setProvince(event.target.value)
+//             }} />
+//             <br />
+//             <input className="edtemail" id="input"  placeholder="City" onChange={(event) => {
+//                     setCity(event.target.value)
+//             }}/>
+//             <br />
+//             <input className="edtemail" id="input" placeholder="street " onChange={(event) => {
+//                     setStreet(event.target.value)
+//             }}/>
+//             <br />
+//             <br />
+//             <Link to='/maketransactionpayment'>
+//                 <button className="buttonin" >Add Card details</button>
+//             </Link> 
 
-          </div>
+//           </div>
 
-  )
-}
+//   )
+// }
 
 function Name() {
 

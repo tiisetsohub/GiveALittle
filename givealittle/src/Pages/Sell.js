@@ -20,8 +20,8 @@ export default function Sell() {
 
 
     const addItem = async () => {           //handles adding an item to database
-        await addDoc(itemRef, { Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg, Seller: name });
-        alert("Added")
+        await addDoc(itemRef, {Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg, Seller: name });
+        alert("Added") 
         
     }
 

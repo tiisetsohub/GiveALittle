@@ -152,7 +152,6 @@ export default function Landing() {
     return (
         <div>
             <Navbar />
-            {console.log({cartitems})}
             {
                 show ? <div className="reviewdiv">
                     {text}

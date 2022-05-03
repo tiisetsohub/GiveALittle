@@ -7,12 +7,12 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import './MakeTransaction.css';
 import { CartContext } from '../Context'
-import { NameContext, LoginContext } from '../Context'
+import { NameContext, LoginContext ,CarddetailsContext} from '../Context'
 import { connectFirestoreEmulator } from 'firebase/firestore';
 
 
 export default function Payment() {
-
+    const { cardno, setCardNo } = useContext(CarddetailsContext); 
     const [cartitems, setCartItems] = useState([])
     const { login, setLogin } = useContext(LoginContext)  
     const { cart, setCart } = useContext(CartContext);
@@ -25,17 +25,10 @@ export default function Payment() {
           total += element.Price;
         }
         total = total.toFixed(2);
-    function Login() {
- 
-        console.log({login} ,{name})
-    }  
-
-    
-
-    return (
+        return (
         <div className="navbar">
             <Navbar />
-            <Login />
+            
             {cart.map(function(currentValue){
                 return (
                     <div className="cartitemdiv-p">
@@ -52,7 +45,7 @@ export default function Payment() {
             <text className='textin'>R{total}</text>
         </div>
         <div className='centre'>
-          <text className='textin-p'>Card number...</text>
+          <text className='textin-p'>...{cardno.slice(5,11)}</text>
           <button className ="buttonin" >Check out</button>
         </div>
           </div>

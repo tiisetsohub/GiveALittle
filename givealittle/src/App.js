@@ -12,7 +12,7 @@ import MakeTransactionPayment from './Pages/MakeTransactionPayment'
 import Payment from './Pages/Payment'
 import About from './Pages/About'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { NameContext, LoginContext, CartContext } from './Context'      //imports all global contexts in here where they will be initialized
+import { NameContext, LoginContext, CartContext, CarddetailsContext} from './Context'      //imports all global contexts in here where they will be initialized
 import { useState } from 'react'
 
 function App() {
@@ -22,10 +22,12 @@ function App() {
   const [login, setLogin] = useState(false)   //global context for knowing if someone is logged in
 
   const [cart, setCart] = useState("")      //global context for a persons cart
+  const [cardno, setCardNo] = useState("") 
   return (
     <CartContext.Provider value={{ cart, setCart }}>      {/*provider for global cart*/}
       <LoginContext.Provider value={{ login, setLogin }}>   {/*provider for global login checker*/}
         <NameContext.Provider value={{ name, setName }} >   {/*provider for global name*/}
+          <CarddetailsContext.Provider value={{ cardno, setCardNo  }} >       
           <Router>                       {/*stores all the routes to all pages*/}
             <Switch>                      {/*allows for different routes*/}
               <Route exact path="/">        {/*route to home page*/}
@@ -73,7 +75,7 @@ function App() {
 
             </Switch>
           </Router>
-
+          </CarddetailsContext.Provider>
         </NameContext.Provider>
       </LoginContext.Provider>
     </CartContext.Provider>

@@ -16,7 +16,7 @@ export default function Login() {
     const { login, setLogin } = useContext(LoginContext)
 
     async function handleLogin() {      //function that handles login
-        console.log(move)
+   
         setLoading(true);
         try {
             await loginmethod(emailRef.current.value, passwordRef.current.value);
@@ -27,7 +27,7 @@ export default function Login() {
             alert('Error!')
         }
         setLoading(false);
-        console.log(move)
+
 
         return move;
     }
