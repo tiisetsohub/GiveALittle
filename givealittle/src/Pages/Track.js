@@ -140,6 +140,9 @@ function Navbar() {
           <Link className="navlink" to="/login">
             <p>Contact</p>
           </Link>
+          <Link className="navlink" to="/sold">
+            <p>Sold</p>
+          </Link>
         </div>
         <button onClick={() => setShowLinks(!showLinks)} className="btnthings">
           ≡

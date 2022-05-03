@@ -67,7 +67,7 @@ export default function Landing() {
                 <Link className="navlink" to="/about">
                   <p>About</p>
                 </Link>
-                <Link className="navlink" to="/login">
+                <Link className="navlink" to="/contact">
                   <p>Contact</p>
                 </Link>
                 <Link className="navlink" to="/track">
@@ -144,7 +144,7 @@ export default function Landing() {
               <Link className="navlink" to="/about">
                 <p>About</p>
               </Link>
-              <Link className="navlink" to="/login">
+              <Link className="navlink" to="/contact">
                 <p>Contact</p>
               </Link>
               <Link
