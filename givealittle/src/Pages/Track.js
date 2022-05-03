@@ -99,7 +99,8 @@ export default function Track() {
         <Container fluid="lg">
           <Row style={{ justifyContent: "center" }}>
             {bought.map((product) => {
-              if (product.ItemBuyer === name)
+              
+              if (product.Buyer === name)
                 //the logged in user should only see his/her items that they recently bought.
                 return (
                   <div

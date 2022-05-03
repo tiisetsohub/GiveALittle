@@ -42,7 +42,7 @@ function SellersLanding() {
       <Container fluid="lg">
         <Row style={{ justifyContent: "center" }}>
           {Inventory.map((product) => {
-            if(product.ItemOwner == name) // the logged should see all his/her products that they put for sale.
+            if(product.Seller == name) // the logged should see all his/her products that they put for sale.
             return (
               <Col xs="auto">
                 <ProductInsightsCard

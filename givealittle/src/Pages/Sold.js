@@ -77,6 +77,7 @@ export default function Sold() {
     const [state, setState] = React.useState({
       right: false,
     });
+    
     const update = async () => {
       const docSnap = await getDoc(doc(db, "Bought", item.item_id));
       const newInfo = [];
@@ -193,7 +194,7 @@ export default function Sold() {
         <button className="btnclose" onClick={() => setShow(false)}>
           <KeyboardBackspaceIcon />
         </button>
-        <div className="buyer">Reciever: {item.ItemBuyer}</div>
+        <div className="buyer">Reciever: {item.Buyer}</div>
         <div className="prodView">
           <div className="left-side">
             <Card sx={{ maxWidth: 345 }}>
@@ -247,7 +248,7 @@ export default function Sold() {
       ) : (
         <div className="bodydiv">
           {purchased.map((item) => {
-            if (item.ItemOwner == name)
+            if (item.Seller == name)
               //the logged in user should only see his/her products that they have been bought buy others.
               return (
                 <div

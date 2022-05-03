@@ -24,7 +24,7 @@ export default function Sell() {
       Price: newPrice,
       Quantity: newQuantity,
       Image: newImg,
-      ItemOwner: name,
+      Seller: name,
     });
     alert("Added");
   };
