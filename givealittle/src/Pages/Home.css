@@ -133,8 +133,18 @@ button:hover {
 
 .itemstar {
     width: max-content;
+    font-size: 14px;
+    float: left;
+    padding-left: 5px;
+    padding-right: 5px;
+    
+}
+
+.itemstarIcon {
+    width: max-content;
     font-size: 17px;
     float: left;
+    color:#f7b80a;
 
     padding-left: 20px;
     padding-right: 5px;

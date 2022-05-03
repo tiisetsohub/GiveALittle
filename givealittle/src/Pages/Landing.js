@@ -24,20 +24,28 @@ export default function Landing() {
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null);
 
-    const [newStar, setNewStar] = useState("");              //state for star review
-    const [newReview, setNewReview] = useState("");              //state for star review
+    // Variables for reviews
+    let str = ""
+    let rev = ""
 
-    // const Ref = collection(db, "Inventory", "01vlFmkEwTlQbjOxqPI0");
-    const AddReview = async (item) => {           //handles adding a review to database
+    const AddReview = async (item, review) => {           //handles adding a review to database
         await setDoc(
             doc(db, "Inventory", item.id),
             {
-                Stars: newStar,
-                Review:  newReview,
+                Review:  review,
             },
             {merge: true}
         );
-        alert("Added")
+        alert("Review submitted")
+    }
+    const AddStar = async (item, review) => {           //handles adding a review to database
+        await setDoc(
+            doc(db, "Inventory", item.id),
+            {
+                Stars: review,
+            },
+            {merge: true}
+        );
     }
 
     
@@ -56,7 +64,15 @@ export default function Landing() {
                 wholeSum = wholeSum + parseInt(starCount[i]);
             }
         }
-        return wholeSum/(starCount.length-check);
+        let average = wholeSum/(starCount.length-check);
+
+        if (starCount.length == 0){
+            return 5;
+        }
+        else{
+           return average.toFixed(1); 
+        }
+        
     }
 
     function Navbar() {
@@ -207,21 +223,19 @@ export default function Landing() {
                     
                     <input type="number" id="input" placeholder="Stars" min="1" max="5" onChange={(event) => {
                     let t = parseInt(event.target.value)
-                    let str = ""+item.Stars+"*"+t.toString()
-                    setNewStar(str.toString())
-                    
-                    
-                    console.log(newStar)
+                    str = ""+item.Stars+"*"+t.toString()
+    
                     }} />
                     <input className="edtdesc" id="input" placeholder="Item Review" onChange={(event) => {
-                        setNewReview(item.Review+"*"+event.target.value)
+                        rev = item.Review+"*"+event.target.value
                     }} />
                     
                     <div>
                     <button className="btnclose" onClick={() => {
-                        AddReview(item)
-                        // setShowReview(false)
-                        // ProductView(item)
+                        AddStar(item, str)
+                        AddReview(item, rev)
+                        setShowReview(false)
+                        ProductView(item)
                     }}>Submit</button>
                     </div>
                 </div>
@@ -284,7 +298,7 @@ export default function Landing() {
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
                                 <h1 className="itemprice">R{item.Price}</h1>
-                                <h1 className="itemstar"><BsStarFill/>{avgStars(item.Stars)}</h1>
+                                <h1 className="itemstar"><BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}</h1>
                                 {(() => {
                                     if (item.Quantity == 0) {
                                     return (
