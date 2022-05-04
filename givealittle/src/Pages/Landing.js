@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context'
 import { NameContext } from '../Context';
-
+import { CgProfile } from 'react-icons/cg';
 
 //identical to home.js
 
@@ -69,6 +69,10 @@ export default function Landing() {
                 <div className="navbar">
                     <div className="leftside">
                         <div className="links" id={showLinks ? "hidden" : ""}>
+                            <Link className="profile-icon" >
+                                <CgProfile className='profile-icon'/>
+                            </Link>
+                            
                             <Link className="navlink" to='/sellerslanding'>
                                 <p>Sell</p>
                             </Link>
@@ -86,6 +90,7 @@ export default function Landing() {
                             }}>
                                 <p>Cart</p>
                             </Link>
+                            
                         </div>
                         <button onClick={() => setShowLinks(!showLinks)} className="btnthings">
                             ≡

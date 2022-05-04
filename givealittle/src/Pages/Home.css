@@ -370,3 +370,9 @@ h6 {
     font-weight: lighter;
     color: #34473b
 }
+
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    color:#F0F0F0;
+}
