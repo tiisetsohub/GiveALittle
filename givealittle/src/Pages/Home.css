@@ -40,13 +40,13 @@ button:hover {
     transition: 0.5s;
     animation: ease-in;
     border-radius: 5px;
-    color: rgb(0, 0, 0);
     background-color: #B38B59;
     border: 0px solid;
     left: 2px;
+    position: absolute;
     margin-top: 10px;
-    text-align: center;
-    color: white;
+    color : white;
+
 }
 
 .btnadd {
@@ -68,6 +68,7 @@ button:hover {
     border-radius: 3px;
     color: black;
     border: 1px solid #113E21;
+    margin-right: 10px;
 }
 
 
