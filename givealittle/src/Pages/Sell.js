@@ -7,6 +7,7 @@ import './Login.css';
 import { NameContext } from '../Context';
 import SpecsPage from './SpecsPage';
 
+
 export default function Sell() {
     const [newName, setNewName] = useState("");     //state for item name
     const [newDescription, setNewDesnewDescription] = useState("");         //state for description 
@@ -66,7 +67,7 @@ export default function Sell() {
                 }} />
                 <br />
 
-                <h2>Product Specifications</h2>
+                <h4>Add Product Specifications</h4>
                 <SpecsPage Specs={Specs} setSpecs={setSpecs}/>
 
                 <Link to="/sellerslanding">

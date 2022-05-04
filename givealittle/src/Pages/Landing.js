@@ -69,7 +69,7 @@ export default function Landing() {
                 <div className="navbar">
                     <div className="leftside">
                         <div className="links" id={showLinks ? "hidden" : ""}>
-                            <Link className="profile-icon" >
+                            <Link className="profile-icon" to='/profile'>
                                 <CgProfile className='profile-icon'/>
                             </Link>
                             

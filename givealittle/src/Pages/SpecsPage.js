@@ -1,7 +1,10 @@
 import Spec from "../components/Spec";
 import { useState} from 'react'
-
 import React from 'react'
+import { MdOutlinePostAdd } from 'react-icons/md';
+import '../components/SellersPage.css'
+
+
 
 function SpecsPage({Specs, setSpecs}) {
 
@@ -37,7 +40,7 @@ function SpecsPage({Specs, setSpecs}) {
                 
             )
         })}
-        <button onClick={addNewSpec}>Add Spec</button>
+        <button className="button-add-spec" onClick={addNewSpec} ><MdOutlinePostAdd style={{width: "25px", height: "25px"}}/> Add Spec</button>
     </div>
   )
 }

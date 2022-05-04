@@ -140,6 +140,18 @@
     align-items: center;
 }
 
+.profile-details-container {
+    margin-top: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 30px;
+    background-color: #eee8e0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .detail-bg {
     background-color: #fffaf4;
     border-radius: 30px;
@@ -152,7 +164,14 @@
     margin-top: 10px;
 }
 
-
+.button-add-spec {
+    border: none;
+    border-radius: 5px;
+    background-color: #50A181;
+    height: 35px;
+    color: white;
+    margin-top: 6px;
+}
 
 
 

@@ -15,6 +15,7 @@ import About from './Pages/About'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NameContext, LoginContext, CartContext, CarddetailsContext} from './Context'      //imports all global contexts in here where they will be initialized
 import { useState } from 'react'
+import Profile from './Pages/Profile';
 
 function App() {
 
@@ -58,20 +59,24 @@ function App() {
               <Route path="/about">                 {/*route to about page*/}
                 <About />
               </Route>
-              <Route path="/track">                 {/*route to about page*/}
+              <Route path="/track">                 {/*route to track page*/}
                 <Track />
               </Route>
 
-              <Route path="/maketransactionaddress">                 {/*route to about page*/}
+              <Route path="/maketransactionaddress">                 {/*route to maketransaction page*/}
                 <MakeTransactionAddress />
               </Route>
 
-              <Route path="/maketransactionpayment">                 {/*route to about page*/}
+              <Route path="/maketransactionpayment">                 {/*route to maketransaction page*/}
                 <MakeTransactionPayment />
               </Route>
 
-              <Route path="/payment">                 {/*route to about page*/}
+              <Route path="/payment">                 {/*route to payment page*/}
                 <Payment />
+              </Route>
+
+              <Route path="/profile">                 {/*route to profile page*/}
+                <Profile />
               </Route>
 
             </Switch>
