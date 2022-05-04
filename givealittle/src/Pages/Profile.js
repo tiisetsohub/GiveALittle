@@ -27,7 +27,7 @@ function Profile() {
         {Users.map((user, idx) => (
          user.Email == name
         ? (
-            <div className='profile-details-container'>
+            <div key={idx} className='profile-details-container'>
                 <h1 className='detail'>Name: <span className='detail-bg'>{user.Name}</span></h1>
                 <h1 className='detail'>Email: <span className='detail-bg'>{user.Email}</span></h1>
                 <h1 className='detail'>Cell: <span className='detail-bg'>{user.Cell}</span></h1>
