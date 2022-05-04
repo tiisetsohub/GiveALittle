@@ -148,10 +148,10 @@ export default function Landing() {
                     <div>
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
-                    {Users.map((user, idx) => (
+                    {Users.map((user, index) => (
                         user.Email == item.Seller
                     ? (
-                        <p>Sold By : {user.Name}</p>
+                        <p key={index}>Sold By : {user.Name}</p>
                     )
                     : null
                     ))}
@@ -164,14 +164,18 @@ export default function Landing() {
 
                     <p>{item.Description}</p>
 
+
+                    {item.Specs != undefined ?
                     <h4 className='table-title'>Product Specifications</h4>
+                    : <h4></h4>
+                    }
                     
                     
                     {item.Specs != undefined ? 
                         
                     item.Specs.map((spec, index) => {
                         return (
-                            <div className='spec-container' style={{marginBottom: "0"}}>
+                            <div className='spec-container' style={{marginBottom: "0"}} key={index}>
                                 <h6 className='spec-name' style={{marginBottom: "0"}}>{spec.spec}</h6>
                                 <h6 className="spec-detail" style={{marginBottom: "0"}}>{spec.detail}</h6>
                             </div>
@@ -199,10 +203,10 @@ export default function Landing() {
                     {text}
                 </div> :
                     <div className="bodydiv" >
-                        {Inventory.map((item) => {
+                        {Inventory.map((item, index) => {
 
                             
-                            return <div className="itemdiv" onClick={() => {
+                            return <div key={index} className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
                                 <img src={item.Image} alt="nope" />
