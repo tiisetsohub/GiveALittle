@@ -192,12 +192,15 @@ export default function Landing() {
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
 
+                    <div>
                         < ReactStars
                         size={30}
                         count={5}
                         isHalf={true}
                         onChange={ratingChanged}
                         />
+
+                    </div>
                     
                     <input className="edtdesc" id="input" placeholder="Item Review" onChange={(event) => {
                         rev = item.Review+"*"+event.target.value

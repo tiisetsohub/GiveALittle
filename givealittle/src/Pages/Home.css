@@ -360,6 +360,6 @@ input[type="radio"] {
 }
 
 .star{
-    cursor: pointer;
-    transition: color 200ms;
+    align-items: center;
+    margin-left: 50px;
 }
