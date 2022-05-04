@@ -158,9 +158,31 @@ export default function Landing() {
                     
 
                     <h3>{item.Name}</h3>
-                    <p>{item.Description}</p>
+
                     <h1 className="product-view-price">R{item.Price}</h1>
-                    <div>
+
+
+                    <p>{item.Description}</p>
+
+                    <h4 className='table-title'>Product Specifications</h4>
+                    
+                    
+                    {item.Specs != undefined ? 
+                        
+                    item.Specs.map((spec, index) => {
+                        return (
+                            <div className='spec-container' style={{marginBottom: "0"}}>
+                                <h6 className='spec-name' style={{marginBottom: "0"}}>{spec.spec}</h6>
+                                <h6 className="spec-detail" style={{marginBottom: "0"}}>{spec.detail}</h6>
+                            </div>
+                        )
+                    })
+
+                    : <h1></h1>}
+                    
+
+
+                    <div className="add-to-cart">
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
                     </div>
