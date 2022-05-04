@@ -19,8 +19,8 @@ import { applyActionCode } from 'firebase/auth';
 function SellersLanding() {
 
   const [currentUser, setCurrentUser] = useState();
-  const [Inventory, setItems] = useState([]);           //state for inventory
-  const itemRef = collection(db, "Inventory");            //reference to inventory in database
+  const [SellItems, setItems] = useState([]);           //state for inventory
+  const itemRef = collection(db, "SellItems");            //reference to inventory in database
 
 
   useEffect(() => {       //loads data from database
@@ -50,7 +50,7 @@ function SellersLanding() {
 
       <Container fluid="lg">
         <Row style={{justifyContent: "center"}}>
-          {Inventory.map((product) => {
+          {SellItems.map((product) => {
             return(
               <Col xs="auto">
                 <ProductInsightsCard

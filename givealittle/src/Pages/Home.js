@@ -10,8 +10,8 @@ export default function Home() {
     const [cartitems, setCartItems] = useState([])      //state for local cart array
     const [show, setShow] = useState(false);            //state for showing cart
     const [text, setText] = useState("");                //state for product text
-    const [Inventory, setItems] = useState([]);           //state for inventory
-    const itemRef = collection(db, "Inventory");            //reference to inventory in database
+    const [SellItems, setItems] = useState([]);           //state for inventory
+    const itemRef = collection(db, "SellItems");            //reference to inventory in database
     const { cart, setCart } = useContext(CartContext);          //context for global cart
 
 
@@ -32,7 +32,7 @@ export default function Home() {
                 cartitems.map(function (currentValue, index, array) {
                     return index >= 0 ? <div className="cartitemdiv">
                         <div className="cartleft">
-                            <img src={currentValue.Image} className="pic" />
+                            <img src={currentValue.Image1} className="pic" />
                         </div>
                         <div className="cartright">
                             <h6 className="cartid">{currentValue.Name}</h6>
@@ -133,7 +133,7 @@ export default function Home() {
                     <button className="btnclose" onClick={() => setShow(false)}>Close</button>
 
                     <div>
-                        <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
+                        <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image1} />
                     </div>
                     
                     <h3>{item.Name}</h3>
@@ -159,11 +159,11 @@ export default function Home() {
                     {text}      {/*ternary to show cart*/}
                 </div> :
                     <div className="bodydiv" >
-                        {Inventory.map((item) => {
+                        {SellItems.map((item) => {
                             return <div className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
-                                <img src={item.Image} alt="nope" />
+                                <img src={item.Image1} alt="nope" />
 
                                 <div className="item-info-container">
                                 <div className="textdiv">

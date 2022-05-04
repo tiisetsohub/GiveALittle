@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext  } from 'react';
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs, addDoc } from "firebase/firestore";
@@ -13,8 +13,8 @@ export default function Landing() {
     const [cartitems, setCartItems] = useState([])
     const [show, setShow] = useState(false);
     const [text, setText] = useState("hey");
-    const [Inventory, setItems] = useState([]);
-    const itemRef = collection(db, "Inventory");
+    const [SellItems, setItems] = useState([]);
+    const itemRef = collection(db, "SellItems");
     const { cart, setCart } = useContext(CartContext)
 
 
@@ -32,7 +32,7 @@ export default function Landing() {
                 cartitems.map(function (currentValue, index, array) {
                     return index >= 0 ? <div className="cartitemdiv">
                         <div className="cartleft">
-                            <img src={currentValue.Image} className="pic" />
+                            <img src={currentValue.Image1} className="pic" />
                         </div>
                         <div className="cartright">
                             <h6 className="cartid">{currentValue.Name}</h6>
@@ -146,6 +146,7 @@ export default function Landing() {
         )
     }
 
+
     return (
         <div>
             <Navbar />
@@ -154,13 +155,13 @@ export default function Landing() {
                     {text}
                 </div> :
                     <div className="bodydiv" >
-                        {Inventory.map((item) => {
+                        {SellItems.map((item) => {
 
                             
                             return <div className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
-                                <img src={item.Image1} alt="nope" />
+                                <img src={item.Image1} alt="nope"  />
                                 <div className="textdiv">
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
