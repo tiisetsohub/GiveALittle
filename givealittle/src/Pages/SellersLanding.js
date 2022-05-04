@@ -17,6 +17,7 @@ import {
 } from 'reactstrap';
 import { applyActionCode } from 'firebase/auth';
 import { async } from '@firebase/util';
+import Navigation from '../components/Navigation';
 
 function SellersLanding() {
 
@@ -50,7 +51,7 @@ useEffect(() => {
   return (
     <div className='body'>
 
-      <Navbar/>
+      <Navigation/>
       <div style={{textAlign: "center"}}>
 
       <div>
@@ -92,28 +93,6 @@ useEffect(() => {
   )
 }
 
-function Navbar() {
-  const [showLinks, setShowLinks] = useState(false);
-  return (
-      <div className="navbar">
-          <div className="leftside">
-              <div className="links" id={showLinks ? "hidden" : ""}>
-                  <Link className="navlink" to='/landing'>
-                      <p>Home</p>
-                  </Link>
-                  <Link className="navlink" to='/login'>
-                      <p>About</p>
-                  </Link>
-                  <Link className="navlink" to='/login'>
-                      <p>Contact</p>
-                  </Link>
-              </div>
-              <button onClick={() => setShowLinks(!showLinks)} className="btnthings">
-                  ≡
-              </button>
-          </div>
-      </div>
-  )
-}
+
 
 export default SellersLanding

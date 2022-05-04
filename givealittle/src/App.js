@@ -1,4 +1,5 @@
 //All pages imported to this folder
+import SpecsPage from './Pages/SpecsPage';
 import './App.css';
 import Home from './Pages/Home'
 import Login from './Pages/Login'
@@ -14,6 +15,7 @@ import About from './Pages/About'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NameContext, LoginContext, CartContext, CarddetailsContext, AddressContext} from './Context'      //imports all global contexts in here where they will be initialized
 import { useState } from 'react'
+import Profile from './Pages/Profile';
 
 function App() {
 
@@ -59,32 +61,36 @@ function App() {
                     <Sell />
                   </Route>
 
-                  <Route path="/about">                 {/*route to about page*/}
-                    <About />
-                  </Route>
-                  <Route path="/track">                 {/*route to about page*/}
-                    <Track />
-                  </Route>
+              <Route path="/about">                 {/*route to about page*/}
+                <About />
+              </Route>
+              <Route path="/track">                 {/*route to track page*/}
+                <Track />
+              </Route>
 
-                  <Route path="/maketransactionaddress">                 {/*route to about page*/}
-                    <MakeTransactionAddress />
-                  </Route>
+              <Route path="/maketransactionaddress">                 {/*route to maketransaction page*/}
+                <MakeTransactionAddress />
+              </Route>
 
-                  <Route path="/maketransactionpayment">                 {/*route to about page*/}
-                    <MakeTransactionPayment />
-                  </Route>
+              <Route path="/maketransactionpayment">                 {/*route to maketransaction page*/}
+                <MakeTransactionPayment />
+              </Route>
 
-                  <Route path="/payment">                 {/*route to about page*/}
-                    <Payment />
-                  </Route>
+              <Route path="/payment">                 {/*route to payment page*/}
+                <Payment />
+              </Route>
 
-                </Switch>
-              </Router>
-            </CarddetailsContext.Provider>
-          </NameContext.Provider>
-        </LoginContext.Provider>
-      </CartContext.Provider>
-    </AddressContext.Provider>
+              <Route path="/profile">                 {/*route to profile page*/}
+                <Profile />
+              </Route>
+
+            </Switch>
+          </Router>
+          </CarddetailsContext.Provider>
+        </NameContext.Provider>
+      </LoginContext.Provider>
+    </CartContext.Provider>
+  </AddressContext.Provider>
   );
 }
 
