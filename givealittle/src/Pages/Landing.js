@@ -60,7 +60,7 @@ export default function Landing() {
         let average = wholeSum/(starCount.length-check);
 
         if (starCount.length == 0){
-            return 5.0;
+            return "5.0";
         }
         else{
            return average.toFixed(1); 

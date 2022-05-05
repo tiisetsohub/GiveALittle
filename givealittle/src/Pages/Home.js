@@ -31,13 +31,56 @@ export default function Home() {
                 wholeSum = wholeSum + parseInt(starCount[i]);
             }
         }
+        let average = wholeSum/(starCount.length-check);
 
         if (starCount.length == 0){
-            return ;
+            return "5.0";
         }
         else{
-            return wholeSum/(starCount.length-check);
-        }    
+           return average.toFixed(1); 
+        }
+        
+    }
+    // Function to put reviews in a list
+    function review(reviews){
+        const reviewList = reviews.toString().split("*");
+        return reviewList
+    }
+
+    // Funtion that returns the numbe of reviews
+    function reviewNumber(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+                console.log(i)
+
+            }
+        }
+        if (counter == 0){
+            return ""
+        }
+        else{
+            return " (" + counter.toString() + ")"
+        }
+    }
+    function reviewNumberIn(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+                console.log(i)
+
+            }
+        }
+        if (counter == 0){
+            return " "
+        }
+        else{
+            return " " + counter.toString()+ " "
+        }
     }
 
     
@@ -183,44 +226,34 @@ export default function Home() {
     return (
         <div>
             <Navbar />
-
             {
                 show ? <div className="reviewdiv">
-                    {text}      {/*ternary to show cart*/}
+                    {text}
                 </div> :
                     <div className="bodydiv" >
                         {Inventory.map((item) => {
+
+                            
                             return <div className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
-
                                 <img src={item.Image} alt="nope" />
-
-                                <div className="item-info-container">
                                 <div className="textdiv">
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
-
-                                    <div className="price-star-stock-container">
-                                    <h1 className="itemprice">R{item.Price}</h1>
-                                    <h1 className="itemstar"><BsStarFill/>{avgStars(item.Stars)}</h1>
-                                    {(() => {
-                                        if (item.Quantity == 0) {
-                                        return (
-                                            <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
-                                        )
-                                        } else {
-                                        return (
-                                            <h1 className="item-quantity">in stock</h1>
-                                        )
-                                        }
-                                    })()}
-                                    </div>
-                                    
-
-                                </div>
-                                
-
+                                <h1 className="itemprice">R{item.Price}</h1>
+                                <h1 className="itemstar"><BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}{reviewNumber(item.Review)}</h1>
+                                {(() => {
+                                    if (item.Quantity == 0) {
+                                    return (
+                                        <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
+                                    )
+                                    } else {
+                                    return (
+                                        <h1 className="item-quantity">in stock</h1>
+                                    )
+                                    }
+                                })()}
                             </div>
                         })}
                     </div>
