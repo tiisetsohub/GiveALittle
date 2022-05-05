@@ -29,35 +29,32 @@ export default function MakeTransactionPayment() {
       <div>
            <Navbar />
            <div className='container'>      {/*form containing all inputs for user*/}
-            <text className="itemname" >Add Card</text>
+            <text className="itemname" >Add card</text>
             <br />
-            
-            <text className='payement-text-cardno' >Card No.</text>
+            <br />
             <input className="input" id="input" placeholder="Card" onChange={(event) => {
                     setCardNumber(event.target.value)
                     setCardNo(event.target.value)
             }}/>
             <br />          
             <br />
-            <text   className='payement-text-expdate'>Exp.Date </text>
             <input className="input" id="input"  placeholder="MM/YY" onChange={(event) => {
                     setExpiredate(event.target.value)
             }}/>
             <br />
             <br />
-            <text  className='payement-text-cvv'>CVV</text>
             <input className="input" id="input" placeholder="123" onChange={(event) => {
                     setCVV(event.target.value)
             }}/>
             <br />
             <div className='center-add-card '>
-            <button className="buyttonin-add-card" onClick={addItem} >Add card</button>
             </div>
             
             <br />
 
             <Link to='/payment'>
-                <button className="buyttonin-cont-pay" >Continue to Check out</button>
+
+           <button className="buyttonin-add-card" onClick={addItem} >Check out</button>
             </Link>
             
           </div>     

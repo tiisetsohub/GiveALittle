@@ -7,9 +7,9 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import './MakeTransaction.css';
 import { CartContext } from '../Context'
-import { NameContext, LoginContext ,CarddetailsContext} from '../Context'
+import { NameContext, LoginContext ,CarddetailsContext, AddressContext} from '../Context'
 import { connectFirestoreEmulator } from 'firebase/firestore';
-
+import emailjs from 'emailjs-com'; // library used to send users emails
 
 export default function Payment() {
     const { cardno, setCardNo } = useContext(CarddetailsContext); 
@@ -18,7 +18,32 @@ export default function Payment() {
     const { cart, setCart } = useContext(CartContext);
     const { name, setName } = useContext(NameContext)
     let total = 0;   
+    const {address, setAddress} = useContext(AddressContext);
     
+
+    function completePurchase(){ // needs to be implemented
+  }
+      function sendemail() {
+      var userid = "Uhi73WxfmyePOs3wU"
+      emailjs.init(userid);
+
+ 
+          var details = {
+            email: name  // user email
+                         /* data which will be needed from template may be extracted from here,
+                         e.i ( name of user or subject of emaik)
+                         */
+      
+        };
+
+        emailjs.send('service_ew7io57', 'template_25ddejk', details).then(function (res) {
+          alert("Email Sent Successfully");
+        },
+          reason => {
+            alert("Error Occur");
+          })
+    
+    }
 
         for (let i = 0; i < cart.length; i++) {
             const element = cart[i];
@@ -26,31 +51,65 @@ export default function Payment() {
         }
         total = total.toFixed(2);
         return (
-        <div className="navbar">
+        <div>
             <Navbar />
-            
-            {cart.map(function(currentValue){
+            <div className = "sumdiv">
+              <h1 className="h1in">Summary</h1>
+              <br />
+              <h5>Items</h5>
+              {cart.map(function (currentValue) {
                 return (
-                    <div className="cartitemdiv-p">
-                        <div className="cartleft">
-                            <img src={currentValue.Image} className="pic" />
-                        </div>
-                        <div className="cartright">
-                            <h6 className="cartid">{currentValue.Name}</h6>
-                            <h6 className="cartpricep">R{currentValue.Price}</h6>
-                        </div>
-                    </div>)
-            })}
-        <div className="navbar">
-            <text className='textin'>R{total}</text>
+
+                  <div className="cartitemdiv-p">
+                    <div className="cartleft">
+                      <img src={currentValue.Image} className="pic" />
+                    </div>
+                    <div className="cartright">
+                      <h6 className="cartid">{currentValue.Name}</h6>
+                      <h6 className="cartpricep">R{currentValue.Price}</h6>
+                    </div>
+                  </div>)
+              })}
+              <h5 className="h1in">Address</h5>
+              <div className="addressdiv">
+                <img src="https://www.seekpng.com/png/full/118-1180099_png-file-house-home-icon.png" />
+                <div>
+
+                  <p>{address.Country}</p>
+                  <p>{address.Province}</p>
+                  <p>{address.City}</p>
+                  <p>{address.Street}</p>
+                </div>
+              </div>
+
+              <h5 className="h1in">Card Details</h5>
+              <div className="addressdiv">
+                <img src="https://cdn-icons-png.flaticon.com/512/60/60378.png?w=1380&t=st=1651582181~exp=1651582781~hmac=7e16d4933aefb967e8f5585cd86d6926305e5738b2f3c72b58dc93b4c9dc1c1d" />
+                <div>
+
+                  <p></p>
+                  <p>{address.Province}</p>
+                  <p>{address.City}</p>
+                  <p>{address.Street}</p>
+                </div>
+              </div>
+
+              
+
+            </div>
+
+
+
+            <div className="totalbar">
+              <text className='textin'>R{total}</text>
+              <button className="btncomplete" onClick={sendemail}>Purchase</button>
+            </div>
         </div>
-        <div className='centre'>
-          <text className='textin-p'>...{cardno.slice(5,11)}</text>
-          <button className ="buttonin" >Check out</button>
-        </div>
-          </div>
+
+
     )
 }
+
 
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
