@@ -115,11 +115,14 @@ export default function Home() {
     }, []);
 
     function handleCartItems(item,num) {        //handles adding an item to the cart
-        alert('Item added to cart')
-        alert(num)
+        // console.log(cartitems);
+        for(var i = 0;i<parseInt(num);i++){
+        
         setCartItems(prev => {
             return cartitems.includes(item) ? prev : [...prev, item];
         })
+    }
+    alert(num + ' Items added to cart');
     }
 
     useEffect(() => {           //updates the global cart to match the local cart
