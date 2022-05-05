@@ -23,13 +23,12 @@
 }
 
 .card {
-    position: static;
     width: auto;
     height: auto;
     display: flex;
     box-shadow: 0px 0px 10px -5px rgb(93, 93, 93);
     margin: 30px;
-    border-radius: 5px;
+    border-radius: 10px;
     transition: 0.5s;
     animation: ease-in-out;
 }
@@ -46,7 +45,6 @@
     height: 250px;
     border-radius: 5px;
     box-shadow: 0px 0px 10px -5px rgb(93, 93, 93);
-    position: relative;
     top: 0px;
     left: 0px
 }
@@ -55,75 +53,93 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%;
     padding: 15px;
-    border-radius: 5px;
-    background-color: #F0F0F0;
+    border-radius: 10px;
+    margin: 5px;
+    background-color: #f9f8f6;
+}
+
+.numbers-container {
+    display: flex;
+    width: auto;
+    height: 185px;
+    flex-direction: column;
+    background-color: #f9f8f6;
+    border-radius: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     position: absolute;
-    top: 0;
-    left: 250px;
-    right: 0px;
+    top: 60px;
+    left: 255px;
+    right: 5px;
 }
 
 .name{
     font-weight: bold;
     font-size: 20px;
-    margin-top: 30px;
 }
 
 .delete-button {
-    width: 100px;
+    width: auto;
     position: absolute;
     right: 15px;
     top: 15px;
     border: none;
-    background-color: #C25450;
+    background-color: transparent;
     border-radius: 15px;
-    color: white;
+    color:#C25450;
     transition: 0.5s;
     animation:alternate;
 }
 
 .delete-button:hover{
-    transform: scale(0.9);
+    transform: scale(1.3);
+}
+
+.delete-button:active {
+    color: rgb(255, 250, 104);
 }
 
 .edit-button {
-    width: 100px;
+    width: auto;
     position: absolute;
-    right: 120px;
+    right: 60px;
     top: 15px;
     border: none;
-    background-color: #50A181;
+    background-color: transparent;
     border-radius: 15px;
-    color: white;
+    color: #50A181;
     transition: 0.5s;
     animation:alternate;
 }
 
 .edit-button:hover{
-    transform: scale(0.9);
+    transform: scale(1.3);
+}
+
+.edit-button:active {
+    color:rgb(255, 250, 104);
 }
 
 .description {
     font-size: 14px;
 }
 
-.numbers-container {
-    display: flex;
-    justify-content: space-between;
-    background-color: #eee8e0;
-    border-radius: 15px;
-    padding-left: 10px;
-    padding-right: 10px;
-}
+
 
 .price {
-    font-size: 16px;
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: bolder;
 }
 
 .stock {
-    font-size: 16px;
+    display: inline-block;
+    font-size: 18px;
+    font-weight: bolder;
+    margin-left: 10px;
 }
 
 .sold {
@@ -171,6 +187,10 @@
     height: 35px;
     color: white;
     margin-top: 6px;
+}
+
+.body {
+    background-color: #F0F0F0;
 }
 
 

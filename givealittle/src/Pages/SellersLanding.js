@@ -81,6 +81,7 @@ useEffect(() => {
               description={product.Description}
               price={product.Price}
               quantity={product.Quantity}
+              specs={product.Specs}
             />
             )
             : null
