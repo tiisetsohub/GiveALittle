@@ -1,8 +1,8 @@
 import React from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import './MakeTransaction.css';
@@ -10,6 +10,7 @@ import { CartContext } from '../Context'
 import { NameContext, LoginContext ,CarddetailsContext, AddressContext} from '../Context'
 import { connectFirestoreEmulator } from 'firebase/firestore';
 import emailjs from 'emailjs-com'; // library used to send users emails
+import { Redirect } from 'react-router-dom';
 
 export default function Payment() {
     const { cardno, setCardNo } = useContext(CarddetailsContext); 
@@ -18,12 +19,10 @@ export default function Payment() {
     const { cart, setCart } = useContext(CartContext);
     const { name, setName } = useContext(NameContext)
     let total = 0;   
-    const {address, setAddress} = useContext(AddressContext);
-    
+    const { address, setAddress } = useContext(AddressContext);
 
-    function completePurchase(){ // needs to be implemented
-  }
-      function sendemail() {
+   
+    function sendemail() {
       var userid = "Uhi73WxfmyePOs3wU"
       emailjs.init(userid);
 
@@ -37,7 +36,8 @@ export default function Payment() {
         };
 
         emailjs.send('service_ew7io57', 'template_25ddejk', details).then(function (res) {
-          alert("Email Sent Successfully");
+          alert("Purchase successful");
+
         },
           reason => {
             alert("Error Occur");
@@ -86,11 +86,8 @@ export default function Payment() {
               <div className="addressdiv">
                 <img src="https://cdn-icons-png.flaticon.com/512/60/60378.png?w=1380&t=st=1651582181~exp=1651582781~hmac=7e16d4933aefb967e8f5585cd86d6926305e5738b2f3c72b58dc93b4c9dc1c1d" />
                 <div>
-
-                  <p></p>
-                  <p>{address.Province}</p>
-                  <p>{address.City}</p>
-                  <p>{address.Street}</p>
+                  <p>{cardno}</p>
+                  <p>1xx</p>
                 </div>
               </div>
 
