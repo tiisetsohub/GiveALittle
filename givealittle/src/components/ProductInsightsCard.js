@@ -1,6 +1,6 @@
 import React from 'react'
-import { MdDelete, MdEdit } from 'react-icons/md';
-
+import { MdDelete, MdEdit, MdExpandMore, MdExpandLess } from 'react-icons/md';
+import { useState } from "react"
 
 /**
  * Shows data about a product in sellers inventory. 
@@ -11,12 +11,34 @@ import { MdDelete, MdEdit } from 'react-icons/md';
 
 function ProductInsightsCard(product) {
 
+    const [collapse, setCollapse] = useState(true);
+
+    const handleCollapse = () => {
+        if (collapse) {
+            setCollapse(false);
+        }else{
+            setCollapse(true);
+        }
+    }
+
+
     return (
 
     <li className='card'>
 
         
         <img className='card-image' alt='' src={product.image}></img>
+
+        <div>
+            {collapse ? 
+            <div>
+                <MdExpandLess style={{height: "40px", width: "40px"}} onClick={handleCollapse}/>
+            </div>
+            : <div>
+                <MdExpandMore style={{height: "40px", width: "40px"}} onClick={handleCollapse}/>
+            </div>
+        }
+        </div>
 
         <div className='numbers-container'>
             <h5 className='name'>{product.name}</h5>
@@ -29,7 +51,7 @@ function ProductInsightsCard(product) {
             {/*<h5 className='sold'>Sold: 00</h5>*/}
         </div>
 
-        <div className='info-container'>
+        
             
             <button className='delete-button'>
                 <MdDelete style={{width: "30px", height: "30px"}}/>
@@ -39,7 +61,9 @@ function ProductInsightsCard(product) {
                 <MdEdit style={{width: "30px", height: "30px"}}/>
             </button>
 
-            <h6 className='description'>{product.description}</h6>
+                {!collapse ?
+                    <div className='info-container'>
+                        <h6 className='description'>{product.description}</h6>
 
                 {product.specs != undefined ?
                     <h4 className='table-title' style={{textAlign: "center"}}>Product Specifications</h4>
@@ -56,13 +80,14 @@ function ProductInsightsCard(product) {
                             <h6 className="spec-detail" style={{marginBottom: "0"}}>{spec.detail}</h6>
                         </div>
                     )
-                 })
+                })
 
                 : <h1></h1>}
-
-            
-            
-        </div>
+            </div>
+                : <h1></h1>
+            }
+           
+        
         
         
         
