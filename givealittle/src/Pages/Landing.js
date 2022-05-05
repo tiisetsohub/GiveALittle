@@ -26,6 +26,8 @@ export default function Landing() {
 
     // Variables for reviews
     let str = ""
+
+    let add = ""
     let rev = ""
 
 
@@ -81,8 +83,6 @@ export default function Landing() {
         for (let i = 0; i < review.length; i++){
             if (review[i] == '*'){
                 counter++;
-                console.log(i)
-
             }
         }
         if (counter == 0){
@@ -98,8 +98,6 @@ export default function Landing() {
         for (let i = 0; i < review.length; i++){
             if (review[i] == '*'){
                 counter++;
-                console.log(i)
-
             }
         }
         if (counter == 0){
@@ -107,6 +105,27 @@ export default function Landing() {
         }
         else{
             return counter.toString()+ " "
+        }
+    }
+    
+    // Reviews or Review or No Review
+    function correctReview(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+            }
+        }
+
+        if (counter == 0){
+            return "No reviews"
+        }
+        else if (counter == 1){
+            return "Review"
+        }
+        else{
+            return "Reviews"
         }
     }
     
@@ -237,21 +256,21 @@ export default function Landing() {
 
                     <div>
                         < ReactStars
-                        size={35}
+                        size={45}
                         count={5}
-                        isHalf={true}
+                        isHalf={false}
                         onChange={ratingChanged}
                         />
 
                     </div>
                     
                     <input className="edtdesc" id="input" placeholder="Item Review" onChange={(event) => {
-                        rev = item.Review+"*"+event.target.value
-                        
+                        add = "*"+event.target.value.toString()    
                     }} />
                     
                     <div>
                     <button className="btnclose" onClick={() => {
+                        rev = ""+item.Review+add
                         AddReview(item, str, rev)
                         setShowReview(false)
                         ProductView(item)
@@ -304,7 +323,7 @@ export default function Landing() {
 
                         <div>
                             <BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}
-                            <Link  onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}Reviews</Link>
+                            <Link  onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
                         </div>
 
                         {showReview ? <div className="reviewdiv">
