@@ -74,6 +74,43 @@ export default function Landing() {
         return reviewList
     }
 
+    // Funtion that returns the numbe of reviews
+    function reviewNumber(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+                console.log(i)
+
+            }
+        }
+        if (counter == 0){
+            return ""
+        }
+        else{
+            return " (" + counter.toString() + ")"
+        }
+    }
+    function reviewNumberIn(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+                console.log(i)
+
+            }
+        }
+        if (counter == 0){
+            return " "
+        }
+        else{
+            return " " + counter.toString()+ " "
+        }
+    }
+    
+
     function Navbar() {
         const [total, setTotal] = useState(0);
         const [showLinks, setShowLinks] = useState(false);
@@ -181,7 +218,7 @@ export default function Landing() {
 
     function handleReviews(item) {
         const ratingChanged = (rating) => {
-            let str = ""+item.Stars+"*"+rating.toString()
+            str = ""+item.Stars+"*"+rating.toString()
         }
         setShowReview(true)
         setText(
@@ -227,7 +264,7 @@ export default function Landing() {
 
     function viewReviews(item){
         const comments = review(item.Review);
-        const commentList = comments.map(comment => <h2>{comment}</h2>)
+        const commentList = comments.map(comment => <h1>{comment}</h1>)
         setShowReview(true)
         setText(
             <div>
@@ -265,20 +302,24 @@ export default function Landing() {
                     <div>
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
-                       
-                        {showReview ? <div className="reviewdiv">
-                        {text}
-                        </div> :
-                        <button className="btnReview" onClick={() => handleReviews(item)}>Review Item</button>
-                        }
 
                         <div>
+                            <BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}
+                            <Link  onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}Reviews</Link>
+                        </div>
+                        {/* <div>
                         {showRating ? <div className="reviewdiv">
                         {text}
                         </div> :
-                        <button className="btnReview" onClick={() => viewReviews(item)}>View reviews</button>
+                        <Link  onClick={() => viewReviews(item)}>{avgStars(item.Stars)}{reviewNumber(item.Review)}Reviews</Link>
                         }
-                        </div>
+                        </div> */}
+
+                        {showReview ? <div className="reviewdiv">
+                        {text}
+                        </div> :
+                        <button className="btnReview" onClick={() => handleReviews(item)}>Write a review</button>
+                        }
                     </div>
                     <div>
                         
@@ -307,7 +348,7 @@ export default function Landing() {
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
                                 <h1 className="itemprice">R{item.Price}</h1>
-                                <h1 className="itemstar"><BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}</h1>
+                                <h1 className="itemstar"><BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}{reviewNumber(item.Review)}</h1>
                                 {(() => {
                                     if (item.Quantity == 0) {
                                     return (
