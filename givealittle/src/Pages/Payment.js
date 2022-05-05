@@ -9,6 +9,7 @@ import './MakeTransaction.css';
 import { CartContext } from '../Context'
 import { NameContext, LoginContext ,CarddetailsContext, AddressContext} from '../Context'
 import { connectFirestoreEmulator } from 'firebase/firestore';
+import emailjs from 'emailjs-com'; // library used to send users emails
 
 export default function Payment() {
     const { cardno, setCardNo } = useContext(CarddetailsContext); 
@@ -21,6 +22,27 @@ export default function Payment() {
     
 
     function completePurchase(){ // needs to be implemented
+  }
+      function sendemail() {
+      var userid = "Uhi73WxfmyePOs3wU"
+      emailjs.init(userid);
+
+ 
+          var details = {
+            email: name  // user email
+                         /* data which will be needed from template may be extracted from here,
+                         e.i ( name of user or subject of emaik)
+                         */
+      
+        };
+
+        emailjs.send('service_ew7io57', 'template_25ddejk', details).then(function (res) {
+          alert("Email Sent Successfully");
+        },
+          reason => {
+            alert("Error Occur");
+          })
+    
     }
 
         for (let i = 0; i < cart.length; i++) {
@@ -80,7 +102,7 @@ export default function Payment() {
 
             <div className="totalbar">
               <text className='textin'>R{total}</text>
-              <button className="btncomplete" onClick={completePurchase}>Purchase</button>
+              <button className="btncomplete" onClick={sendemail}>Purchase</button>
             </div>
         </div>
 
