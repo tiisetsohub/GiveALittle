@@ -39,6 +39,8 @@ export default function Home() {
                         <div className="cartright">
                             <h6 className="cartid">{currentValue.Name}</h6>
                             <h6 className="cartpricep">R{currentValue.Price}</h6>
+                            <br />
+                            {/* <h6 className="cartpricep">Count: R{currentValue.Price}</h6> */}
                         </div>
                     </div> : null
                 })
@@ -47,12 +49,11 @@ export default function Home() {
             for (let i = 0; i < cartitems.length; i++) {            //set total price
                 const element = cartitems[i];
                 t += element.Price
-
             }
+
             t = t.toFixed(2)
 
             setTotal(t)     //changes total state to total price
-
         }
 
         return (
