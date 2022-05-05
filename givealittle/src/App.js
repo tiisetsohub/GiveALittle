@@ -12,6 +12,7 @@ import MakeTransactionAddress from './Pages/MakeTransactionAddress'
 import MakeTransactionPayment from './Pages/MakeTransactionPayment'
 import Payment from './Pages/Payment'
 import About from './Pages/About'
+import Review from './Pages/Review'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NameContext, LoginContext, CartContext, CarddetailsContext, AddressContext} from './Context'      //imports all global contexts in here where they will be initialized
 import { useState } from 'react'
@@ -46,9 +47,13 @@ function App() {
                     <Login />
                   </Route>
 
-                  <Route path="/signup">              {/*route to signup page*/}
-                    <Signup />
-                  </Route>
+              <Route path="/review">              {/*route to signup page*/}
+                <Review />
+              </Route>
+
+              <Route path="/signup">              {/*route to signup page*/}
+                <Signup />
+              </Route>
 
                   <Route path="/landing">                 {/*route to landing page*/}
                     <Landing />

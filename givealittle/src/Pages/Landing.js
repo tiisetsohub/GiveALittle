@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, setDoc, updateDoc, doc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context'
+import { BsStarFill } from "react-icons/bs";
+import ReactStars from "react-rating-stars-component"
+
 import { NameContext } from '../Context';
 import { CgProfile } from 'react-icons/cg';
 
@@ -15,12 +18,121 @@ export default function Landing() {
     const [cartitems, setCartItems] = useState([])
     const [show, setShow] = useState(false);
     const [text, setText] = useState("hey");
+
+    const [showReview, setShowReview] = useState(false);
+    const [showRating, setShowRating] = useState(false);
+
     const [Inventory, setItems] = useState([]);
     const itemRef = collection(db, "Inventory");
     const { cart, setCart } = useContext(CartContext)
     const {name, setName} = useContext(NameContext);
     const [Users, setUsers] = useState([]);
 
+    // Variables for reviews
+    let str = ""
+
+    let add = ""
+    let rev = ""
+
+
+    const AddReview = async (item, star, review) => {           //handles adding a review to database
+        await setDoc(
+            doc(db, "Inventory", item.id),
+            {
+                Review:  review,
+                Stars: star
+            },
+            {merge: true}
+        );
+        alert("Review submitted")
+    }
+
+    
+
+    // The following function count the average rating of each item (using stars)
+    function avgStars(stars){
+        let starCount = ""+ stars;
+        let wholeSum = 0;
+        let check = 0;
+
+        for (let i = 0; i <starCount.length ; i++){
+            if (starCount[i] == "*"){
+                check++;
+            }
+            else{
+                wholeSum = wholeSum + parseInt(starCount[i]);
+            }
+        }
+        let average = wholeSum/(starCount.length-check);
+
+        if (starCount.length == 0){
+            return "5.0 ";
+        }
+        else{
+           return average.toFixed(1)+" "; 
+        }
+        
+    }
+
+    // Function to put reviews in a list
+    function review(reviews){
+        const reviewList = reviews.toString().split("*");
+        return reviewList
+    }
+
+    // Funtion that returns the number of reviews
+    function reviewNumber(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+            }
+        }
+        if (counter == 0){
+            return ""
+        }
+        else{
+            return " (" + counter.toString() + ")"
+        }
+    }
+    function reviewNumberIn(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+            }
+        }
+        if (counter == 0){
+            return " "
+        }
+        else{
+            return counter.toString()+ " "
+        }
+    }
+    
+    // Reviews or Review or No Review
+    function correctReview(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+            }
+        }
+
+        if (counter == 0){
+            return "No reviews"
+        }
+        else if (counter == 1){
+            return "Review"
+        }
+        else{
+            return "Reviews"
+        }
+    }
+    
 
     useEffect(() => {
         const getUsers = async () => {
@@ -142,6 +254,78 @@ export default function Landing() {
         setCart(cartitems)
     }, [cartitems])
 
+    function handleReviews(item) {
+        const ratingChanged = (rating) => {
+            str = ""+item.Stars+"*"+rating.toString()
+        }
+        setShowReview(true)
+        setText(
+            <div>
+                <div className="item-container">
+                    <button className="btnclose" onClick={() => {
+                        setShowReview(false)
+                        ProductView(item)
+                    }}>Close</button>
+
+                    <div>
+                        <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
+                    </div>
+                    <h3>{item.Name}</h3>
+                    <p>{item.Description}</p>
+
+                    <div className="starratediv">
+                        < ReactStars
+                        size={45}
+                        count={5}
+                        isHalf={false}
+                        onChange={ratingChanged}
+                        className="st"/>
+
+                    </div>
+                    
+                    <input className="edtdesc" id="input" placeholder="Item Review" onChange={(event) => {
+                        add = "*"+event.target.value.toString()    
+                    }} />
+                    
+                    <div>
+                    <button className="btnclose" onClick={() => {
+                        rev = ""+item.Review+add
+                        AddReview(item, str, rev)
+                        setShowReview(false)
+                        ProductView(item)
+                    }}>Submit</button>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    function viewReviews(item){
+        const comments = review(item.Review);
+        const commentList = comments.map(comment => <div className="indrev">{comment} </div>)
+        setShowReview(true)
+        setText(
+            <div>
+                <div className="item-container">
+                    <button className="btnclose" onClick={() => {
+                        setShowReview(false)
+                        ProductView(item)
+                    }}>Close Reviews</button>
+
+                    <div>
+                        <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
+                    </div>
+                    <h3>{item.Name}</h3>
+                    <p>{item.Description}</p>
+                    <br />
+                    <div className="revdivin">
+                        <h5>Reviews</h5>
+                        <div className="revcomm">{commentList}</div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     function ProductView(item) {
         setShow(true)
@@ -194,6 +378,20 @@ export default function Landing() {
                     <div className="add-to-cart">
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
+
+                        <div className = "inprodstar">
+                            <BsStarFill className="initemsstar"/>{avgStars(item.Stars)}
+                            <Link  onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
+                        </div>
+
+                        {showReview ? <div className="reviewdiv">
+                        {text}
+                        </div> :
+                        <button className="btnReview" onClick={() => handleReviews(item)}>Write a review</button>
+                        }
+                    </div>
+                    <div>
+                        
                     </div>
                 </div>
             </div>
@@ -219,6 +417,7 @@ export default function Landing() {
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
                                 <h1 className="itemprice">R{item.Price}</h1>
+                                <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
                                 {(() => {
                                     if (item.Quantity == 0) {
                                     return (

@@ -4,6 +4,8 @@ import { NameContext, LoginContext, CartContext } from '../Context'
 export default function About() {
     const { name, setName } = useContext(NameContext)
 
+    const today = new Date();
+
     return (
         <div>
             <h3 className='about_details'>
