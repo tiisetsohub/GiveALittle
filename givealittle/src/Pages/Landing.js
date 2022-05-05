@@ -60,10 +60,10 @@ export default function Landing() {
         let average = wholeSum/(starCount.length-check);
 
         if (starCount.length == 0){
-            return "5.0";
+            return "5.0 ";
         }
         else{
-           return average.toFixed(1); 
+           return average.toFixed(1)+" "; 
         }
         
     }
@@ -106,7 +106,7 @@ export default function Landing() {
             return " "
         }
         else{
-            return " " + counter.toString()+ " "
+            return counter.toString()+ " "
         }
     }
     
@@ -237,7 +237,7 @@ export default function Landing() {
 
                     <div>
                         < ReactStars
-                        size={30}
+                        size={35}
                         count={5}
                         isHalf={true}
                         onChange={ratingChanged}
@@ -264,7 +264,7 @@ export default function Landing() {
 
     function viewReviews(item){
         const comments = review(item.Review);
-        const commentList = comments.map(comment => <h1>{comment}</h1>)
+        const commentList = comments.map(comment => <div className="item-container">{comment} </div>)
         setShowReview(true)
         setText(
             <div>
@@ -278,7 +278,6 @@ export default function Landing() {
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
                     <h3>{item.Name}</h3>
-                    <p>{item.Description}</p>
                     <div>{commentList}</div>
                 </div>
             </div>

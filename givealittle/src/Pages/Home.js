@@ -37,10 +37,10 @@ export default function Home() {
         let average = wholeSum/(starCount.length-check);
 
         if (starCount.length == 0){
-            return "5.0";
+            return "5.0 ";
         }
         else{
-           return average.toFixed(1); 
+           return average.toFixed(1).toString() +" "; 
         }
         
     }
@@ -82,7 +82,7 @@ export default function Home() {
             return " "
         }
         else{
-            return " " + counter.toString()+ " "
+            return counter.toString()+ " "
         }
     }
 
