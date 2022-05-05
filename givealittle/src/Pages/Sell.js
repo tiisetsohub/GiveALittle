@@ -1,9 +1,12 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Login.css';
+import { NameContext } from '../Context';
+import SpecsPage from './SpecsPage';
+
 
 export default function Sell() {
     const [newName, setNewName] = useState("");     //state for item name
@@ -12,12 +15,19 @@ export default function Sell() {
     const [newPrice, setNewPrice] = useState(0);                    //state for price
     const [newQuantity, setNewQuantity] = useState(0);              //state for quantity
 
+    const {name} = useContext(NameContext);       //state for currently signed in user email
+
     const [item, setItem] = useState([]);           //state for item
     const itemRef = collection(db, "Inventory");            //refernce for item
 
+
+    const [Specs, setSpecs] = useState([]);     //State for the specs
+
+
     const addItem = async () => {           //handles adding an item to database
-        await addDoc(itemRef, { Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg });
-        alert("Added")
+        await addDoc(itemRef, {Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg, Seller: name, Specs: Specs });
+        alert("Added") 
+        
     }
 
     useEffect(() => {           //gets data from database
@@ -25,7 +35,6 @@ export default function Sell() {
             const data = await getDocs(itemRef);
             setItem(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
         }
-
         getItems()
     }, []);
 
@@ -34,7 +43,7 @@ export default function Sell() {
         <div className="bigdiv">
             <Navbar />
             <h1>Add Item</h1>
-            <div className='logindiv'>          {/*form for item information*/}
+            <div className='logindivb'>          {/*form for item information*/}
                 <input className="edtname" id="input" placeholder="Item Name" onChange={(event) => {
                     setNewName(event.target.value)
                 }} />
@@ -57,7 +66,17 @@ export default function Sell() {
                     setNewQuantity(t)
                 }} />
                 <br />
-                <button className="btnadd" id="btn" onClick={addItem}>Add</button>
+
+                <h4>Add Product Specifications</h4>
+                <SpecsPage Specs={Specs} setSpecs={setSpecs}/>
+
+                <Link to="/sellerslanding">
+                    <button className="btnadd" id="btn" onClick={addItem}>Add</button>
+                </Link>
+
+                
+                
+                
             </div>
         </div>
     )

@@ -5,7 +5,9 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context';
+import { LoginContext } from '../Context';
 import { BsStarFill } from "react-icons/bs";
+import { NameContext } from '../Context';
 
 
 export default function Home() {
@@ -15,10 +17,20 @@ export default function Home() {
     const [Inventory, setItems] = useState([]);           //state for inventory
     const itemRef = collection(db, "Inventory");            //reference to inventory in database
     const { cart, setCart } = useContext(CartContext);          //context for global cart
+    const { login, setLogin } = useContext(LoginContext) 
+    const [Users, setUsers] = useState([]);
 
 
 
+    useEffect(() => {
+        const getUsers = async () => {
+          const data = await getDocs(collection(db, "Users"));
+          setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        }
+        getUsers()
+      }, []);
 
+    
     function Navbar() {         //function for navbar component
         const [quant, setQuant] = useState(0);      //to be used
         const [total, setTotal] = useState(0);         //state for cart total
@@ -26,6 +38,7 @@ export default function Home() {
         const [showcart, setShowCart] = useState(false);            //state for showing cart
         const [summary, setSummary] = useState("")              //state for cart summary
         let t = 0           //total = 0
+
 
         function CartView() {       //function to display the cart
             setShowCart(!showcart)          //changes show cart state
@@ -93,11 +106,16 @@ export default function Home() {
                         {summary}
                         <div className="demodiv">
                             <text className='textin'>R{total}</text>
-                            <button className='buttonin'>Check out</button>
+                            
+                            <Link  to='/maketransactionaddress'>
+                                <button className ="buttonin" >Check out</button>
+                            </Link>  
                         </div>
                     </div> : null
                 }
+           
             </div>
+
         )
     }
 
@@ -143,6 +161,8 @@ export default function Home() {
         console.log(num)
         //////////////////////////
         setShow(true)
+        //const [Users, setUsers] = useState([]);
+
         setText(
             <div>
 
@@ -152,7 +172,13 @@ export default function Home() {
                     <div>
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
-                    
+                    {Users.map((user, idx) => (
+                        user.Email == item.Seller
+                    ? (
+                        <p>Sold By : {user.Name}</p>
+                    )
+                    : null
+                    ))}
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
                     <h1 className="product-view-price">R{item.Price}</h1>

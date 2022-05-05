@@ -40,13 +40,13 @@ button:hover {
     transition: 0.5s;
     animation: ease-in;
     border-radius: 5px;
-    color: rgb(0, 0, 0);
     background-color: #B38B59;
     border: 0px solid;
     left: 2px;
+    position: absolute;
     margin-top: 10px;
-    text-align: center;
-    color: white;
+    color : white;
+
 }
 
 .btnadd {
@@ -68,6 +68,7 @@ button:hover {
     border-radius: 3px;
     color: black;
     border: 1px solid #113E21;
+    margin-right: 10px;
 }
 
 
@@ -100,11 +101,16 @@ button:hover {
     width: max-content;
     background-color:#eee8e0;
     border-radius: 30px;
-    font-size: 18px;
+    font-size: 22px;
     padding-left: 5px;
     padding-right: 5px;
     display: inline-block;
     margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.add-to-cart {
+    margin-top: 15px;
 }
 
 .itemprice {
@@ -330,4 +336,44 @@ h6 {
     border-radius: 30px;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.table-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #314237;
+}
+
+.spec-container {
+    display: flex;
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.spec-name {
+    border: 1px solid;
+    border-color: #888888;
+    border-radius: 0px;
+    width: 400px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #dcdcdc;
+    color:#34473b
+}
+
+.spec-detail {
+    border: 1px solid;
+    width: 400px;
+    border-color: #888888;
+    border-radius: 0px;
+    font-size: 14px;
+    font-weight: lighter;
+    color: #34473b
+}
+
+.profile-icon {
+    width: 35px;
+    height: 35px;
+    color:#F0F0F0;
 }
