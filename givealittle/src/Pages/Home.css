@@ -132,13 +132,51 @@ button:hover {
 }
 
 .itemstar {
-    width: max-content;
+    float : left;
     font-size: 14px;
-    float: left;
-    padding-left: 5px;
+    margin-top: -3px;
+    padding: 0 15px;
+}
+
+
+.initemsstar{
+    color: #f7b80a;
+    margin-top: -4px;
     padding-right: 5px;
+    font-size: 20px;
+
+}
+
+
+.sumstar{
+    color: #f7b80a;
+    margin-top: -4px;
+}
+
+.revdivin{
+    text-align:left;
+    margin-left: 2px;
+}
+
+.indrev{
+    margin-top: -1px;
+    border-bottom : 1px solid #082412;
+    padding: 0 10px;
+}
+
+.revcomm{
+    border: 1px solid #113E21;
+    padding: 0 10px;
+    
     
 }
+
+.starratediv {
+    width:fit-content;
+    margin: auto;
+
+}
+
 
 .itemstarIcon {
     width: max-content;
@@ -363,3 +401,4 @@ input[type="radio"] {
     align-items: center;
     margin-left: 50px;
 }
+

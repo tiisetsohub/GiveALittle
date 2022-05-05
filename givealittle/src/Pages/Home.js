@@ -50,7 +50,7 @@ export default function Home() {
         return reviewList
     }
 
-    // Funtion that returns the numbe of reviews
+    // Funtion that returns the number of reviews
     function reviewNumber(reviews){
         let counter = 0;
         let review = ""+reviews;
@@ -220,7 +220,7 @@ export default function Home() {
     
     function viewReviews(item){
         const comments = review(item.Review);
-        const commentList = comments.map(comment => <h1>{comment}</h1>)
+        const commentList = comments.map(comment => <div className="indrev">{comment} </div>)
         setShowReview(true)
         setText(
             <div>
@@ -228,14 +228,18 @@ export default function Home() {
                     <button className="btnclose" onClick={() => {
                         setShowReview(false)
                         ProductView(item)
-                    }}>Close</button>
+                    }}>Close Reviews</button>
 
                     <div>
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
-                    <div>{commentList}</div>
+                    <br />
+                    <div className="revdivin">
+                        <h5>Reviews</h5>
+                        <div className="revcomm">{commentList}</div>
+                    </div>
                 </div>
             </div>
         )
@@ -261,9 +265,9 @@ export default function Home() {
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
                     </div>
 
-                    <div>
-                        <BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}
-                        <Link  onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
+                    <div className="inprodstar">
+                        <BsStarFill className="initemsstar" />{avgStars(item.Stars)}
+                        <Link onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
                     </div>
                 </div>
             </div>
@@ -289,7 +293,7 @@ export default function Home() {
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
                                 <h1 className="itemprice">R{item.Price}</h1>
-                                <h1 className="itemstar"><BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}{reviewNumber(item.Review)}</h1>
+                                <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
                                 {(() => {
                                     if (item.Quantity == 0) {
                                     return (

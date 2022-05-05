@@ -76,7 +76,7 @@ export default function Landing() {
         return reviewList
     }
 
-    // Funtion that returns the numbe of reviews
+    // Funtion that returns the number of reviews
     function reviewNumber(reviews){
         let counter = 0;
         let review = ""+reviews;
@@ -254,13 +254,13 @@ export default function Landing() {
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
 
-                    <div>
+                    <div className="starratediv">
                         < ReactStars
                         size={45}
                         count={5}
                         isHalf={false}
                         onChange={ratingChanged}
-                        />
+                        className="st"/>
 
                     </div>
                     
@@ -283,7 +283,7 @@ export default function Landing() {
 
     function viewReviews(item){
         const comments = review(item.Review);
-        const commentList = comments.map(comment => <div className="item-container">{comment} </div>)
+        const commentList = comments.map(comment => <div className="indrev">{comment} </div>)
         setShowReview(true)
         setText(
             <div>
@@ -291,13 +291,18 @@ export default function Landing() {
                     <button className="btnclose" onClick={() => {
                         setShowReview(false)
                         ProductView(item)
-                    }}>Close</button>
+                    }}>Close Reviews</button>
 
                     <div>
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
                     <h3>{item.Name}</h3>
-                    <div>{commentList}</div>
+                    <p>{item.Description}</p>
+                    <br />
+                    <div className="revdivin">
+                        <h5>Reviews</h5>
+                        <div className="revcomm">{commentList}</div>
+                    </div>
                 </div>
             </div>
         )
@@ -321,8 +326,8 @@ export default function Landing() {
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
 
-                        <div>
-                            <BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}
+                        <div className = "inprodstar">
+                            <BsStarFill className="initemsstar"/>{avgStars(item.Stars)}
                             <Link  onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
                         </div>
 
@@ -359,7 +364,7 @@ export default function Landing() {
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
                                 <h1 className="itemprice">R{item.Price}</h1>
-                                <h1 className="itemstar"><BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}{reviewNumber(item.Review)}</h1>
+                                <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
                                 {(() => {
                                     if (item.Quantity == 0) {
                                     return (
