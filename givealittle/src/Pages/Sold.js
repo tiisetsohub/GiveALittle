@@ -39,14 +39,14 @@ export default function Sold() {
                 <p>Home </p>
               </Link>
               <Link className="navlink" to="/about">
-                <p>About</p>
+                <p> About</p>
               </Link>
               <Link className="navlink" to="/contact">
-                <p>Contact</p>
+                <p> Contact</p>
               </Link>
 
               <Link className="navlink" to="/track">
-                <p>Track order</p>
+                <p> MyOrders</p>
               </Link>
             </div>
             <button
@@ -77,7 +77,7 @@ export default function Sold() {
     const [state, setState] = React.useState({
       right: false,
     });
-    
+
     const update = async () => {
       const docSnap = await getDoc(doc(db, "Bought", item.item_id));
       const newInfo = [];
@@ -147,8 +147,13 @@ export default function Sold() {
           />
         </ListItem>
         <div className="btn-update-cont">
-          <Card className="btn-update" onClick={update}>
-            <CardActionArea>Update</CardActionArea>
+          <Card
+            className="btn-update"
+            onClick={() => {
+              toggleDrawer("right", false);
+            }}
+          > 
+            <CardActionArea>UPDATE</CardActionArea>
           </Card>
         </div>
       </Box>
