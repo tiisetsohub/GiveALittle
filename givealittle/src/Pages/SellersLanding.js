@@ -4,7 +4,7 @@ import '../components/SellersPage.css'
 import firebase from '../firebase-config';
 import {Link} from 'react-router-dom'
 import { useEffect, useState, useContext } from 'react';
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from '../firebase-config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SellerDetails from '../components/SellerDetails';
@@ -35,6 +35,7 @@ function SellersLanding() {
 
     getItems()
 }, []);
+
   
 useEffect(() => {
   const getUsers = async () => {
@@ -43,10 +44,6 @@ useEffect(() => {
   }
   getUsers()
 }, []);
-
-
-
-
   
   return (
     <div className='body'>

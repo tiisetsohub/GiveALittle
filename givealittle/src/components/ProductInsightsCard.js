@@ -1,6 +1,8 @@
 import React from 'react'
 import { MdDelete, MdEdit, MdExpandMore, MdExpandLess } from 'react-icons/md';
 import { useState } from "react"
+import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
+import { db } from '../firebase-config';
 
 /**
  * Shows data about a product in sellers inventory. 
@@ -12,6 +14,16 @@ import { useState } from "react"
 function ProductInsightsCard(product) {
 
     const [collapse, setCollapse] = useState(true);
+
+    const deleteProduct = async () => {
+        db.collection("Inventory").where("Name", "==", product.name).get().delete()
+        .then(querySnapshot => {
+            querySnapshot.docs[0].ref.delete();
+        }).catch(() => {
+            alert("Something went wrong")
+        })
+      }
+      
 
     const handleCollapse = () => {
         if (collapse) {
@@ -31,12 +43,14 @@ function ProductInsightsCard(product) {
 
         <div>
             {collapse ? 
-            <div>
-                <MdExpandLess style={{height: "40px", width: "40px"}} onClick={handleCollapse}/>
-            </div>
-            : <div>
-                <MdExpandMore style={{height: "40px", width: "40px"}} onClick={handleCollapse}/>
-            </div>
+            <button className="collapse-button" onClick={handleCollapse}>
+                <MdExpandLess className='expand-less' style={{height: "30px", width: "30px"}} onClick={handleCollapse}/>
+                <h5 className='more-info' onClick={handleCollapse}>more information</h5>
+            </button>
+            : <button className="collapse-button" onClick={handleCollapse}>
+                <MdExpandMore className='expand-more' style={{height: "30px", width: "30px"}} onClick={handleCollapse}/>
+                <h5 className='more-info' onClick={handleCollapse}>collapse</h5>
+            </button>
         }
         </div>
 
@@ -45,8 +59,15 @@ function ProductInsightsCard(product) {
             <h6>Price:
                 <h5 className='price'> R{product.price}</h5>
             </h6>
-            <h6>In Stock:
-                <h5 className='stock'>{product.quantity}</h5>
+            <h6>
+                {product.quantity == "0" ? 
+                <h5 className='stock' style={{marginLeft: "0", color: "#C25450"}}>Out of Stock</h5>
+                : 
+                <h6>In Stock:
+                  <h5 className='stock'>{product.quantity}</h5>
+                </h6>
+
+                }
             </h6>
             {/*<h5 className='sold'>Sold: 00</h5>*/}
         </div>
@@ -54,11 +75,11 @@ function ProductInsightsCard(product) {
         
             
             <button className='delete-button'>
-                <MdDelete style={{width: "30px", height: "30px"}}/>
+                <MdDelete style={{width: "25px", height: "25px"}}/>
             </button>
 
             <button className='edit-button'>
-                <MdEdit style={{width: "30px", height: "30px"}}/>
+                <MdEdit style={{width: "25px", height: "25px"}}/>
             </button>
 
                 {!collapse ?

@@ -19,7 +19,7 @@
 }
 
 .add-product-button:hover{
-    transform: scale(0.9);
+    transform: scale(0.97);
 }
 
 .card {
@@ -34,8 +34,8 @@
 }
 
 .card:hover{
-    transform: scale(1.05);
-    box-shadow: 0px 0px 30px -5px rgb(95, 95, 95);
+    transform: scale(1.02);
+    box-shadow: 0px 0px 20px -5px rgb(95, 95, 95);
 }
 
 
@@ -193,7 +193,34 @@
     background-color: #F0F0F0;
 }
 
+.expand-less {
+    color:darkslategrey;
+    margin: 5px;
+}
 
+.expand-more {
+    color:darkslategrey;
+    margin: 5px;
+}
 
+.more-info {
+    display: inline-block;
+    color: darkslategrey;
+    font-size: smaller;
+}
 
+.collapse-button {
+    transition: 0.5s;
+    animation: alternate;
+    display: inline-block;
+    border-radius: 15px;
+    padding-right: 5px;
+    margin-top: 5px;
+    border: none;
+    background-color: transparent;
+}
 
+.collapse-button:hover {
+    transform: translate(15px);
+    background-color: #e7e7e7;
+}
