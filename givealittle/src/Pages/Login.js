@@ -16,7 +16,7 @@ export default function Login() {
     const { login, setLogin } = useContext(LoginContext)
 
     async function handleLogin() {      //function that handles login
-        console.log(move)
+   
         setLoading(true);
         try {
             await loginmethod(emailRef.current.value, passwordRef.current.value);
@@ -27,7 +27,7 @@ export default function Login() {
             alert('Error!')
         }
         setLoading(false);
-        console.log(move)
+
 
         return move;
     }
@@ -45,7 +45,7 @@ export default function Login() {
             }
             <Navbar />
             <h1>Login</h1>
-            <div className='logindiv'>      {/*form containing all inputs for user*/}
+            <div className='logindivb'>      {/*form containing all inputs for user*/}
                 <input className="edtemail" id="input" ref={emailRef} placeholder="Email" />
                 <br />
                 <input type="password" className="edtpassword" id="input" ref={passwordRef} placeholder="Password" />

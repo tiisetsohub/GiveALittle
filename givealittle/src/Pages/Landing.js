@@ -8,6 +8,8 @@ import { CartContext } from '../Context'
 import { BsStarFill } from "react-icons/bs";
 import ReactStars from "react-rating-stars-component"
 
+import { NameContext } from '../Context';
+import { CgProfile } from 'react-icons/cg';
 
 //identical to home.js
 
@@ -23,6 +25,8 @@ export default function Landing() {
     const [Inventory, setItems] = useState([]);
     const itemRef = collection(db, "Inventory");
     const { cart, setCart } = useContext(CartContext)
+    const {name, setName} = useContext(NameContext);
+    const [Users, setUsers] = useState([]);
 
     // Variables for reviews
     let str = ""
@@ -130,6 +134,14 @@ export default function Landing() {
     }
     
 
+    useEffect(() => {
+        const getUsers = async () => {
+          const data = await getDocs(collection(db, "Users"));
+          setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        }
+        getUsers()
+      }, []);
+
     function Navbar() {
         const [total, setTotal] = useState(0);
         const [showLinks, setShowLinks] = useState(false);
@@ -169,13 +181,17 @@ export default function Landing() {
                 <div className="navbar">
                     <div className="leftside">
                         <div className="links" id={showLinks ? "hidden" : ""}>
+                            <Link className="profile-icon" to='/profile'>
+                                <CgProfile className='profile-icon'/>
+                            </Link>
+                            
                             <Link className="navlink" to='/sellerslanding'>
                                 <p>Sell</p>
                             </Link>
                             <Link className="navlink" to='/about'>
                                 <p>About</p>
                             </Link>
-                            <Link className="navlink" to='/login'>
+                            <Link className="navlink" to='/contact'>
                                 <p>Contact</p>
                             </Link>
                             <Link className="navlink" to='/track'>
@@ -186,6 +202,7 @@ export default function Landing() {
                             }}>
                                 <p>Cart</p>
                             </Link>
+                            
                         </div>
                         <button onClick={() => setShowLinks(!showLinks)} className="btnthings">
                             ≡
@@ -204,7 +221,9 @@ export default function Landing() {
                         {summary}
                         <div className="demodiv">
                             <text className='textin'>R{total}</text>
-                            <button className='buttonin'>Check out</button>
+                            <Link  to='/maketransactionaddress'>
+                                <button className ="buttonin" >Check out</button>
+                            </Link>  
                         </div>
                     </div> : null
                 }
@@ -318,11 +337,45 @@ export default function Landing() {
                     <div>
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
+                    {Users.map((user, index) => (
+                        user.Email == item.Seller
+                    ? (
+                        <p key={index}>Sold By : {user.Name}</p>
+                    )
+                    : null
+                    ))}
                     
+
                     <h3>{item.Name}</h3>
-                    <p>{item.Description}</p>
+
                     <h1 className="product-view-price">R{item.Price}</h1>
-                    <div>
+
+
+                    <p>{item.Description}</p>
+
+
+                    {item.Specs != undefined ?
+                    <h4 className='table-title'>Product Specifications</h4>
+                    : <h4></h4>
+                    }
+                    
+                    
+                    {item.Specs != undefined ? 
+                        
+                    item.Specs.map((spec, index) => {
+                        return (
+                            <div className='spec-container' style={{marginBottom: "0"}} key={index}>
+                                <h6 className='spec-name' style={{marginBottom: "0"}}>{spec.spec}</h6>
+                                <h6 className="spec-detail" style={{marginBottom: "0"}}>{spec.detail}</h6>
+                            </div>
+                        )
+                    })
+
+                    : <h1></h1>}
+                    
+
+
+                    <div className="add-to-cart">
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
 
@@ -353,10 +406,10 @@ export default function Landing() {
                     {text}
                 </div> :
                     <div className="bodydiv" >
-                        {Inventory.map((item) => {
+                        {Inventory.map((item, index) => {
 
                             
-                            return <div className="itemdiv" onClick={() => {
+                            return <div key={index} className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
                                 <img src={item.Image} alt="nope" />
