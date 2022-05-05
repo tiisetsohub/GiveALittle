@@ -307,13 +307,6 @@ export default function Landing() {
                             <BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}
                             <Link  onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}Reviews</Link>
                         </div>
-                        {/* <div>
-                        {showRating ? <div className="reviewdiv">
-                        {text}
-                        </div> :
-                        <Link  onClick={() => viewReviews(item)}>{avgStars(item.Stars)}{reviewNumber(item.Review)}Reviews</Link>
-                        }
-                        </div> */}
 
                         {showReview ? <div className="reviewdiv">
                         {text}

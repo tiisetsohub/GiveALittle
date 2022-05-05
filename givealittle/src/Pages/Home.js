@@ -15,6 +15,9 @@ export default function Home() {
     const [Inventory, setItems] = useState([]);           //state for inventory
     const itemRef = collection(db, "Inventory");            //reference to inventory in database
     const { cart, setCart } = useContext(CartContext);          //context for global cart
+
+    const [showReview, setShowReview] = useState(false);
+
     
 
     // The following function count the average rating of each item (using stars)
@@ -196,6 +199,29 @@ export default function Home() {
     }, [cartitems])
 
 
+    
+    function viewReviews(item){
+        const comments = review(item.Review);
+        const commentList = comments.map(comment => <h1>{comment}</h1>)
+        setShowReview(true)
+        setText(
+            <div>
+                <div className="item-container">
+                    <button className="btnclose" onClick={() => {
+                        setShowReview(false)
+                        ProductView(item)
+                    }}>Close</button>
+
+                    <div>
+                        <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
+                    </div>
+                    <h3>{item.Name}</h3>
+                    <p>{item.Description}</p>
+                    <div>{commentList}</div>
+                </div>
+            </div>
+        )
+    }
 
     function ProductView(item) {     //handles the viewing of a product in isolation
         setShow(true)
@@ -216,12 +242,15 @@ export default function Home() {
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
                     </div>
+
+                    <div>
+                        <BsStarFill className="itemstarIcon"/>{avgStars(item.Stars)}
+                        <Link  onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}Reviews</Link>
+                    </div>
                 </div>
             </div>
         )
     }
-
-    // <h1>console.log(starCount("54"));</h1>
 
     return (
         <div>
