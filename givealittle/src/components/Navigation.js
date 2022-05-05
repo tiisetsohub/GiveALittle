@@ -14,10 +14,10 @@ function Navigation() {
                     <Link className="navlink" to='/landing'>
                         <p>Home</p>
                     </Link>
-                    <Link className="navlink" to='/login'>
+                    <Link className="navlink" to='/about'>
                         <p>About</p>
                     </Link>
-                    <Link className="navlink" to='/login'>
+                    <Link className="navlink" to='/contact'>
                         <p>Contact</p>
                     </Link>
                 </div>
