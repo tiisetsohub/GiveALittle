@@ -30,7 +30,7 @@ export default function Payment() {
  
           var details = {
             email: name  // user email
-                         /* any data which will be needed from temolade my be extracted from here,
+                         /* data which will be needed from template may be extracted from here,
                          e.i ( name of user or subject of emaik)
                          */
       
