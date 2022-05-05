@@ -1,29 +1,29 @@
-import React, { useContext } from "react";
-import { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import "./Sold.css";
-import Box from "@mui/material/Box";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-import ListItem from "@mui/material/ListItem";
 import { doc, setDoc } from "firebase/firestore";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { NameContext } from "../Context";
-
+import "./Sold.css";
+import {
+  StepLabel,
+  Step,
+  Stepper,
+  Typography,
+  CardMedia,
+  CardContent,
+  Card,
+  ListItem,
+  TextField,
+  Button,
+  SwipeableDrawer,
+  Box,
+} from "@mui/material";
 export default function Sold() {
   const [show, setShow] = useState(false);
-  const [text, setText] = useState("hey");
+  const [text, setText] = useState("");
   const [purchased, setItems] = useState([]);
   const itemRef = collection(db, "Bought");
   const { name, setName } = useContext(NameContext);
@@ -150,9 +150,9 @@ export default function Sold() {
           <Card
             className="btn-update"
             onClick={() => {
-              toggleDrawer("right", false);
+              update();
             }}
-          > 
+          >
             <CardActionArea>UPDATE</CardActionArea>
           </Card>
         </div>
@@ -222,11 +222,20 @@ export default function Sold() {
               </CardContent>
             </Card>
           </div>
-          <div>
-            <Drawer item_id={item.id} className="right-side" />
+          <div className="right-side">
+            <Drawer item_id={item.id} className="right-top" />
             <div className="right-botton">
               <Card sx={{ maxWidth: 400 }}>
-                <Stepper activeStep={items.length - 1} orientation="vertical">
+                <Stepper
+                  activeStep={
+                    items[items.length - 1].LocationDescription.includes(
+                      "COLLECTED"
+                    )
+                      ? items.length
+                      : items.length - 1
+                  }
+                  orientation="vertical"
+                >
                   {items.map((it) => {
                     return (
                       <Step>

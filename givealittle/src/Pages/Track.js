@@ -1,26 +1,27 @@
-import { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs, getDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
-import "./Track.css";
 import { Container, Row } from "reactstrap";
 import Purchased from "../components/Purchased";
-import React, { useContext } from "react";
-import Stepper from "@mui/material/Stepper";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { NameContext } from "../Context";
+import "./Track.css";
+import {
+  Stepper,
+  Step,
+  StepLabel,
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+} from "@mui/material";
 
 export default function Track() {
   const [bought, setproducts] = useState([]); //state for bought
   const productRef = collection(db, "Bought"); //reference to bought in database
   const [show, setShow] = useState(false);
-  const [text, setText] = useState("hey");
+  const [text, setText] = useState("");
   const { name, setName } = useContext(NameContext);
 
   useEffect(() => {
@@ -72,7 +73,16 @@ export default function Track() {
 
           <div className="right">
             <Card sx={{ maxWidth: 400 }}>
-              <Stepper activeStep={items.length - 1} orientation="vertical">
+              <Stepper
+                activeStep={
+                  items[items.length - 1].LocationDescription.includes(
+                    "COLLECTED"
+                  )
+                    ? items.length
+                    : items.length - 1
+                }
+                orientation="vertical"
+              >
                 {items.map((item) => {
                   return (
                     <Step>
@@ -112,7 +122,13 @@ export default function Track() {
                       image={product.Image}
                       name={product.Name}
                       price={product.Price}
-                      delivery={product.Delivery}
+                      delivery={
+                        product.LocationDescription[
+                          product.LocationDescription.length - 1
+                        ].includes("COLLECTED")
+                          ? "Order Collected!"
+                          : "Your Order Is On Its Way!"
+                      }
                     />
                   </div>
                 );

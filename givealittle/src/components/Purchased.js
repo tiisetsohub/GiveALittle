@@ -1,14 +1,14 @@
 import React from "react";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  CardActionArea,
+} from "@mui/material";
 import "./Purchased.css";
+
 function Purchased(product) {
-  // if(product.Name == "MacBook Pro")
   return (
     <div className="card-cont">
       <Card sx={{ maxWidth: 345 }}>
@@ -30,7 +30,8 @@ function Purchased(product) {
               R {product.price}
             </Typography>
             <Typography gutterBottom variant="p" component="div">
-              Delivery: {product.delivery[1]}
+              Delivery:{" "}
+              {product.delivery}
             </Typography>
           </CardContent>
         </CardActionArea>

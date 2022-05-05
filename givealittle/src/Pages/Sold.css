@@ -16,6 +16,7 @@
     padding-top:50px;
 
 }
+
 .buyer{
     color:black;
     font-size: 25px;
@@ -23,7 +24,7 @@
 }
 .btn-update{
     color:white;
-    background-color:rgb(0, 128, 75);
+    background-color:rgb(36, 113, 175);
     width:60px;
     height:fit-content;
     border-radius:7px;
@@ -32,8 +33,4 @@
 .btn-update-cont{
     padding-left: 40%;
     padding-top: 10px;
-}
-.delivery-btn{
-    background-color: green;
-    border-radius: 4px;
 }
