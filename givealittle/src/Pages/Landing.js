@@ -68,6 +68,12 @@ export default function Landing() {
         
     }
 
+    // Function to put reviews in a list
+    function review(reviews){
+        const reviewList = reviews.toString().split("*");
+        return reviewList
+    }
+
     function Navbar() {
         const [total, setTotal] = useState(0);
         const [showLinks, setShowLinks] = useState(false);
@@ -220,6 +226,8 @@ export default function Landing() {
     }
 
     function viewReviews(item){
+        const comments = review(item.Review);
+        const commentList = comments.map(comment => <h2>{comment}</h2>)
         setShowReview(true)
         setText(
             <div>
@@ -234,7 +242,7 @@ export default function Landing() {
                     </div>
                     <h3>{item.Name}</h3>
                     <p>{item.Description}</p>
-
+                    <div>{commentList}</div>
                 </div>
             </div>
         )
