@@ -79,7 +79,7 @@ export default function Home() {
                             <Link className="navlink" to='/about'>
                                 <p>About</p>
                             </Link>
-                            <Link className="navlink" to='/login'>
+                            <Link className="navlink" to='/contact'>
                                 <p>Contact</p>
                             </Link>
                             <Link className="navlink" onClick={() => {

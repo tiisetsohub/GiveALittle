@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NameContext, LoginContext, CartContext, CarddetailsContext} from './Context'      //imports all global contexts in here where they will be initialized
 import { useState } from 'react'
 import Profile from './Pages/Profile';
+import Contact from './Pages/Contact';
 
 function App() {
 
@@ -77,6 +78,10 @@ function App() {
 
               <Route path="/profile">                 {/*route to profile page*/}
                 <Profile />
+              </Route>
+
+              <Route path="/contact">                 {/*route to contact page*/}
+                <Contact />
               </Route>
 
             </Switch>
