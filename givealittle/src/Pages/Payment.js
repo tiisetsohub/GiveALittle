@@ -88,9 +88,9 @@ export default function Payment() {
                 <div>
 
                   <p></p>
-                  <p>{address.Province}</p>
-                  <p>{address.City}</p>
-                  <p>{address.Street}</p>
+                  <p>{cardno}</p>
+                  <br />
+                  < br />
                 </div>
               </div>
 
