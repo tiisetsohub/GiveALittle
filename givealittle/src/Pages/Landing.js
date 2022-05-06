@@ -152,6 +152,10 @@ export default function Landing() {
 
                     <div>
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
+                        {item.Image2 ?
+                            <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)", marginLeft: "15px"}} src={item.Image2} />
+                            : null
+                        }
                     </div>
                     {Users.map((user, index) => (
                         user.Email == item.Seller

@@ -12,6 +12,7 @@ export default function Sell() {
     const [newName, setNewName] = useState("");     //state for item name
     const [newDescription, setNewDesnewDescription] = useState("");         //state for description 
     const [newImg, setnewImg] = useState("");                   //state for image
+    const [newImg2, setNewImg2] = useState("")
     const [newPrice, setNewPrice] = useState(0);                    //state for price
     const [newQuantity, setNewQuantity] = useState(0);              //state for quantity
 
@@ -25,7 +26,7 @@ export default function Sell() {
 
 
     const addItem = async () => {           //handles adding an item to database
-        await addDoc(itemRef, {Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg, Seller: name, Specs: Specs });
+        await addDoc(itemRef, {Name: newName, Description: newDescription, Price: newPrice, Quantity: newQuantity, Image: newImg, Image2: newImg2, Seller: name, Specs: Specs });
         alert("Added") 
         
     }
@@ -52,8 +53,12 @@ export default function Sell() {
                     setNewDesnewDescription(event.target.value)
                 }} />
                 <br />
-                <input className="edtimg" id="input" placeholder="Image Link" onChange={(event) => {
+                <input className="edtimg" id="input" placeholder="Image Link 1" onChange={(event) => {
                     setnewImg(event.target.value)
+                }} />
+
+                <input className="edtimg" id="input" placeholder="Image Link 2" onChange={(event) => {
+                    setNewImg2(event.target.value)
                 }} />
                 <br />
                 <input className="edtprice" type="number" id="input" placeholder="Item Price" min="19.99" onChange={(event) => {
