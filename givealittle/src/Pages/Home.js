@@ -16,8 +16,8 @@ export default function Home() {
     const [Inventory, setItems] = useState([]);           //state for inventory
     const itemRef = collection(db, "Inventory");            //reference to inventory in database
     const { cart, setCart } = useContext(CartContext);          //context for global cart
+    
     const searchRef = useRef();
-
     const [searchTerm, setSearchTerm] = useState("");
 
 

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs, addDoc } from "firebase/firestore";
@@ -16,6 +16,9 @@ export default function Landing() {
     const [Inventory, setItems] = useState([]);
     const itemRef = collection(db, "Inventory");
     const { cart, setCart } = useContext(CartContext)
+
+    const searchRef = useRef();
+    const [searchTerm, setSearchTerm] = useState("");
 
 
     function Navbar() {
@@ -80,8 +83,14 @@ export default function Landing() {
                         </button>
                     </div>
                     <div className="rightside">
-                        <input className="edtsearch" placeholder="Search" />
-                        <button className="btnsearch">
+                        <input type="text" 
+                        placeholder="Search..." 
+                        ref={searchRef} 
+                        />
+                        <button className="btnsearch" onClick={() =>{
+                            setSearchTerm(searchRef.current.value)
+                            }}>
+                            {/* <SearchIcon/> */}
                             Search
                         </button>
                     </div>
@@ -152,31 +161,45 @@ export default function Landing() {
             <Navbar />
             {
                 show ? <div className="reviewdiv">
-                    {text}
+                    {text}      {/*ternary to show cart*/}
                 </div> :
                     <div className="bodydiv" >
-                        {Inventory.map((item) => {
-
-                            
+                        {Inventory.filter((item) => {
+                            if (searchTerm == ""){
+                            return item
+                        } else if (item.Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())){
+                            return item
+                        }
+                        }).map((item) => {
                             return <div className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
                                 <img src={item.Image} alt="nope" />
+
+                                <div className="item-info-container">
                                 <div className="textdiv">
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
-                                <h1 className="itemprice">R{item.Price}</h1>
-                                {(() => {
-                                    if (item.Quantity == 0) {
-                                    return (
-                                        <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
-                                    )
-                                    } else {
-                                    return (
-                                        <h1 className="item-quantity">in stock</h1>
-                                    )
-                                    }
-                                })()}
+
+                                    <div className="price-stock-container">
+                                    <h1 className="itemprice">R{item.Price}</h1>
+                                    {(() => {
+                                        if (item.Quantity == 0) {
+                                        return (
+                                            <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
+                                        )
+                                        } else {
+                                        return (
+                                            <h1 className="item-quantity">in stock</h1>
+                                        )
+                                        }
+                                    })()}
+                                    </div>
+                                    
+
+                                </div>
+                                
+
                             </div>
                         })}
                     </div>
