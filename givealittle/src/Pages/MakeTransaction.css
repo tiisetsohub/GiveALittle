@@ -1,20 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
 
-.logindiv {
-    margin: 10px;
-    text-align: center;
-    padding-top: 20px;
-    background-color: darkgray;
-}
-
-.loginhead {
-    font-weight: bold;
-    font-size: 50px;
-}
-
-
-
 
 #btn {
     text-align: center;
@@ -96,13 +82,11 @@ text {
 }
 
 .container {
-    max-width: 500px;
     margin: 30px auto;
     overflow: auto;
-    min-height: 300px;
-    border: 5px solid #113E21;
     padding: 30px;
     border-radius: 5px;
+    text-align: center;
 }
 
 .buyttonin-cont-pay {
@@ -187,4 +171,55 @@ text {
     align-items: center;
 
 
+}
+
+.totalbar {
+    background-color:#113E21;
+    width: 100%;
+    text-align:right;
+    padding-right: 20px;
+}
+
+.addressdiv{
+    margin-top: 10px;
+    justify-content: space-between;
+    display: flex;
+    width : 100%;
+    border-bottom: 1px solid #B38B59;
+    
+    margin-top: -15px;
+}
+
+.addressdiv img {
+    justify-content: left;
+    height : 120px;
+    width : 120px;
+    margin-left: 30px;
+    margin-top: 30px;
+}
+
+.addressdiv div {
+    padding-right: 30px;
+    padding-top: 30px;
+    justify-content: right;
+    text-align: right;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.sumdiv {
+    align-content: center;
+    text-align: center;
+    
+}
+
+.btncomplete{
+    transition: 0.5s;
+    animation: ease-in;
+    height: 28px;
+    background-color: #B38B59;
+    border-radius: 3px;
+    border: 0px solid;
+    color: white;
+    margin: 8px 0;
 }

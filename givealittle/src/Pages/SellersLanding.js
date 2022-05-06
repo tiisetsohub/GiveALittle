@@ -9,23 +9,29 @@ import { db } from '../firebase-config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SellerDetails from '../components/SellerDetails';
 
+import { QuerySnapshot } from "firebase/firestore";
+
+import HomeIcon from "@mui/icons-material/Home";
+
 // To get current user imports
 import { NameContext } from '../Context';
 import Navigation from '../components/Navigation';
 
 function SellersLanding() {
 
+  const [currentUser, setCurrentUser] = useState();
   const {name, setName} = useContext(NameContext);
   const [Inventory, setItems] = useState([]);           //state for inventory
   const itemRef = collection(db, "Inventory");            //reference to inventory in database
 
   const [Users, setUsers] = useState([]);
+  
 
   useEffect(() => {       //loads data from database
     const getItems = async () => {
-        const data = await getDocs(itemRef);
-        setItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    }
+      const data = await getDocs(itemRef);
+      setItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
 
     getItems()
 }, []);
@@ -55,10 +61,10 @@ useEffect(() => {
         ))}
       </div>
 
-      <Link to="/sell">
-        <button className='add-product-button'>Add Product</button>
-      </Link>
-        
+        <Link to="/sell">
+          <button className='add-product-button'>Add Product</button>
+        </Link>
+      
       </div> 
 
       <div className='products-container'>
@@ -85,9 +91,8 @@ useEffect(() => {
       
         
     </div>
-  )
+  );
 }
 
 
-
-export default SellersLanding
+export default SellersLanding;

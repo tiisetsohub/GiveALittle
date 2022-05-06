@@ -40,13 +40,13 @@ button:hover {
     transition: 0.5s;
     animation: ease-in;
     border-radius: 5px;
-    color: rgb(0, 0, 0);
     background-color: #B38B59;
     border: 0px solid;
     left: 2px;
+    position: absolute;
     margin-top: 10px;
-    text-align: center;
-    color: white;
+    color : white;
+
 }
 
 .btnadd {
@@ -61,6 +61,19 @@ button:hover {
     margin-bottom: 50px;
 }
 
+.btnReview {
+    transition: 0.5s;
+    animation: ease-in;
+    height: 28px;
+    font-weight: bold;
+    background-color: #113E21;
+    border-radius: 3px;
+    border: 0px solid;
+    color: white;
+    margin-bottom: 50px;
+    
+}
+
 .edtnum {
     width: 40px;
     height: 26px;
@@ -68,6 +81,7 @@ button:hover {
     border-radius: 3px;
     color: black;
     border: 1px solid #113E21;
+    margin-right: 10px;
 }
 
 
@@ -124,9 +138,57 @@ button:hover {
 }
 
 .itemstar {
+    float : left;
+    font-size: 14px;
+    margin-top: -3px;
+    padding: 0 15px;
+}
+
+
+.initemsstar{
+    color: #f7b80a;
+    margin-top: -4px;
+    padding-right: 5px;
+    font-size: 20px;
+
+}
+
+
+.sumstar{
+    color: #f7b80a;
+    margin-top: -4px;
+}
+
+.revdivin{
+    text-align:left;
+    margin-left: 2px;
+}
+
+.indrev{
+    margin-top: -1px;
+    border-bottom : 1px solid #082412;
+    padding: 0 10px;
+}
+
+.revcomm{
+    border: 1px solid #113E21;
+    padding: 0 10px;
+    
+    
+}
+
+.starratediv {
+    width:fit-content;
+    margin: auto;
+
+}
+
+
+.itemstarIcon {
     width: max-content;
     font-size: 17px;
     float: left;
+    color:#f7b80a;
 
     padding-left: 20px;
     padding-right: 5px;
@@ -335,6 +397,15 @@ h6 {
     border-radius: 30px;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+.star{
+    align-items: center;
+    margin-left: 50px;
 }
 
 .table-title {
