@@ -87,9 +87,9 @@ function ProductInsightsCard(product) {
                 <MdDelete style={{width: "25px", height: "25px"}}/>
             </button>
 
-            <button className='edit-button'>
+            {/*<button className='edit-button'>
                 <MdEdit style={{width: "25px", height: "25px"}}/>
-            </button>
+            </button>*/}
 
                 {!collapse ?
                     <div className='info-container'>
