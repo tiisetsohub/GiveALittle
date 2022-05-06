@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useRef } from "react";
 import { useState, useEffect } from 'react';
 import { db } from '../firebase-config';
 import { collection, getDocs, addDoc } from "firebase/firestore";
@@ -109,6 +109,9 @@ export default function Home() {
     }
 
     
+    const searchRef = useRef();
+
+    const [searchTerm, setSearchTerm] = useState("");
 
 
     useEffect(() => {
@@ -184,8 +187,14 @@ export default function Home() {
                         </button>
                     </div>
                     <div className="rightside">
-                        <input className="edtsearch" placeholder="Search" />
-                        <button className="btnsearch">
+                        <input type="text" 
+                        placeholder="Search..." 
+                        ref={searchRef} 
+                        />
+                        <button className="btnsearch" onClick={() =>{
+                            setSearchTerm(searchRef.current.value)
+                            }}>
+                            {/* <SearchIcon/> */}
                             Search
                         </button>
                     </div>
@@ -307,9 +316,13 @@ export default function Home() {
                     {text}
                 </div> :
                     <div className="bodydiv" >
-                        {Inventory.map((item) => {
-
-                            
+                        {Inventory.filter((item) => {
+                            if (searchTerm == ""){
+                            return item
+                        } else if (item.Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())){
+                            return item
+                        }
+                        }).map((item) => {
                             return <div className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
