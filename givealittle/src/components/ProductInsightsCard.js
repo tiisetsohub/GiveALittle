@@ -1,8 +1,9 @@
 import React from 'react'
 import { MdDelete, MdEdit, MdExpandMore, MdExpandLess } from 'react-icons/md';
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore";
 import { db } from '../firebase-config';
+
 
 /**
  * Shows data about a product in sellers inventory. 
@@ -14,16 +15,25 @@ import { db } from '../firebase-config';
 function ProductInsightsCard(product) {
 
     const [collapse, setCollapse] = useState(true);
+    const [randNum, setRandNum] = useState(0);
 
     const deleteProduct = async () => {
-        db.collection("Inventory").where("Name", "==", product.name).get().delete()
-        .then(querySnapshot => {
-            querySnapshot.docs[0].ref.delete();
-        }).catch(() => {
-            alert("Something went wrong")
-        })
+        await deleteDoc(
+            doc(db, "Inventory", product.productId),
+            alert(product.name + " Deleted"),
+            setRandNum(randNum + 1)
+        )
+        
       }
       
+
+      useEffect(() => {       //loads data from database
+        const getItems = async () => {
+            const data = await getDocs(collection(db, "Inventory"));
+            product.setItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        }
+        getItems()
+    }, [randNum]);
 
     const handleCollapse = () => {
         if (collapse) {
@@ -32,7 +42,6 @@ function ProductInsightsCard(product) {
             setCollapse(true);
         }
     }
-
 
     return (
 
@@ -74,7 +83,7 @@ function ProductInsightsCard(product) {
 
         
             
-            <button className='delete-button'>
+            <button className='delete-button' onClick={deleteProduct}>
                 <MdDelete style={{width: "25px", height: "25px"}}/>
             </button>
 
