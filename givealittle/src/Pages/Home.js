@@ -262,37 +262,66 @@ export default function Home() {
         )
     }
 
-    function ProductView(item) {     //handles the viewing of a product in isolation
+    function ProductView(item) {
         setShow(true)
-        //const [Users, setUsers] = useState([]);
-
         setText(
             <div>
-
                 <div className="item-container">
                     <button className="btnclose" onClick={() => setShow(false)}>Close</button>
 
                     <div>
                         <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
                     </div>
-                    {Users.map((user, idx) => (
+                    {Users.map((user, index) => (
                         user.Email == item.Seller
                     ? (
-                        <p>Sold By : {user.Name}</p>
+                        <p key={index}>Sold By : {user.Name}</p>
                     )
                     : null
                     ))}
+                    
+
                     <h3>{item.Name}</h3>
-                    <p>{item.Description}</p>
+
                     <h1 className="product-view-price">R{item.Price}</h1>
-                    <div>
+
+
+                    <p>{item.Description}</p>
+
+
+                    {item.Specs != undefined ?
+                    <h4 className='table-title'>Product Specifications</h4>
+                    : <h4></h4>
+                    }
+                    
+                    
+                    {item.Specs != undefined ? 
+                        
+                    item.Specs.map((spec, index) => {
+                        return (
+                            <div className='spec-container' style={{marginBottom: "0"}} key={index}>
+                                <h6 className='spec-name' style={{marginBottom: "0"}}>{spec.spec}</h6>
+                                <h6 className="spec-detail" style={{marginBottom: "0"}}>{spec.detail}</h6>
+                            </div>
+                        )
+                    })
+
+                    : <h1></h1>}
+                    
+
+
+                    <div className="add-to-cart">
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
-                    </div>
 
-                    <div className="inprodstar">
-                        <BsStarFill className="initemsstar" />{avgStars(item.Stars)}
-                        <Link onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
+                        <div className = "inprodstar">
+                            <BsStarFill className="initemsstar"/>{avgStars(item.Stars)}
+                            <Link  onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
+                        </div>
+
+                    </div>
+                    <div>
+                        
                     </div>
                 </div>
             </div>
