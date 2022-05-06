@@ -5,6 +5,8 @@ import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
 import { CartContext } from '../Context'
+import { FaArrowAltCircleRight, FaArrowAltCircleLeft } from 'react-icons/fa';
+import { async } from '@firebase/util';
 
 //identical to home.js
 
@@ -121,14 +123,47 @@ export default function Landing() {
     }, [cartitems])
 
 
+    const [current, setCurrent]=useState(0);
     function ProductView(item) {
+
+        const imgs=[item.Image1, item.Image2, item.Image3];
+        const length=imgs.length;
+        
+
+       /* const nextSlide = () => {
+            setCurrent(current === length-1 ? 0 : current + 1);
+        }; 
+
+       
+
+        const prevSlide = () => {
+            setCurrent(current === 0 ? length-1 : current - 1);
+        };
+
+        /*if(!Array.isArray(imgs)||imgs.length<=0){
+            return null;
+        }*/
+        console.log(current);
         setShow(true)
         setText(
+           
+           
             <div>
                 <button className="btnclose" onClick={() => setShow(false)}>X</button>
-                <img src={item.Image1} />
-                <img src={item.Image2} />
-                <img src={item.Image3} />
+               
+            <div className="swiper" >
+               
+                {imgs.map((slide, index)=>{
+                       return(
+                           <div >
+                               <img src={slide} className="image"/>
+                           </div>
+                       ) 
+                   })}
+            </div>
+          
+
+
                 <h3>{item.Name}</h3>
                 <p>{item.Description}</p>
                 <p>{item.Price}</p>
@@ -142,7 +177,7 @@ export default function Landing() {
                     />
                     <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
                 </div>
-            </div>
+                </div>
         )
     }
 
