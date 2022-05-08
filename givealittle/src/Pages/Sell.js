@@ -9,11 +9,12 @@ import SpecsPage from './SpecsPage';
 
 
 export default function Sell() {
-  const [newName, setNewName] = useState(""); //state for item name
-  const [newDescription, setNewDesnewDescription] = useState(""); //state for description
-  const [newImg, setnewImg] = useState(""); //state for image
-  const [newPrice, setNewPrice] = useState(0); //state for price
-  const [newQuantity, setNewQuantity] = useState(0); //state for quantity
+    const [newName, setNewName] = useState("");     //state for item name
+    const [newDescription, setNewDesnewDescription] = useState("");         //state for description 
+    const [newImg, setnewImg] = useState("");                   //state for image
+    const [newImg2, setNewImg2] = useState("")
+    const [newPrice, setNewPrice] = useState(0);                    //state for price
+    const [newQuantity, setNewQuantity] = useState(0);              //state for quantity
 
   const [item, setItem] = useState([]); //state for item
   const itemRef = collection(db, "Inventory"); //refernce for item

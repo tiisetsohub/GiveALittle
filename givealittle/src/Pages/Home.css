@@ -412,6 +412,7 @@ input[type="radio"] {
     font-size: 20px;
     font-weight: bold;
     color: #314237;
+    text-align: center;
 }
 
 .spec-container {

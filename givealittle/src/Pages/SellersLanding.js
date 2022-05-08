@@ -15,12 +15,6 @@ import HomeIcon from "@mui/icons-material/Home";
 
 // To get current user imports
 import { NameContext } from '../Context';
-
-import {
-  Container, Row, Col
-} from 'reactstrap';
-import { applyActionCode } from 'firebase/auth';
-import { async } from '@firebase/util';
 import Navigation from '../components/Navigation';
 
 function SellersLanding() {
@@ -85,6 +79,11 @@ useEffect(() => {
               price={product.Price}
               quantity={product.Quantity}
               specs={product.Specs}
+              productId={product.id}
+              Inventory={Inventory}
+              setItems={setItems}
+              stars={product.Stars}
+              review={product.Review}
             />
             )
             : null
