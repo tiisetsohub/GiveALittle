@@ -48,4 +48,5 @@ This is what you can do with GiveALittle:
 * Pamela Segana
 
 
-### To find out more, please visit the ![](https://github.com/tiisetsohub/GiveALittle/wiki)
+### To find out more, please visit the 
+![GiveALittle wiki](https://github.com/tiisetsohub/GiveALittle/wiki)
