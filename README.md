@@ -38,4 +38,14 @@ This is what you can do with GiveALittle:
 
 ## Developers
 
-* @MotheoTee
+* Motheo Tsirwe
+* Brian Makhubela
+* Tiisetso Mojalefa
+* Thulasizwe Sabela
+* Aubrey Nalane
+* Zukisa Moto
+* Tshepiso Mahoko
+* Pamela Segana
+
+
+### To find out more, please visit the ![](https://github.com/tiisetsohub/GiveALittle/wiki)
