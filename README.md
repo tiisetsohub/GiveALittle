@@ -2,7 +2,7 @@
 
 ## Introduction
 
-![CircleCI](https://img.shields.io/circleci/build/github/tiisetsohub/GiveALittle/main)
+[![CircleCI](https://circleci.com/gh/tiisetsohub/GiveALittle/tree/dummy-transaction.svg?style=svg)](https://circleci.com/gh/tiisetsohub/GiveALittle/tree/dummy-transaction)
 ![Codecov](https://img.shields.io/codecov/c/github/tiisetsohub/GiveALittle)
 
 GiveALittle is a Web Application for both Buyers and Sellers which allows them to buy products 
