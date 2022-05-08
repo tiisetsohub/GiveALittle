@@ -11,7 +11,7 @@ meaning they can be both a buyer and the seller at the same time.
 
 ### Having Trouble Running The Web Application
 
---type `npm install` to install all dependenacies,
+--type `npm install all --save` to install all dependenacies,
   then type `npm start` to run app on local server
   
 ### Developed For Any Device Having A Browser
