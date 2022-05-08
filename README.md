@@ -49,4 +49,4 @@ This is what you can do with GiveALittle:
 
 
 ### To find out more, please visit the 
-![GiveALittle wiki](https://github.com/tiisetsohub/GiveALittle/wiki)
+[GiveALittle wiki](https://github.com/tiisetsohub/GiveALittle/wiki)
