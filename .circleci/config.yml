@@ -833,12 +833,6 @@ workflows:
     jobs:
       - test_unit:
           react-dist-tag: next
-      - test_browser:
-          react-dist-tag: next
-      - test_regressions:
-          react-dist-tag: next
-      - test_e2e:
-          react-dist-tag: next
   typescript-next:
     triggers:
       - schedule:
