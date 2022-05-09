@@ -3,6 +3,7 @@ const tests = require("./allfunctions");
 login = tests[0]
 signup = tests[1]
 carddetails = tests[2]
+totalprice = tests[3]
 
 //tests for login functions
 test("checks for valid login details", () => {
@@ -26,4 +27,12 @@ test("checks for valid card details", () => {
 })
 test("checks for valid card details", () => {
     expect(carddetails("david","12", "234")).toBe(false)
+})
+
+//tests for total price function
+test("calculates total price of cart", () => {
+    expect(totalprice([1,2,3,4])).toBe(10)
+})
+test("calculates total price of cart", () => {
+    expect(totalprice([100,2000,3399])).toBe(5499)
 })

@@ -13,4 +13,12 @@ function carddetails(name, expdate, cvv) {
     return name.length > 0 && expdate.length === 4 && cvv.length === 3
 }
 
-module.exports = [login, signup, carddetails];
+//function for calculating total
+function totalprice(items) {
+    total = 0
+    for (var i = 0; i < items.length; i++){
+        total += items[i]
+    }
+    return total
+}
+module.exports = [login, signup, carddetails, totalprice];
