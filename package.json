@@ -12,5 +12,26 @@
     "react-rating-stars-component": "^2.2.0",
     "react-router-dom": "^5.3.1",
     "reactstrap": "^9.0.2"
-  }
+  },
+  "name": "givealittle",
+  "description": "## Introduction",
+  "version": "1.0.0",
+  "main": "sum.js",
+  "devDependencies": {
+    "jest": "^28.1.0"
+  },
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tiisetsohub/GiveALittle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tiisetsohub/GiveALittle/issues"
+  },
+  "homepage": "https://github.com/tiisetsohub/GiveALittle#readme"
 }
