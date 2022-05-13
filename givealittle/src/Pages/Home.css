@@ -448,3 +448,18 @@ input[type="radio"] {
     height: 35px;
     color:#F0F0F0;
 }
+
+.filters-container {
+    margin: 15px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.filter-button {
+    border: none;
+    width: 100px;
+    border-radius: 15px;
+    background-color: #bdbdbd;
+    margin-top: 15px;
+    margin-left: 15px;
+}

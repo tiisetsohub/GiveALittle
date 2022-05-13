@@ -10,6 +10,9 @@ import ReactStars from "react-rating-stars-component"
 import ReorderIcon from "@mui/icons-material/Reorder";
 import { NameContext } from '../Context';
 import { CgProfile } from 'react-icons/cg';
+import Filter from '../components/Filter';
+import { MdDelete, MdEdit, MdExpandMore, MdExpandLess, MdModeComment, MdOutlineComment, MdOutlineUnfoldMore, MdUnfoldLess } from 'react-icons/md';
+
 
 //identical to home.js
 
@@ -30,6 +33,39 @@ export default function Landing() {
 
     const searchRef = useRef();
     const [searchTerm, setSearchTerm] = useState("");
+
+    //state for the filter button
+    const [filterActive, setFilterActive] = useState(false);
+    const [allFilters, setAllFilters] = useState([]);
+
+    //handle clicking of the filter button
+    const handleFilterClick = () => {
+        if (filterActive) {
+            setFilterActive(false);
+        }else {
+            setFilterActive(true);
+        }
+    }
+
+
+    //To filter the items by category
+    useEffect(() => {
+        
+        if (allFilters.length != 0){
+            let tempArr = []
+            Inventory.map((product) => {
+                if (product.Categories != undefined) {
+                    if (allFilters.includes(product.Categories)){
+                        tempArr = [...tempArr, product];
+                    }
+                }
+                
+            })
+            setItems(tempArr);
+        }
+        
+    }, [allFilters])
+
 
     // Variables for reviews
     let str = ""
@@ -145,6 +181,15 @@ export default function Landing() {
         getUsers()
     }, []);
 
+    useEffect(() => {
+        const getItems = async () => {
+            const data = await getDocs(itemRef);
+            setItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        }
+
+        getItems()
+    }, []);
+
     function Navbar() {
         const [total, setTotal] = useState(0);
         const [showLinks, setShowLinks] = useState(false);
@@ -243,14 +288,7 @@ export default function Landing() {
     }
 
 
-    useEffect(() => {
-        const getItems = async () => {
-            const data = await getDocs(itemRef);
-            setItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-        }
-
-        getItems()
-    }, []);
+    
 
     function handleCartItems(item) {
         setCartItems(prev => {
@@ -416,6 +454,25 @@ export default function Landing() {
     return (
         <div>
             <Navbar />
+
+            {filterActive ? 
+                <button className='filter-button' onClick={handleFilterClick}>
+                    <MdExpandMore style={{height: "30px", width: "30px"}}/>
+                    Filter</button>
+                :
+                <button className='filter-button' onClick={handleFilterClick}>
+                    <MdExpandLess style={{height: "30px", width: "30px"}}/>
+                    Filter</button>
+            }
+ 
+            <div>
+                <Filter 
+                    filterActive={filterActive}
+                    allFilters={allFilters}
+                    setAllFilters={setAllFilters}/>
+            </div>
+                
+            
             {
                 show ? <div className="reviewdiv">
                     {text}

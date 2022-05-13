@@ -1,0 +1,20 @@
+.filter-container {
+    margin: 15px;
+    border-radius: 15px;
+    background-color: rgb(207, 207, 207);
+    padding: 15px;
+}
+
+.category {
+    width: 100px;
+    margin: 5px;
+    border: none;
+    border-radius: 15px;
+    transition: 0.3s;
+    animation: ease-in;
+}
+
+.category:hover{
+    transform:translate(5px);
+    box-shadow: 0px 0px 5px -5px rgb(84, 84, 84);
+}
