@@ -1,7 +1,7 @@
 import React from 'react'
 import "../components/Filter.css"
 import { useState, useEffect } from 'react'
-import all from 'all'
+import Category from './Category'
 
 const categoryData = [
     {
@@ -49,19 +49,28 @@ const categoryData = [
         active: false
     },
     {
+        categoryName: "Sports",
+        active: false
+    },
+    {
         categoryName: "Wearables",
         active: false
     }]
 
-function Filter({ filterActive, allFilters, setAllFilters }) {
+function Filter({ filterActive, allFilters, setAllFilters, allCategories, Books, Baby, Cellphones, Computers, DIY, Electronics, Fashion, Groceries, Media, Office, Outdoor, Sports, Wearables }) {
 
     
     const [categories, setCategories] = useState(categoryData)
+    let allCategoryArrays = [Books, Baby, Cellphones, Computers, DIY, Electronics, Fashion, Groceries, Media, Office, Outdoor, Sports, Wearables]
+
 
     useEffect(() => {
         categories.map((category, index) => {
             if (category.active) {
-                const tempArr = [...allFilters, category.categoryName]
+                const tempArr = [...allFilters, {
+                    filterName: category.categoryName,
+                    filterProducts: allCategoryArrays[allCategories.indexOf(category.categoryName)]
+                }]
                 setAllFilters(tempArr)
             }
         })
@@ -105,43 +114,6 @@ function Filter({ filterActive, allFilters, setAllFilters }) {
         
       </div>
     
-  )
-}
-
-function Category({ categories, setCategories, categoryName }) {
-
-    //State for active/inactive category
-    const [active, setActive] = useState(categories.find(category => category.categoryName == categoryName).active);
-    const [categoryColor, setCategoryColor] = useState("#ffffff");
-
-
-    const handleClick = (categoryName) => {
-        const tempArr = [...categories];
-        const tempCategory = tempArr.find(category => category.categoryName == categoryName);
-
-        if (tempCategory.active) {
-            tempArr.find(category => category.categoryName == categoryName).active = false;  
-            setCategories(tempArr)
-            setActive(categories.find(category => category.categoryName == categoryName).active) 
-        }else {
-            tempArr.find(category => category.categoryName == categoryName).active = true; 
-            setCategories(tempArr)
-            setActive(categories.find(category => category.categoryName == categoryName).active) 
-        }
-    }
-
-
-    //useEffect for when a category is clicked
-    useEffect(() => {
-        if (active) {
-            setCategoryColor("#9ccc64");
-        }else {
-            setCategoryColor("#ffffff");
-        }
-    }, [active])
-
-  return (
-    <button className='category' style={{backgroundColor: categoryColor}} onClick={() => handleClick(categoryName)}>{categoryName}</button>
   )
 }
 

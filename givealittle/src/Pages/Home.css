@@ -16,7 +16,7 @@ button:hover {
     display: flex;
     flex-wrap: wrap;
     background-color: white;
-    justify-content: space-evenly;
+    justify-content: space-around;
 
 }
 
@@ -457,9 +457,35 @@ input[type="radio"] {
 
 .filter-button {
     border: none;
-    width: 100px;
+    width: max-content;
     border-radius: 15px;
     background-color: #bdbdbd;
     margin-top: 15px;
     margin-left: 15px;
 }
+
+.category-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.category-content-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.category-name {
+    width: 97%;
+    margin: 5px;
+    border: none;
+    border-radius: 15px;
+    transition: 0.3s;
+    animation: ease-in;
+    background-color: #dcc7ac;
+    font-size: large;
+    font-weight: bolder;
+    align-self: center;
+}
+
