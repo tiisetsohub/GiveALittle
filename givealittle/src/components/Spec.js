@@ -20,7 +20,6 @@ export default function Spec({Specs, setSpecs, addNewSpec, idx}) {
         tempSpecs[idx].spec = specName;
         tempSpecs[idx].detail = specDetail;
         setSpecs(tempSpecs);
-        console.log(Specs[idx].spec)
 
     }, [specName, specDetail])
 

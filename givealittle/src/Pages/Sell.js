@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Login.css';
 import { NameContext } from '../Context';
 import SpecsPage from './SpecsPage';
+import "../components/Categories.css"
 
 
 export default function Sell() {
@@ -21,6 +22,68 @@ export default function Sell() {
   const { name } = useContext(NameContext);       //state for currently signed in user email
   const [Specs, setSpecs] = useState([]);     //State for the specs
 
+  const [productCategories, setProductCategories] = useState("");
+
+  //state for the categories the product belongs to
+  const [categoriesActivity, setAllCategoriesActivity] = useState([
+    {
+        categoryName: "All",
+        active: true
+    },
+    {
+        categoryName: "Books",
+        active: false
+    },
+    {
+        categoryName: "Baby",
+        active: false
+    },
+    {
+        categoryName: "Cellphones",
+        active: false
+    },
+    {
+        categoryName: "Computers",
+        active: false
+    },
+    {
+        categoryName: "DIY",
+        active: false
+    },
+    {
+        categoryName: "Electronics",
+        active: false
+    },
+    {
+        categoryName: "Fashion",
+        active: false
+    },
+    {
+        categoryName: "Groceries",
+        active: false
+    },
+    {
+        categoryName: "Media",
+        active: false
+    },
+    {
+        categoryName: "Office",
+        active: false
+    },
+    {
+        categoryName: "Outdoor",
+        active: false
+    },
+    {
+        categoryName: "Sports",
+        active: false
+    },
+    {
+        categoryName: "Wearables",
+        active: false
+    }])
+
+
   const addItem = async () => {
     //handles adding an item to database
     await addDoc(itemRef, {
@@ -32,7 +95,8 @@ export default function Sell() {
       Stars: "",
       Review: "",
       Seller: name,
-      Specs: Specs 
+      Specs: Specs,
+      Categories: productCategories
     });
     alert("Added");
   };
@@ -46,6 +110,40 @@ export default function Sell() {
 
     getItems();
   }, []);
+
+  //function for selecting/unselecting categories from product
+  const categoryClick = (categoryName) => {
+    let categoryData = [...categoriesActivity]
+    let categoryActive = categoryData.find(category => category.categoryName == categoryName).active;
+
+    if(categoryName != "All"){
+      if(categoryActive){
+        categoryData.find(category => category.categoryName == categoryName).active = false
+      }else{
+        categoryData.find(category => category.categoryName == categoryName).active = true
+      }
+    }
+
+    setAllCategoriesActivity(categoryData)
+  }
+
+  //function for creating the categories string to add to database
+  const createCategoriesString = () => {
+    let categoriesString = "";
+    for(let i in categoriesActivity){
+      if (categoriesActivity[i].active){
+        categoriesString += "," + categoriesActivity[i].categoryName
+      }
+    }
+    categoriesString = categoriesString.substring(1);
+    setProductCategories(categoriesString)
+    
+  }
+
+  //useEffect for when the selected categories change
+  useEffect(() => {
+    createCategoriesString()
+  },[categoriesActivity])
 
   return (
     <div className="bigdiv">
@@ -77,6 +175,27 @@ export default function Sell() {
 
         <h4>Add Product Specifications</h4>
         <SpecsPage Specs={Specs} setSpecs={setSpecs} />
+
+        {/** Code below allows the seller to select product categories
+         * Every product belongs to the "All" category by default
+         * Every other category can be dynamically selected
+         */}
+
+         <h4>Select product Categories</h4>
+         <div>
+         <div className='categories-container'>
+            {categoriesActivity.map((category, index) => {
+                return (
+                  <div key={index}>
+                    <button className="category" 
+                        style={{backgroundColor: (category.active ? "#9ccc64" : "#ffffff")}}
+                        onClick={() => categoryClick(category.categoryName)}
+                        >{category.categoryName}</button>
+                  </div>
+                )
+            })}
+        </div>
+         </div>
 
         <Link to="/sellerslanding">
           <button className="btnadd" id="btn" onClick={addItem}>Add</button>

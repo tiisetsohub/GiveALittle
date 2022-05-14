@@ -10,10 +10,8 @@ import ReactStars from "react-rating-stars-component"
 import ReorderIcon from "@mui/icons-material/Reorder";
 import { NameContext } from '../Context';
 import { CgProfile } from 'react-icons/cg';
-import Filter from '../components/Filter';
 import { MdDelete, MdEdit, MdExpandMore, MdExpandLess, MdModeComment, MdOutlineComment, MdOutlineUnfoldMore, MdUnfoldLess } from 'react-icons/md';
-import Category from '../components/Category';
-
+import CategorySelector from '../components/CategorySelector';
 //identical to home.js
 
 export default function Landing() {
@@ -35,6 +33,7 @@ export default function Landing() {
     const [searchTerm, setSearchTerm] = useState("");
 
     //States for all the products in different categories
+    const [All, setAll] = useState([])
     const [Books, setBooks] = useState([]);
     const [Baby, setBaby] = useState([]);
     const [Cellphones, setCellphones] = useState([]);
@@ -48,12 +47,71 @@ export default function Landing() {
     const [Outdoor, setOutdoor] = useState([]);
     const [Sports, setSports] = useState([]);
     const [Wearables, setWearables] = useState([]);
-    const [allCategories] = useState(["Books", "Baby", "Cellphones", "Computers", "DIY", "Electronics", "Fashion", "Groceries", "Media", "Office", "Outdoor", "Sports", "Wearables"])
     
-    //contains all the category arrays
-    const [allCategoryArrays] = useState([Books, Baby, Cellphones, Computers, DIY, Electronics, Fashion, Groceries, Media, Office, Outdoor, Sports, Wearables])
     //contains all the setters for the category arrays
-    const [allSetters] = useState([setBooks, setBaby, setCellphones, setComputers, setDIY, setElectronics, setFashion, setGroceries, setMedia, setOffice, setOutdoor, setSports, setWearables]);
+    const [allCategories] = useState(["All","Books", "Baby", "Cellphones", "Computers", "DIY", "Electronics", "Fashion", "Groceries", "Media", "Office", "Outdoor", "Sports", "Wearables"])
+    const [allCategoriesArrays] = useState([All, Books, Baby, Cellphones, Computers, DIY, Electronics, Fashion, Groceries, Media, Office, Outdoor, Sports, Wearables]);
+    const [allSetters] = useState([setAll, setBooks, setBaby, setCellphones, setComputers, setDIY, setElectronics, setFashion, setGroceries, setMedia, setOffice, setOutdoor, setSports, setWearables]);
+
+    //State for the currently selected category
+    const [categoriesActivity, setAllCategoriesActivity] = useState([
+        {
+            categoryName: "All",
+            active: true
+        },
+        {
+            categoryName: "Books",
+            active: false
+        },
+        {
+            categoryName: "Baby",
+            active: false
+        },
+        {
+            categoryName: "Cellphones",
+            active: false
+        },
+        {
+            categoryName: "Computers",
+            active: false
+        },
+        {
+            categoryName: "DIY",
+            active: false
+        },
+        {
+            categoryName: "Electronics",
+            active: false
+        },
+        {
+            categoryName: "Fashion",
+            active: false
+        },
+        {
+            categoryName: "Groceries",
+            active: false
+        },
+        {
+            categoryName: "Media",
+            active: false
+        },
+        {
+            categoryName: "Office",
+            active: false
+        },
+        {
+            categoryName: "Outdoor",
+            active: false
+        },
+        {
+            categoryName: "Sports",
+            active: false
+        },
+        {
+            categoryName: "Wearables",
+            active: false
+        }])
+
 
     //function for putting items in category
     const addToCategory = (category, setCategory) => {
@@ -75,31 +133,18 @@ export default function Landing() {
         }
     }, [Inventory])
 
-    //state for the filter button
-    const [filterActive, setFilterActive] = useState(false);
-    const [allFilters, setAllFilters] = useState([]);
 
-    //handle clicking of the filter button
-    const handleFilterClick = () => {
-        if (filterActive) {
-            setFilterActive(false);
-        }else {
-            setFilterActive(true);
-        }
-    }
+    //useEffect for when the selected category changes
+    useEffect(() => {
+        let currentCategory = categoriesActivity.find(category => category.active)
+    },[categoriesActivity])
+
 
     //function to split the string of categories by ,
     const splitCategories = (categoriesString) => {
         const categoriesArray = categoriesString.split(",");
         return categoriesArray
     }
-
-    //To filter the items by category
-    useEffect(() => {
-        for(let i in allFilters){
-            console.log(allFilters[i].filterName + allFilters[i].filterProducts)
-        }
-    }, [allFilters])
 
 
     // Variables for reviews
@@ -489,91 +534,14 @@ export default function Landing() {
     return (
         <div>
             <Navbar />
-
-            {filterActive ? 
-                <button className='filter-button' onClick={handleFilterClick} style={{backgroundColor: "#C25450"}}>
-                    <MdExpandMore style={{height: "30px", width: "30px"}}/>
-                    Close Filter</button>
-                :
-                <button className='filter-button' onClick={handleFilterClick}>
-                    <MdExpandLess style={{height: "30px", width: "30px"}}/>
-                    Show Filter</button>
-            }
+            <CategorySelector categoriesActivity={categoriesActivity} setAllCategoriesActivity={setAllCategoriesActivity}/>
  
-            <div>
-                <Filter 
-                    filterActive={filterActive}
-                    allFilters={allFilters}
-                    setAllFilters={setAllFilters}
-                    allCategories={allCategories}
-                    Books={Books} Baby={Baby} Cellphones={Cellphones} Computers={Computers} DIY={DIY} Electronics={Electronics} Fashion={Fashion} Groceries={Groceries} Media={Media} Office={Office} Outdoor={Outdoor} Sports={Sports} Wearables={Wearables}
-                    />
-            </div>
-             
-             
-                    {/**
-                     * This part(inside this div) allows for the categories that are selected in the 
-                     * filter to show.
-                     * 
-                     * all products will show after the selected categories
-                     */}
-                 {allFilters.length != 0 ?
-                    
-                    <div >
-                        {allFilters.map((filter, index) => {
-                            return (
-                                <div key={index} className="category-container">
-                                    <button className='category-name'>{"(" + filter.filterProducts.length + ")" + "  " + filter.filterName}</button>
-                                    <div className='category-content-container'>
-                                    
-                                    {filter.filterProducts.map((item, idx) => {
-                                        return (
-                                            <div key={idx} className="itemdiv" onClick={() => {
-                                                ProductView(item)
-                                            }}>
-                                                <img src={item.Image} alt="nope" />
-                                                <div className="textdiv">
-                                                    <h1 className="itemname">{item.Name}</h1>
-                                                </div>
-                                                <h1 className="itemprice">R{item.Price}</h1>
-                                                <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
-                                                {(() => {
-                                                    if (item.Quantity == 0) {
-                                                        return (
-                                                            <h1 style={{ fontWeight: "bold", color: "#B38B59" }} className="item-quantity">sold out</h1>
-                                                        )
-                                                    } else {
-                                                        return (
-                                                            <h1 className="item-quantity">in stock</h1>
-                                                        )
-                                                    }
-                                                })()}
-                                            </div> 
-                                        )
-                                    })
-
-                                    }
-
-                                    
-
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
-
-                    : null
-
-                 }
-                 
-               
             
             {
                 show ? <div className="reviewdiv">
                     {text}
                 </div> :
                     <div className="bodydiv" >
-                        <button className='category-name'>({Inventory.length}) All Products</button>
                         {Inventory.filter((item) => {
                             if (searchTerm == "") {
                                 return item

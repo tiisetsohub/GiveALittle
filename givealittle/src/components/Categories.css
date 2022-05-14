@@ -1,8 +1,11 @@
-.filter-container {
+
+.categories-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background-color: #e8e1d6;
     margin: 15px;
-    border-radius: 15px;
-    background-color: rgb(207, 207, 207);
-    padding: 15px;
+    border-radius: 5px;
 }
 
 .category {
@@ -17,4 +20,9 @@
 .category:hover{
     transform:translate(5px);
     box-shadow: 0px 0px 5px -5px rgb(84, 84, 84);
+}
+
+.category:active{
+    width: 110px;
+    margin-right: -10px;
 }
