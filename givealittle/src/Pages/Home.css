@@ -449,3 +449,10 @@ input[type="radio"] {
     color:#F0F0F0;
 }
 
+.category-heading {
+    background-color: #cdedd8;
+    margin: 15px;
+    border-radius: 15px;
+    text-align: center;
+    padding: 5px;
+}

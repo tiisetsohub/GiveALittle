@@ -31,113 +31,81 @@ export default function Landing() {
 
     const searchRef = useRef();
     const [searchTerm, setSearchTerm] = useState("");
-
-    //States for all the products in different categories
-    const [All, setAll] = useState([])
-    const [Books, setBooks] = useState([]);
-    const [Baby, setBaby] = useState([]);
-    const [Cellphones, setCellphones] = useState([]);
-    const [Computers, setComputers] = useState([]);
-    const [DIY, setDIY] = useState([]);
-    const [Electronics, setElectronics] = useState([]);
-    const [Fashion, setFashion] = useState([]);
-    const [Groceries, setGroceries] = useState([]);
-    const [Media, setMedia] = useState([]);
-    const [Office, setOffice] = useState([]);
-    const [Outdoor, setOutdoor] = useState([]);
-    const [Sports, setSports] = useState([]);
-    const [Wearables, setWearables] = useState([]);
     
-    //contains all the setters for the category arrays
-    const [allCategories] = useState(["All","Books", "Baby", "Cellphones", "Computers", "DIY", "Electronics", "Fashion", "Groceries", "Media", "Office", "Outdoor", "Sports", "Wearables"])
-    const [allCategoriesArrays] = useState([All, Books, Baby, Cellphones, Computers, DIY, Electronics, Fashion, Groceries, Media, Office, Outdoor, Sports, Wearables]);
-    const [allSetters] = useState([setAll, setBooks, setBaby, setCellphones, setComputers, setDIY, setElectronics, setFashion, setGroceries, setMedia, setOffice, setOutdoor, setSports, setWearables]);
+    const allCategories = ["All","Books", "Baby", "Cellphones", "Computers", "DIY", "Electronics", "Fashion", "Groceries", "Media", "Office", "Outdoor", "Sports", "Wearables"]
 
     //State for the currently selected category
     const [categoriesActivity, setAllCategoriesActivity] = useState([
         {
             categoryName: "All",
-            active: true
+            active: true,
+            products: []
         },
         {
             categoryName: "Books",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Baby",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Cellphones",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Computers",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "DIY",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Electronics",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Fashion",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Groceries",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Media",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Office",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Outdoor",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Sports",
-            active: false
+            active: false,
+            products: []
         },
         {
             categoryName: "Wearables",
-            active: false
+            active: false,
+            products: []
         }])
-
-
-    //function for putting items in category
-    const addToCategory = (category, setCategory) => {
-        const categoryArray = [];
-        for (let i in Inventory) {
-            let product = Inventory[i]
-            let productCategories = splitCategories(product.Categories)
-            if (productCategories.includes(category)) {
-                categoryArray.push(Inventory[i]);
-            }
-        }
-        setCategory(categoryArray)
-    }
-
-    //useEffect for putting items in their respective categories
-    useEffect(() => {
-        for (let i in allCategories){
-            addToCategory(allCategories[i], allSetters[i]);
-        }
-    }, [Inventory])
-
-
-    //useEffect for when the selected category changes
-    useEffect(() => {
-        let currentCategory = categoriesActivity.find(category => category.active)
-    },[categoriesActivity])
 
 
     //function to split the string of categories by ,
@@ -145,6 +113,29 @@ export default function Landing() {
         const categoriesArray = categoriesString.split(",");
         return categoriesArray
     }
+
+    const [currentActiveCategory, setCurrentActiveCategory] = useState("All")
+    //useEffect for the currenctly selected category
+    useEffect(() => {
+        setCurrentActiveCategory(categoriesActivity.find(category => category.active).categoryName)
+    },[categoriesActivity])
+
+    //useEffect for setting up the categories
+    useEffect(() => {
+        let tempArr = [...categoriesActivity]
+        for (let x in allCategories){
+            let currentCategory = allCategories[x]
+            for (let i in Inventory){
+                let productCategories = splitCategories(Inventory[i].Categories)
+                if(productCategories.includes(currentCategory)){
+                    let theCategory = tempArr.find(category => category.categoryName == currentCategory)
+                    theCategory.products.push(Inventory[i])
+                }
+            }
+        }
+        setAllCategoriesActivity([...tempArr])        
+    },[Inventory])
+
 
 
     // Variables for reviews
@@ -166,8 +157,7 @@ export default function Landing() {
         alert("Review submitted")
     }
 
-
-
+    
     // The following function count the average rating of each item (using stars)
     function avgStars(stars) {
         let starCount = "" + stars;
@@ -268,6 +258,7 @@ export default function Landing() {
         }
 
         getItems()
+        
     }, []);
 
     function Navbar() {
@@ -535,8 +526,49 @@ export default function Landing() {
         <div>
             <Navbar />
             <CategorySelector categoriesActivity={categoriesActivity} setAllCategoriesActivity={setAllCategoriesActivity}/>
- 
+
+
             
+                
+
+            {   currentActiveCategory != "All" ? 
+                <div>
+                    <h6 className='category-heading'>{currentActiveCategory + " (" + categoriesActivity.find(category => category.categoryName == currentActiveCategory).products.length + ")"}</h6>
+
+                <div className='bodydiv'>
+                {categoriesActivity.find(category => category.categoryName == currentActiveCategory).products.map((item, itemIndex) => {
+                    return (
+                        <div key={itemIndex} className="itemdiv" onClick={() => {
+                            ProductView(item)
+                        }}>
+                            <img src={item.Image} alt="nope" />
+                            <div className="textdiv">
+                                <h1 className="itemname">{item.Name}</h1>
+                            </div>
+                            <h1 className="itemprice">R{item.Price}</h1>
+                            <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
+                            {(() => {
+                                if (item.Quantity == 0) {
+                                    return (
+                                        <h1 style={{ fontWeight: "bold", color: "#B38B59" }} className="item-quantity">sold out</h1>
+                                    )
+                                } else {
+                                    return (
+                                        <h1 className="item-quantity">in stock</h1>
+                                    )
+                                }
+                            })()}
+                        </div>
+                    )
+                })}
+                </div>
+                </div>
+                :null
+            }
+            
+
+
+            <h6 className='category-heading'>All products{" (" + categoriesActivity.find(category => category.categoryName == "All").products.length + ")"}</h6>
             {
                 show ? <div className="reviewdiv">
                     {text}
@@ -548,8 +580,9 @@ export default function Landing() {
                             } else if (item.Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())) {
                                 return item
                             }
-                        }).map((item) => {
-                            return <div className="itemdiv" onClick={() => {
+                        }).map((item, indx) => {
+                            return (
+                            <div key={indx} className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
                                 <img src={item.Image} alt="nope" />
@@ -570,6 +603,7 @@ export default function Landing() {
                                     }
                                 })()}
                             </div>
+                            )
                         })}
                     </div>
             }
