@@ -84,6 +84,7 @@ useEffect(() => {
               setItems={setItems}
               stars={product.Stars}
               review={product.Review}
+              categories={product.Categories}
             />
             )
             : null

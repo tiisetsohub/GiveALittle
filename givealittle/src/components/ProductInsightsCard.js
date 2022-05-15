@@ -174,7 +174,7 @@ function ProductInsightsCard(product) {
 
         <h5 className='name'>{product.name}</h5>
         <div className='numbers-container'>
-            
+            <h6 className='product-categories'>{product.categories.substring(4)}</h6>
             <h6>Price:
                 <h5 className='price'> R{product.price}</h5>
             </h6>

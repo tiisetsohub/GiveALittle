@@ -285,3 +285,10 @@
     transform: translate(-15px);
     background-color: #e7e7e7;
 }
+
+.product-categories {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bolder;
+    color:#50A181;
+}
