@@ -27,61 +27,73 @@ export default function Sell() {
   //state for the categories the product belongs to
   const [categoriesActivity, setAllCategoriesActivity] = useState([
     {
-        categoryName: "All",
-        active: true
-    },
-    {
-        categoryName: "Books",
-        active: false
-    },
-    {
-        categoryName: "Baby",
-        active: false
-    },
-    {
-        categoryName: "Cellphones",
-        active: false
-    },
-    {
-        categoryName: "Computers",
-        active: false
-    },
-    {
-        categoryName: "DIY",
-        active: false
-    },
-    {
-        categoryName: "Electronics",
-        active: false
-    },
-    {
-        categoryName: "Fashion",
-        active: false
-    },
-    {
-        categoryName: "Groceries",
-        active: false
-    },
-    {
-        categoryName: "Media",
-        active: false
-    },
-    {
-        categoryName: "Office",
-        active: false
-    },
-    {
-        categoryName: "Outdoor",
-        active: false
-    },
-    {
-        categoryName: "Sports",
-        active: false
-    },
-    {
-        categoryName: "Wearables",
-        active: false
-    }])
+      categoryName: "All",
+      active: true,
+  },
+  {
+      categoryName: "Automotive",
+      active: false,
+  },
+  {
+      categoryName: "Baby",
+      active: false,
+  },
+  {
+      categoryName: "Beauty & Personal Care",
+      active: false,
+  },
+  {
+      categoryName: "Books",
+      active: false,
+  },
+  {
+      categoryName: "Cellphones & Wearables",
+      active: false,
+  },
+  {
+      categoryName: "Computers & Electronics",
+      active: false,
+  },
+  {
+      categoryName: "Gaming",
+      active: false,
+  },
+  {
+      categoryName: "Fashion",
+      active: false,
+  },
+  {
+      categoryName: "Health & Household",
+      active: false,
+  },
+  {
+      categoryName: "Home & Appliances",
+      active: false,
+  },
+  {
+      categoryName: "Liquor",
+      active: false,
+  },
+  {
+      categoryName: "Office & Stationary",
+      active: false,
+  },
+  {
+      categoryName: "Pets",
+      active: false,
+  },
+  {
+      categoryName: "Sport & Training",
+      active: false,
+  },
+  {
+      categoryName: "Toys",
+      active: false,
+  },
+  {
+      categoryName: "TV Audio & Media",
+      active: false,
+  }])
 
 
   const addItem = async () => {

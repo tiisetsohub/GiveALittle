@@ -32,7 +32,7 @@ export default function Landing() {
     const searchRef = useRef();
     const [searchTerm, setSearchTerm] = useState("");
     
-    const allCategories = ["All","Books", "Baby", "Cellphones", "Computers", "DIY", "Electronics", "Fashion", "Groceries", "Media", "Office", "Outdoor", "Sports", "Wearables"]
+    const allCategories = ["All","Automotive", "Baby", "Beauty & Personal Care", "Books", "Cellphones & Wearables", "Computers & Electronics", "Gaming", "Fashion", "Health & Household", "Home & Appliances", "Liquor", "Office & Stationary", "Pets", "Sport & Training", "Toys", "TV Audio & Media"]
 
     //State for the currently selected category
     const [categoriesActivity, setAllCategoriesActivity] = useState([
@@ -42,7 +42,7 @@ export default function Landing() {
             products: []
         },
         {
-            categoryName: "Books",
+            categoryName: "Automotive",
             active: false,
             products: []
         },
@@ -52,22 +52,27 @@ export default function Landing() {
             products: []
         },
         {
-            categoryName: "Cellphones",
+            categoryName: "Beauty & Personal Care",
             active: false,
             products: []
         },
         {
-            categoryName: "Computers",
+            categoryName: "Books",
             active: false,
             products: []
         },
         {
-            categoryName: "DIY",
+            categoryName: "Cellphones & Wearables",
             active: false,
             products: []
         },
         {
-            categoryName: "Electronics",
+            categoryName: "Computers & Electronics",
+            active: false,
+            products: []
+        },
+        {
+            categoryName: "Gaming",
             active: false,
             products: []
         },
@@ -77,35 +82,46 @@ export default function Landing() {
             products: []
         },
         {
-            categoryName: "Groceries",
+            categoryName: "Health & Household",
             active: false,
             products: []
         },
         {
-            categoryName: "Media",
+            categoryName: "Home & Appliances",
             active: false,
             products: []
         },
         {
-            categoryName: "Office",
+            categoryName: "Liquor",
             active: false,
             products: []
         },
         {
-            categoryName: "Outdoor",
+            categoryName: "Office & Stationary",
             active: false,
             products: []
         },
         {
-            categoryName: "Sports",
+            categoryName: "Pets",
             active: false,
             products: []
         },
         {
-            categoryName: "Wearables",
+            categoryName: "Sport & Training",
             active: false,
             products: []
-        }])
+        },
+        {
+            categoryName: "Toys",
+            active: false,
+            products: []
+        },
+        {
+            categoryName: "TV Audio & Media",
+            active: false,
+            products: []
+        }
+    ])
 
 
     //function to split the string of categories by ,
