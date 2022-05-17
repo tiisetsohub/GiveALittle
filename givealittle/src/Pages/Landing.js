@@ -13,6 +13,7 @@ import { CgProfile } from 'react-icons/cg';
 import { MdDelete, MdEdit, MdExpandMore, MdExpandLess, MdModeComment, MdOutlineComment, MdOutlineUnfoldMore, MdUnfoldLess } from 'react-icons/md';
 import CategorySelector from '../components/CategorySelector';
 import CategorySearchDropdown from '../components/CategorySearchDropdown';
+import SearchSuggestion from '../components/SearchSuggestion';
 //identical to home.js
 
 export default function Landing() {
@@ -34,6 +35,7 @@ export default function Landing() {
     //for the search
     const [searchTerm, setSearchTerm] = useState("")
     const [searchedProducts, setSearchedProducts] = useState([]);
+    const [suggestionDropdown, setSuggestionDropdown] = useState(true);
 
     //state for collapsing the filter by category
     const [isFilter, setIsFilter] = useState(false);
@@ -496,7 +498,7 @@ export default function Landing() {
                                 }
                         </div>
                         
-                        <button className="btnsearch">
+                        <button className="btnsearch" onClick={() => searchCategory(currentSearchCategory)}>
                             Search
                         </button>
                     </div>
@@ -684,18 +686,20 @@ export default function Landing() {
     return (
         <div>
             <Navbar />
+            <SearchSuggestion 
+                searchedProducts={searchedProducts} 
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                suggestionDropdown={suggestionDropdown}
+                setSuggestionDropdown={setSuggestionDropdown}/>
             <input className='edtsearch' placeholder='Search' type="text" value={searchTerm} onChange={handleSearchTermChange}></input>
 
             {isFilter ? 
             
-            <button className='filter' style={{backgroundColor: "#C25450"}} onClick={handleFilter}>
-            <MdExpandLess style={{height: "30px", width: "30px"}}/>
-            <h5 className='more-info'>Close Filter</h5>
-            </button>
+            <button className='filter' style={{backgroundColor: "#9ccc64"}} onClick={handleFilter}>Close Filter</button>
             :
             <button className='filter' onClick={handleFilter}>
-            <MdExpandMore style={{height: "30px", width: "30px"}}/>
-            <h5 className='more-info'>Filter by Category</h5>
+            Filter by Category
             </button>
         }
 

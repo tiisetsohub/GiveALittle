@@ -26,22 +26,41 @@ background-color: #75b58c;    border-radius: 5px;
 }
 
 .filter {
-    border: none;
+    text-align: center;
     margin-left: 15px;
     margin-top: 15px;
-    border-radius: 15px;
-    background-color: #9ccc64;
-    padding: 5px;
-    width: 150px;
-    height: 35px;
-    border-radius: 15px;
+    background-color: #75b58c;
+    border-radius: 5px;
     transition: 0.5s;
+    border: none;
     box-shadow: 0px 0px 15px -5px rgb(70, 70, 70);
-    text-align: start;
-
 }
 
 .filter:hover {
     transform: scale(1.05);
     box-shadow: 0px 0px 20px -5px rgb(61, 61, 61);
+}
+
+.search-suggestion-container {
+    background-color: #eee8e0;
+    width: 200px;
+    position: absolute;
+    border-radius: 5px;
+    top: 64px;
+    right: 310px;
+    z-index: 10;
+}
+
+.suggestion-button {
+    width: 200px;
+    border: none;
+    margin-top: 3px;
+    border-radius: 15px;
+    background-color: #eee8e0;
+    transition: 0.5s;
+}
+
+.suggestion-button:hover {
+    transform: scale(1.05);
+    background-color: #ffffff;
 }
