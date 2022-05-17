@@ -244,7 +244,7 @@ export default function Home() {
 
 
 
-  function viewReviews(item) {
+  function viewReviews(item, starCount) {
     const comments = review(item.Review);
     const commentList = comments.map(comment => <div className="indrev">{comment} </div>)
     setShowReview(true)
@@ -264,6 +264,11 @@ export default function Home() {
           <br />
           <div className="revdivin">
             <h5>Reviews</h5>
+
+            <div className="inprodstar">
+            <BsStarFill className="initemsstar" />{starCount}
+          </div>
+
             <div className="revcomm">{commentList}</div>
           </div>
         </div>
@@ -301,7 +306,7 @@ export default function Home() {
 
           <div className="inprodstar">
             <BsStarFill className="initemsstar" />{avgStars(item.Stars)}
-            <Link onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
+            <Link onClick={() => viewReviews(item, avgStars(item.Stars))}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
           </div>
         </div>
       </div>
