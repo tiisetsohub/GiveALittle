@@ -12,6 +12,7 @@ import { NameContext } from '../Context';
 import { CgProfile } from 'react-icons/cg';
 import { MdDelete, MdEdit, MdExpandMore, MdExpandLess, MdModeComment, MdOutlineComment, MdOutlineUnfoldMore, MdUnfoldLess } from 'react-icons/md';
 import CategorySelector from '../components/CategorySelector';
+import CategorySearchDropdown from '../components/CategorySearchDropdown';
 //identical to home.js
 
 export default function Landing() {
@@ -29,8 +30,20 @@ export default function Landing() {
     const { name, setName } = useContext(NameContext);
     const [Users, setUsers] = useState([]);
 
-    const searchRef = useRef();
-    const [searchTerm, setSearchTerm] = useState("");
+
+    //for the search
+    const [searchTerm, setSearchTerm] = useState("")
+    const [searchedProducts, setSearchedProducts] = useState([]);
+
+    //state for collapsing the filter by category
+    const [isFilter, setIsFilter] = useState(false);
+    const handleFilter = () => {
+        if (isFilter){
+            setIsFilter(false);
+        }else{
+            setIsFilter(true)
+        }
+    }
     
     const allCategories = ["All","Automotive", "Baby", "Beauty & Personal Care", "Books", "Cellphones & Wearables", "Computers & Electronics", "Gaming", "Fashion", "Health & Household", "Home & Appliances", "Liquor", "Office & Stationary", "Pets", "Sport & Training", "Toys", "TV Audio & Media"]
 
@@ -124,6 +137,120 @@ export default function Landing() {
     ])
 
 
+    //currently active search category
+    const [searchActiveCategory, setSearchActiveCategory] = useState([{
+        categoryName: "All",
+        active: true,
+    },
+    {
+        categoryName: "Automotive",
+        active: false,
+    },
+    {
+        categoryName: "Baby",
+        active: false,
+    },
+    {
+        categoryName: "Beauty & Personal Care",
+        active: false,
+    },
+    {
+        categoryName: "Books",
+        active: false,
+    },
+    {
+        categoryName: "Cellphones & Wearables",
+        active: false,
+    },
+    {
+        categoryName: "Computers & Electronics",
+        active: false,
+    },
+    {
+        categoryName: "Gaming",
+        active: false,
+    },
+    {
+        categoryName: "Fashion",
+        active: false,
+    },
+    {
+        categoryName: "Health & Household",
+        active: false,
+    },
+    {
+        categoryName: "Home & Appliances",
+        active: false,
+    },
+    {
+        categoryName: "Liquor",
+        active: false,
+    },
+    {
+        categoryName: "Office & Stationary",
+        active: false,
+    },
+    {
+        categoryName: "Pets",
+        active: false,
+    },
+    {
+        categoryName: "Sport & Training",
+        active: false,
+    },
+    {
+        categoryName: "Toys",
+        active: false,
+    },
+    {
+        categoryName: "TV Audio & Media",
+        active: false,
+    }])
+
+    const [currentSearchCategory, setCurrentSearchCategory] = useState(searchActiveCategory.find(category => category.active).categoryName);
+    
+    //handle user typing in search box
+    const handleSearchTermChange = (event) => {
+        setSearchTerm(event.target.value);
+      }
+
+    //function to search for an item in a given category
+    const searchCategory = (categoryName) => {
+        let category = categoriesActivity.find(category => category.categoryName == categoryName).products;
+        let tempArr = [];
+        for (let i in category){
+            let stringToSearch = category[i].Name.toLowerCase().replace(/\s/g, '')
+            
+            if (stringToSearch.includes(searchTerm.toLowerCase().replace(/\s/g, ''))){
+                tempArr = [...tempArr, category[i]]
+                setSearchedProducts([...tempArr]);
+            }
+        }
+    }
+
+    //useEffect for when the category selection changes
+    useEffect(() => {
+        if (searchTerm != ""){
+            searchCategory(currentSearchCategory)
+        }
+    }, [currentSearchCategory])
+
+    useEffect(() => {
+        searchCategory(currentSearchCategory)
+    },[searchTerm])
+
+    //used to show the category search dropdown menu
+    const [categoryDropdown, setCategoryDropdown] = useState(false);
+
+    const handleDropdown = () => {
+        if (categoryDropdown){
+            setCategoryDropdown(false);
+        }else {
+            setCategoryDropdown(true);
+        }
+
+    }
+ 
     //function to split the string of categories by ,
     const splitCategories = (categoriesString) => {
         const categoriesArray = categoriesString.split(",");
@@ -314,6 +441,7 @@ export default function Landing() {
         return (
             <div>
                 <div className="navbar">
+
                     <div className="leftside">
                         <div className="links" id={showLinks ? "hidden" : ""}>
                             <Link className="profile-icon" to='/profile'>
@@ -352,8 +480,23 @@ export default function Landing() {
 
 
                     <div className="rightside">
-                        <input className="edtsearch" placeholder="Search" ref={searchRef} />
-                        <button className="btnsearch" onClick={() => { setSearchTerm(searchRef.current.value)}}>
+
+                        <div className='drop-down-container'>
+                            <button className='search-category-button' onClick={handleDropdown}>
+                                {currentSearchCategory}
+                            </button>
+                                {categoryDropdown ? 
+                                    <CategorySearchDropdown 
+                                        searchActiveCategory={searchActiveCategory} 
+                                        setSearchActiveCategory={setSearchActiveCategory} 
+                                        currentSearchCategory={currentSearchCategory} 
+                                        setCurrentSearchCategory={setCurrentSearchCategory} 
+                                        setCategoryDropdown={setCategoryDropdown}/>
+                                    : null
+                                }
+                        </div>
+                        
+                        <button className="btnsearch">
                             Search
                         </button>
                     </div>
@@ -541,9 +684,67 @@ export default function Landing() {
     return (
         <div>
             <Navbar />
-            <CategorySelector categoriesActivity={categoriesActivity} setAllCategoriesActivity={setAllCategoriesActivity}/>
+            <input className='edtsearch' placeholder='Search' type="text" value={searchTerm} onChange={handleSearchTermChange}></input>
+
+            {isFilter ? 
+            
+            <button className='filter' style={{backgroundColor: "#C25450"}} onClick={handleFilter}>
+            <MdExpandLess style={{height: "30px", width: "30px"}}/>
+            <h5 className='more-info'>Close Filter</h5>
+            </button>
+            :
+            <button className='filter' onClick={handleFilter}>
+            <MdExpandMore style={{height: "30px", width: "30px"}}/>
+            <h5 className='more-info'>Filter by Category</h5>
+            </button>
+        }
+
+            {isFilter ? 
+                <CategorySelector 
+                categoriesActivity={categoriesActivity} 
+                setAllCategoriesActivity={setAllCategoriesActivity}
+                setCategoryDropdown={setCategoryDropdown}/>
+                :null
+            }
+            
 
 
+            {searchedProducts.length != 0 && searchTerm != "" ?
+                <div>
+                    {searchTerm != "" ?
+                        <h6 className='category-search-heading'>({searchedProducts.length}) Results for "{searchTerm}" in <span className='search-result-category'>{currentSearchCategory}</span></h6>
+                        : null
+                    }
+                    <div className='bodydiv'>
+                {searchedProducts.map((item, itemIndex) => {
+                    return (
+                        <div key={itemIndex} className="itemdiv" onClick={() => {
+                            ProductView(item)
+                        }}>
+                            <img src={item.Image} alt="nope" />
+                            <div className="textdiv">
+                                <h1 className="itemname">{item.Name}</h1>
+                            </div>
+                            <h1 className="itemprice">R{item.Price}</h1>
+                            <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
+                            {(() => {
+                                if (item.Quantity == 0) {
+                                    return (
+                                        <h1 style={{ fontWeight: "bold", color: "#B38B59" }} className="item-quantity">sold out</h1>
+                                    )
+                                } else {
+                                    return (
+                                        <h1 className="item-quantity">in stock</h1>
+                                    )
+                                }
+                            })()}
+                        </div>
+                    )
+                })}
+                </div>
+                </div>
+                : null
+            }
             
                 
 
@@ -590,13 +791,7 @@ export default function Landing() {
                     {text}
                 </div> :
                     <div className="bodydiv" >
-                        {Inventory.filter((item) => {
-                            if (searchTerm == "") {
-                                return item
-                            } else if (item.Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())) {
-                                return item
-                            }
-                        }).map((item, indx) => {
+                        {Inventory.map((item, indx) => {
                             return (
                             <div key={indx} className="itemdiv" onClick={() => {
                                 ProductView(item)

@@ -185,7 +185,7 @@ export default function Sell() {
         }} />
         <br />
 
-        <h4>Add Product Specifications</h4>
+        <h4 style={{marginTop: "30px"}}>Add Product Specifications</h4>
         <SpecsPage Specs={Specs} setSpecs={setSpecs} />
 
         {/** Code below allows the seller to select product categories
@@ -193,14 +193,14 @@ export default function Sell() {
          * Every other category can be dynamically selected
          */}
 
-         <h4>Select product Categories</h4>
-         <div>
-         <div className='categories-container'>
+         <h4 style={{marginTop: "30px"}}>Select product Categories</h4>
+         <div >
+         <div className='categories-container' style={{display: "flex", justifyContent: "center", alignItems: "center", marginLeft: "150px", marginRight: "150px"}}>
             {categoriesActivity.map((category, index) => {
                 return (
                   <div key={index}>
                     <button className="category" 
-                        style={{backgroundColor: (category.active ? "#9ccc64" : "#ffffff")}}
+                        style={{backgroundColor: (category.active ? "#9ccc64" : "#E8E1D6")}}
                         onClick={() => categoryClick(category.categoryName)}
                         >{category.categoryName}</button>
                   </div>

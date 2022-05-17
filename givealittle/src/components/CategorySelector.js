@@ -38,7 +38,7 @@ function CategorySelector({ categoriesActivity, setAllCategoriesActivity }) {
                 return (
                   <div key={index}>
                     <button className="category" 
-                        style={{backgroundColor: (category.active ? "#9ccc64" : "#ffffff")}}
+                        style={{backgroundColor: (category.active ? "#9ccc64" : "#E8E1D6")}}
                         onClick={() => categoryClick(category.categoryName)}
                         >{category.categoryName}</button>
                   </div>
