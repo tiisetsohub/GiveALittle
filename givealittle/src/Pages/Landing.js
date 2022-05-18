@@ -31,6 +31,8 @@ import CategorySelector from "../components/CategorySelector";
 import CategorySearchDropdown from "../components/CategorySearchDropdown";
 import SearchSuggestion from "../components/SearchSuggestion";
 import HashLoader from "react-spinners/HashLoader";
+import { css } from "@emotion/react";
+
 //identical to home.js
 
 export default function Landing() {
