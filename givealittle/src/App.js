@@ -7,6 +7,7 @@ import Signup from './Pages/Signup'
 import Landing from './Pages/Landing'
 import SellersLanding from './Pages/SellersLanding';
 import Sell from './Pages/Sell'
+import Sold from "./Pages/Sold";
 import Track from './Pages/Track'
 import MakeTransactionAddress from './Pages/MakeTransactionAddress'
 import MakeTransactionPayment from './Pages/MakeTransactionPayment'
@@ -20,10 +21,9 @@ import Profile from './Pages/Profile';
 import Contact from './Pages/Contact';
 
 function App() {
+  const [name, setName] = useState(""); //global context for name of client
 
-  const [name, setName] = useState("")    //global context for name of client
-
-  const [login, setLogin] = useState(false)   //global context for knowing if someone is logged in
+  const [login, setLogin] = useState(false); //global context for knowing if someone is logged in
 
   const [cart, setCart] = useState("")      //global context for a persons cart
 
@@ -47,13 +47,19 @@ function App() {
                     <Login />
                   </Route>
 
-              <Route path="/review">              {/*route to signup page*/}
-                <Review />
-              </Route>
-
-              <Route path="/signup">              {/*route to signup page*/}
-                <Signup />
-              </Route>
+                  <Route path="/review">              {/*route to signup page*/}
+                    <Review />
+                  </Route>
+                  <Route path="/signup">
+                    {" "}
+                    {/*route to signup page*/}
+                    <Signup />
+                  </Route>
+                  <Route path="/sold">
+                    {" "}
+                    {/*route to about page*/}
+                    <Sold />
+                  </Route>
 
                   <Route path="/landing">                 {/*route to landing page*/}
                     <Landing />
@@ -67,32 +73,32 @@ function App() {
                     <Sell />
                   </Route>
 
-              <Route path="/about">                 {/*route to about page*/}
-                <About />
-              </Route>
-              <Route path="/track">                 {/*route to track page*/}
-                <Track />
-              </Route>
+                  <Route path="/about">                 {/*route to about page*/}
+                    <About />
+                  </Route>
+                  <Route path="/track">                 {/*route to track page*/}
+                    <Track />
+                  </Route>
 
-              <Route path="/maketransactionaddress">                 {/*route to maketransaction page*/}
-                <MakeTransactionAddress />
-              </Route>
+                  <Route path="/maketransactionaddress">                 {/*route to maketransaction page*/}
+                    <MakeTransactionAddress />
+                  </Route>
 
-              <Route path="/maketransactionpayment">                 {/*route to maketransaction page*/}
-                <MakeTransactionPayment />
-              </Route>
+                  <Route path="/maketransactionpayment">                 {/*route to maketransaction page*/}
+                    <MakeTransactionPayment />
+                  </Route>
 
-              <Route path="/payment">                 {/*route to payment page*/}
-                <Payment />
-              </Route>
+                  <Route path="/payment">                 {/*route to payment page*/}
+                    <Payment />
+                  </Route>
 
-              <Route path="/profile">                 {/*route to profile page*/}
-                <Profile />
-              </Route>
+                  <Route path="/profile">                 {/*route to profile page*/}
+                    <Profile />
+                  </Route>
 
-              <Route path="/contact">                 {/*route to contact page*/}
-                <Contact />
-              </Route>
+                  <Route path="/contact">                 {/*route to contact page*/}
+                    <Contact />
+                  </Route>
 
             </Switch>
           </Router>

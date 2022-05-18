@@ -4,22 +4,23 @@
 }
 
 .add-product-button{
-    width: 220px;
-    height: 50px;
+    width: 150px;
+    height: 28px;
     border: none;
     background-color: #B38B59;
     border-radius: 3px;
     transition: 0.5s;
     animation: ease-in;
-    font-size:x-large;
     font-weight: bold;
     color: aliceblue;
+    box-shadow: 0px 0px 10px -5px rgb(59, 59, 59);
     margin-bottom: 10px;
     margin-top: 10px;
 }
 
 .add-product-button:hover{
-    transform: scale(0.97);
+    transform: scale(1.08);
+    box-shadow: 0px 0px 15px -5px rgb(84, 84, 84);
 }
 
 .card {
@@ -77,6 +78,9 @@
 .name{
     font-weight: bold;
     font-size: 20px;
+    position: absolute;
+    top: 15px;
+    left: 260px
 }
 
 .delete-button {
@@ -211,6 +215,7 @@
 
 .collapse-button {
     transition: 0.5s;
+    height: 40px;
     animation: alternate;
     display: inline-block;
     border-radius: 15px;
@@ -220,7 +225,70 @@
     background-color: transparent;
 }
 
+.reviews-button{
+    transition: 0.5s;
+    animation: alternate;
+    display: inline-block;
+    border-radius: 15px;
+    padding-right: 5px;
+    margin-left: 15px;
+    margin-top: 5px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+}
+
 .collapse-button:hover {
     transform: translate(15px);
     background-color: #e7e7e7;
+}
+
+.reviews-button:hover {
+    transform: translate(15px);
+    background-color: #e7e7e7;
+}
+
+.show-reviews {
+    display: inline-block;
+}
+
+.no-reviews {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.comment {
+    font-size: 14px;
+    background-color: white;
+    border-radius: 15px;
+    padding: 5px;
+    margin-left: 25px;
+    position: relative;
+    top: -15px
+}
+
+.collapse-all-button{
+    transition: 0.5s;
+    animation: alternate;
+    border-radius: 15px;
+    padding-right: 5px;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 5px;
+    height: 40px;
+    border: none;
+    background-color: transparent;
+    float: right;
+}
+
+.collapse-all-button:hover {
+    transform: translate(-15px);
+    background-color: #e7e7e7;
+}
+
+.product-categories {
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: bolder;
+    color:#50A181;
 }
