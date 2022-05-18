@@ -20,6 +20,95 @@ export default function Home() {
     const { login, setLogin } = useContext(LoginContext) 
     const [Users, setUsers] = useState([]);
 
+    const [showReview, setShowReview] = useState(false);
+
+    
+
+    // The following function count the average rating of each item (using stars)
+    function avgStars(stars){
+        let starCount = ""+ stars;
+        let wholeSum = 0;
+        let check = 0;
+
+        for (let i = 0; i <starCount.length ; i++){
+            if (starCount[i] == "*"){
+                check++;
+            }
+            else{
+                wholeSum = wholeSum + parseInt(starCount[i]);
+            }
+        }
+        let average = wholeSum/(starCount.length-check);
+
+        if (starCount.length == 0){
+            return "5.0 ";
+        }
+        else{
+           return average.toFixed(1).toString() +" "; 
+        }
+        
+    }
+    // Function to put reviews in a list
+    function review(reviews){
+        const reviewList = reviews.toString().split("*");
+        return reviewList
+    }
+
+    // Funtion that returns the number of reviews
+    function reviewNumber(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+            }
+        }
+        if (counter == 0){
+            return ""
+        }
+        else{
+            return " (" + counter.toString() + ")"
+        }
+    }
+    function reviewNumberIn(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+                console.log(i)
+
+            }
+        }
+        if (counter == 0){
+            return " "
+        }
+        else{
+            return counter.toString()+ " "
+        }
+    }
+     // Reviews or Review or No Review
+     function correctReview(reviews){
+        let counter = 0;
+        let review = ""+reviews;
+        for (let i = 0; i < review.length; i++){
+            if (review[i] == '*'){
+                counter++;
+            }
+        }
+
+        if (counter == 0){
+            return "No reviews"
+        }
+        else if (counter == 1){
+            return "Review"
+        }
+        else{
+            return "Reviews"
+        }
+    }
+
+    
 
 
     useEffect(() => {
@@ -39,6 +128,8 @@ export default function Home() {
         const [summary, setSummary] = useState("")              //state for cart summary
         let t = 0           //total = 0
 
+        
+        let sum = 0 
 
         function CartView() {       //function to display the cart
             setShowCart(!showcart)          //changes show cart state
@@ -79,7 +170,7 @@ export default function Home() {
                             <Link className="navlink" to='/about'>
                                 <p>About</p>
                             </Link>
-                            <Link className="navlink" to='/login'>
+                            <Link className="navlink" to='/contact'>
                                 <p>Contact</p>
                             </Link>
                             <Link className="navlink" onClick={() => {
@@ -143,6 +234,33 @@ export default function Home() {
     }, [cartitems])
 
 
+    
+    function viewReviews(item){
+        const comments = review(item.Review);
+        const commentList = comments.map(comment => <div className="indrev">{comment} </div>)
+        setShowReview(true)
+        setText(
+            <div>
+                <div className="item-container">
+                    <button className="btnclose" onClick={() => {
+                        setShowReview(false)
+                        ProductView(item)
+                    }}>Close Reviews</button>
+
+                    <div>
+                        <img style={{boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)"}} src={item.Image} />
+                    </div>
+                    <h3>{item.Name}</h3>
+                    <p>{item.Description}</p>
+                    <br />
+                    <div className="revdivin">
+                        <h5>Reviews</h5>
+                        <div className="revcomm">{commentList}</div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
 
     function ProductView(item) {     //handles the viewing of a product in isolation
         setShow(true)
@@ -171,53 +289,47 @@ export default function Home() {
                         <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
                         <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
                     </div>
+
+                    <div className="inprodstar">
+                        <BsStarFill className="initemsstar" />{avgStars(item.Stars)}
+                        <Link onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
+                    </div>
                 </div>
             </div>
         )
     }
 
-
-
     return (
         <div>
             <Navbar />
-
             {
                 show ? <div className="reviewdiv">
-                    {text}      {/*ternary to show cart*/}
+                    {text}
                 </div> :
                     <div className="bodydiv" >
                         {Inventory.map((item) => {
+
+                            
                             return <div className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
                                 <img src={item.Image} alt="nope" />
-
-                                <div className="item-info-container">
                                 <div className="textdiv">
                                     <h1 className="itemname">{item.Name}</h1>
                                 </div>
-
-                                    <div className="price-star-stock-container">
-                                    <h1 className="itemprice">R{item.Price}</h1>
-                                    <h1 className="itemstar"><BsStarFill/> {item.Review/0/Comment}</h1>
-                                    {(() => {
-                                        if (item.Quantity == 0) {
-                                        return (
-                                            <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
-                                        )
-                                        } else {
-                                        return (
-                                            <h1 className="item-quantity">in stock</h1>
-                                        )
-                                        }
-                                    })()}
-                                    </div>
-                                    
-
-                                </div>
-                                
-
+                                <h1 className="itemprice">R{item.Price}</h1>
+                                <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
+                                {(() => {
+                                    if (item.Quantity == 0) {
+                                    return (
+                                        <h1 style={{fontWeight: "bold", color: "#B38B59"}} className="item-quantity">sold out</h1>
+                                    )
+                                    } else {
+                                    return (
+                                        <h1 className="item-quantity">in stock</h1>
+                                    )
+                                    }
+                                })()}
                             </div>
                         })}
                     </div>

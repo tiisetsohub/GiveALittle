@@ -14,7 +14,7 @@ import { Bars } from 'react-loading-icons';
 
 export default function MakeTransactionPayment() {
     const { name, setName } = useContext(NameContext)
-      const { cardno, setCardNo } = useContext(CarddetailsContext);        //global context for name
+    const { cardno, setCardNo } = useContext(CarddetailsContext);        //global context for name
 
     const [cardnumber, setCardNumber] = useState("");
     const [Expiredate, setExpiredate] = useState("");
@@ -23,6 +23,7 @@ export default function MakeTransactionPayment() {
     const itemRef = collection(db, "CardDetails");            //refernce for item
     const addItem = async () => {           //handles adding an item to database
       await addDoc(itemRef, { Name: name, CardNumber: cardnumber, CVV: cvv ,ExpireDate:Expiredate })
+      setCardNo(cardnumber)
     }
 
    return (
@@ -34,7 +35,7 @@ export default function MakeTransactionPayment() {
             <br />
             <input className="input" id="input" placeholder="Card" onChange={(event) => {
                     setCardNumber(event.target.value)
-                    setCardNo(event.target.value)
+                    
             }}/>
             <br />          
             <br />

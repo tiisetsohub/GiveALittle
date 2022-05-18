@@ -19,6 +19,8 @@ export default function Payment() {
     const { name, setName } = useContext(NameContext)
     let total = 0;   
     const {address, setAddress} = useContext(AddressContext);
+    let order = ""
+    
     
 
     function completePurchase(){ // needs to be implemented
@@ -29,11 +31,9 @@ export default function Payment() {
 
  
           var details = {
-            email: name  // user email
-                         /* data which will be needed from template may be extracted from here,
-                         e.i ( name of user or subject of emaik)
-                         */
-      
+            email: name // user email
+                       /* data which will be needed from template may be extracted from here,
+                         e.i ( name of user or subject of emaik)                   */  
         };
 
         emailjs.send('service_ew7io57', 'template_25ddejk', details).then(function (res) {
@@ -89,8 +89,8 @@ export default function Payment() {
 
                   <p></p>
                   <p>{cardno}</p>
-                  <br />
-                  < br />
+                  <br/>
+                  <br/>
                 </div>
               </div>
 
@@ -104,6 +104,7 @@ export default function Payment() {
               <text className='textin'>R{total}</text>
               <button className="btncomplete" onClick={sendemail}>Purchase</button>
             </div>
+            {console.log({cart})}
         </div>
 
 
