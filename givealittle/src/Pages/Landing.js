@@ -51,6 +51,12 @@ export default function Landing() {
 
   // This is for loading spinner
   let [loading, setLoading] = useState(true);
+  const override = css`
+    display: block;
+    margin: 0 auto;
+    border-color: red;
+    margin-top: 250px;
+  `;
 
   //for the search
   const [searchTerm, setSearchTerm] = useState("");
