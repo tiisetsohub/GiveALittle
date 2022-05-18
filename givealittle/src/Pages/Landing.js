@@ -441,8 +441,10 @@ export default function Landing() {
 
   useEffect(() => {
     const getItems = async () => {
+      setLoading(true);
       const data = await getDocs(itemRef);
       setItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setLoading(false);
     };
 
     getItems();
@@ -918,6 +920,7 @@ export default function Landing() {
         </div>
       ) : null}
 
+    
       <h6 className="category-heading">
         All products
         {" (" +
@@ -925,7 +928,15 @@ export default function Landing() {
             .products.length +
           ")"}
       </h6>
-      {show ? (
+      {loading ? (
+        <HashLoader
+          color={"B38B59"}
+          css={override}
+          loading={loading}
+          size={120}
+        />
+      ) :
+      show ? (
         <div className="reviewdiv">{text}</div>
       ) : (
         <div className="bodydiv">
