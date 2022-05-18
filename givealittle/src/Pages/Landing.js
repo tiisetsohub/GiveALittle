@@ -920,7 +920,6 @@ export default function Landing() {
         </div>
       ) : null}
 
-    
       <h6 className="category-heading">
         All products
         {" (" +
@@ -935,8 +934,7 @@ export default function Landing() {
           loading={loading}
           size={120}
         />
-      ) :
-      show ? (
+      ) : show ? (
         <div className="reviewdiv">{text}</div>
       ) : (
         <div className="bodydiv">
