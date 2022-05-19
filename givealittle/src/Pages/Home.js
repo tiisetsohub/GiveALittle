@@ -8,6 +8,7 @@ import { CartContext } from '../Context';
 import { LoginContext } from '../Context';
 import { BsStarFill } from "react-icons/bs";
 import { NameContext } from '../Context';
+import { Carousel } from "react-bootstrap";
 
 
 export default function Home() {
@@ -266,8 +267,8 @@ export default function Home() {
             <h5>Reviews</h5>
 
             <div className="inprodstar">
-            <BsStarFill className="initemsstar" />{starCount}
-          </div>
+              <BsStarFill className="initemsstar" />{starCount}
+            </div>
 
             <div className="revcomm">{commentList}</div>
           </div>
@@ -282,33 +283,43 @@ export default function Home() {
 
     setText(
       <div>
+          <div className="item-container">
+            <button className="btnclose" onClick={() => setShow(false)}>Close</button>
 
-        <div className="item-container">
-          <button className="btnclose" onClick={() => setShow(false)}>Close</button>
+            <Carousel>
+              {/* Images */}
+              <Carousel.Item>
+                <img style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }} src={item.Image} alt=""/>
+              </Carousel.Item>
 
-          <div>
-            <img style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }} src={item.Image} />
-          </div>
-          {Users.map((user, idx) => (
-            user.Email == item.Seller
-              ? (
-                <p>Sold By : {user.Name}</p>
-              )
-              : null
-          ))}
-          <h3>{item.Name}</h3>
-          <p>{item.Description}</p>
-          <h1 className="product-view-price">R{item.Price}</h1>
-          <div>
-            <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
-            <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
-          </div>
+              <Carousel.Item>
+                <img style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }} src={item.Image} alt=""/>
+              </Carousel.Item>
 
-          <div className="inprodstar">
-            <BsStarFill className="initemsstar" />{avgStars(item.Stars)}
-            <Link onClick={() => viewReviews(item, avgStars(item.Stars))}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
+              <Carousel.Item>
+                <img style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }} src={item.Image} alt=""/>
+              </Carousel.Item>
+            </Carousel>
+            {Users.map((user, idx) => (
+              user.Email == item.Seller
+                ? (
+                  <p>Sold By : {user.Name}</p>
+                )
+                : null
+            ))}
+            <h3>{item.Name}</h3>
+            <p>{item.Description}</p>
+            <h1 className="product-view-price">R{item.Price}</h1>
+            <div>
+              <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
+              <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
+            </div>
+
+            <div className="inprodstar">
+              <BsStarFill className="initemsstar" />{avgStars(item.Stars)}
+              <Link onClick={() => viewReviews(item, avgStars(item.Stars))}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
+            </div>
           </div>
-        </div>
       </div>
     )
   }
