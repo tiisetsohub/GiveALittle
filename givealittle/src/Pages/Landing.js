@@ -635,9 +635,10 @@ export default function Landing() {
 
                     <h1 className="product-view-price">R{item.Price}</h1>
 
-
+                    <p>{item.Weight}</p>
+                    <p>{item.Location}</p>
                     <p>{item.Features}</p>
-
+                    <p>{item.Description}</p>
 
                     {item.Specs != undefined ?
                         <h4 className='table-title'>Product Specifications</h4>
