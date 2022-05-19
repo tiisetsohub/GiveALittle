@@ -4,11 +4,13 @@ import { db } from "../firebase-config";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import "./Home.css";
+import { css } from "@emotion/react";
 import { CartContext } from "../Context";
 import { LoginContext } from "../Context";
 import { BsStarFill } from "react-icons/bs";
 import { NameContext } from "../Context";
 import { Carousel } from "react-bootstrap";
+import HashLoader from "react-spinners/HashLoader";
 
 export default function Home() {
   const [cartitems, setCartItems] = useState([]); //state for local cart array
