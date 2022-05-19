@@ -11,11 +11,16 @@ import "../components/Categories.css"
 
 export default function Sell() {
     const [newName, setNewName] = useState("");     //state for item name
-    const [newDescription, setNewDesnewDescription] = useState("");         //state for description 
+    const [newFeatures, setNewFeatures] = useState("");         //state for description 
     const [newImg, setnewImg] = useState("");                   //state for image
     const [newImg2, setNewImg2] = useState("")
     const [newPrice, setNewPrice] = useState(0);                    //state for price
     const [newQuantity, setNewQuantity] = useState(0);              //state for quantity
+    const [newLocation, setnewLocation]=useState("");
+    const [newWheigh, setnewWeigh]=useState("");
+    const [newDescription, setNewDescription]=useState("")
+
+
 
   const [item, setItem] = useState([]); //state for item
   const itemRef = collection(db, "Inventory"); //refernce for item
@@ -100,6 +105,7 @@ export default function Sell() {
     //handles adding an item to database
     await addDoc(itemRef, {
       Name: newName,
+      Features: newFeatures,
       Description: newDescription,
       Price: newPrice,
       Quantity: newQuantity,
@@ -108,7 +114,9 @@ export default function Sell() {
       Review: "",
       Seller: name,
       Specs: Specs,
-      Categories: productCategories
+      Categories: productCategories,
+      Location: newLocation,
+      Weight: newWheigh
     });
     alert("Added");
   };
@@ -166,17 +174,29 @@ export default function Sell() {
           setNewName(event.target.value)
         }} />
         <br />
+        <input className="edtfeat" id="input" placeholder="Item Features" onChange={(event) => {
+          setNewFeatures(event.target.value)
+        }} />
+        <br />
         <input className="edtdesc" id="input" placeholder="Item Description" onChange={(event) => {
-          setNewDesnewDescription(event.target.value)
+          setNewDescription(event.target.value)
         }} />
         <br />
         <input className="edtimg" id="input" placeholder="Image Link" onChange={(event) => {
           setnewImg(event.target.value)
         }} />
         <br />
-        <input className="edtprice" type="number" id="input" placeholder="Item Price" min="19.99" onChange={(event) => {
+        <input className='location' id="input" placeholder="Location of item" onChange={(event)=>{
+          setnewLocation(event.target.value)
+        }}/>
+        <br/>
+        <input className="edtprice" id="input" placeholder="Weight of item" onChange={(event) => {
           let t = parseFloat(event.target.value)
           setNewPrice(t)
+        }} />
+        <br />
+        <input className="Weigh" id="input" placeholder="Item Price" onChange={(event) => {
+           setnewWeigh(event.target.value)
         }} />
         <br />
         <input type="number" className="edtquant" id="input" placeholder="Quantity" min="1" max="100" onChange={(event) => {
