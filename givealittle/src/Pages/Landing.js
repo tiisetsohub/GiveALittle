@@ -630,6 +630,7 @@ export default function Landing() {
                             : null
                     ))}
 
+                    <h5 style={{color: "#50A181"}}>{item.Categories.substring(4)}</h5>
 
                     <h3>{item.Name}</h3>
 
