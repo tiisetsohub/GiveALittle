@@ -301,7 +301,7 @@ export default function Home() {
           <button className="btnclose" onClick={() => setShow(false)}>
             Close
           </button>
-
+           <p className="uselesstext"> -</p> 
           <Carousel>
             {/* Images */}
             <Carousel.Item>
