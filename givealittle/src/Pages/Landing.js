@@ -552,7 +552,7 @@ export default function Landing() {
                         <img style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }} src={item.Image} />
                     </div>
                     <h3>{item.Name}</h3>
-                    <p>{item.Description}</p>
+                    <p>{item.Features}</p>
 
                     <div className="starratediv">
                         < ReactStars
@@ -636,7 +636,7 @@ export default function Landing() {
                     <h1 className="product-view-price">R{item.Price}</h1>
 
 
-                    <p>{item.Description}</p>
+                    <p>{item.Features}</p>
 
 
                     {item.Specs != undefined ?
