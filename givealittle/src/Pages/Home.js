@@ -307,7 +307,7 @@ export default function Home() {
             <Carousel.Item>
               <img
                 style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-                src={item.Image}
+                src={item.Image1}
                 alt=""
               />
             </Carousel.Item>
@@ -315,7 +315,7 @@ export default function Home() {
             <Carousel.Item>
               <img
                 style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-                src={item.Image}
+                src={item.Image2}
                 alt=""
               />
             </Carousel.Item>
@@ -323,7 +323,7 @@ export default function Home() {
             <Carousel.Item>
               <img
                 style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-                src={item.Image}
+                src={item.Image3}
                 alt=""
               />
             </Carousel.Item>
