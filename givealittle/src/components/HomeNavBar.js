@@ -11,7 +11,7 @@ export default function HomeNavBar() {
         <div className="leftside">
           <div className="links" id={showLinks ? "hidden" : ""}>
             <Link className="navlink" to='/'>
-                <p>Home</p>
+              <p>Home</p>
             </Link>
             <Link className="navlink" to="/login">
               <p>Login/Signup</p>
