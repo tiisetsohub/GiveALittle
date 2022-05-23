@@ -70,129 +70,24 @@ export default function Sold() {
     getItems();
   }, []);
 
-  function Drawer(item) {
-    const [location, updateLocation] = useState(""); //state for item name
-    const [time, updateTime] = useState(""); //state for description
+  function ProductView(item) {
+    const items = [
+      { LocationDescription: "Preparing your order" },
+      { LocationDescription: "Your order is ready" },
+      { LocationDescription: "Your order is on its way" },
+      { LocationDescription: "Your order has arrived" },
+      { LocationDescription: "Order collected" },
+    ];
 
-    const [state, setState] = React.useState({
-      right: false,
-    });
-
-    const update = async () => {
-      const docSnap = await getDoc(doc(db, "Bought", item.item_id));
-      const newInfo = [];
-      var ld = [];
-      var t = [];
-      for (var i = 0; i < docSnap.data().LocationDescription.length; i++) {
-        ld.push(docSnap.data().LocationDescription[i]);
-        t.push(docSnap.data().Time[i]);
-      }
-      ld.push(location);
-      t.push(time);
-      newInfo.push({
-        LocationDescription: ld,
-        Time: t,
-      });
-
-      await setDoc(
-        doc(db, "Bought", item.item_id),
-        {
-          LocationDescription: ld,
-          Time: t,
-        },
-        { merge: true }
-      );
-    };
-    const toggleDrawer = (anchor, open) => (event) => {
-      if (
-        event &&
-        event.type === "keydown" &&
-        (event.key === "Tab" || event.key === "Shift")
-      ) {
+    const throttledProcess = (items, interval) => {
+      if (items.length == 0) {
+        console.log("All done!");
         return;
       }
-
-      setState({ ...state, [anchor]: open });
+      console.log(items[0].LocationDescription + "  " + new Date().getSeconds());
+      setTimeout(() => throttledProcess(items.slice(1), interval), interval);
     };
 
-    const list = (anchor) => (
-      <Box
-        sx={{
-          "& .MuiTextField-root": { m: 0, width: "25ch" },
-        }}
-        role="presentation"
-        component="form"
-      >
-        {" "}
-        <ListItem>
-          <TextField
-            label="Location"
-            type="text"
-            className="location"
-            id="location"
-            onChange={(event) => {
-              updateLocation(event.target.value);
-            }}
-          />
-        </ListItem>
-        <ListItem>
-          <TextField
-            label="Time"
-            type="text"
-            className="time"
-            id="time"
-            onChange={(event) => {
-              updateTime(event.target.value);
-            }}
-          />
-        </ListItem>
-        <div className="btn-update-cont">
-          <Card
-            className="btn-update"
-            onClick={() => {
-              update();
-            }}
-          >
-            <CardActionArea>UPDATE</CardActionArea>
-          </Card>
-        </div>
-      </Box>
-    );
-
-    return (
-      <div>
-        {["right"].map((anchor) => (
-          <React.Fragment key={anchor}>
-            <Button
-              className="delivery-btn"
-              variant="contained"
-              onClick={toggleDrawer(anchor, true)}
-            >
-              Update on Delivery
-            </Button>
-            <SwipeableDrawer
-              anchor={anchor}
-              open={state[anchor]}
-              onClose={toggleDrawer(anchor, false)}
-              onOpen={toggleDrawer(anchor, true)}
-            >
-              {list(anchor)}
-            </SwipeableDrawer>
-          </React.Fragment>
-        ))}
-        <br />
-      </div>
-    );
-  }
-
-  function ProductView(item) {
-    const items = [];
-    for (var i = 0; i < item.Time.length; i++) {
-      items.push({
-        LocationDescription: item.LocationDescription[i],
-        Time: item.Time[i],
-      });
-    }
     setShow(true);
     setText(
       <div>
@@ -223,28 +118,31 @@ export default function Sold() {
             </Card>
           </div>
           <div className="right-side">
-            <Drawer item_id={item.id} className="right-top" />
             <div className="right-botton">
               <Card sx={{ maxWidth: 400 }}>
                 <Stepper
                   activeStep={
-                    items[items.length - 1].LocationDescription.includes(
-                      "COLLECTED"
-                    )
-                      ? items.length
-                      : items.length - 1
+                    items[4].LocationDescription.includes("collected") ? 5 : 4
                   }
                   orientation="vertical"
                 >
-                  {items.map((it) => {
+                  {/* {items.map((it) => {
                     return (
                       <Step>
                         <StepLabel className="step-label">
-                          {it.LocationDescription} - {it.Time}
+                          {it.LocationDescription} : {new Date().toDateString()}{",  "}
+                          {new Date().getHours()}{":"}
+                          {new Date().getMinutes()}
                         </StepLabel>
                       </Step>
                     );
-                  })}
+                  })} */}
+                  <Step>
+                    <StepLabel className="step-label">
+                      {new Date().getMinutes()}
+                      {throttledProcess(items, 3000)}
+                    </StepLabel>
+                  </Step>
                 </Stepper>
               </Card>
             </div>
