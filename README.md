@@ -15,7 +15,7 @@ meaning they can be both a buyer and the seller at the same time.
   then type `npm start` to run app on local server
   
 ### Developed For Any Device Having A Browser
-    !!! This application is still in development
+    NB!!! This application is still in development
         and some features may not work.
         
 ## Features
