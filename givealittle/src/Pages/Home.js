@@ -304,10 +304,10 @@ export default function Home() {
     setText(
       <div>
         <div className="item-container">
-          <button className="btnclose" onClick={() => setShow(false)}>
-            Close
-          </button>
-           <p className="uselesstext"> -</p> 
+          <div className="clod">
+            <button className="btnclose" onClick={() => setShow(false)}>Close</button>
+
+          </div> 
           <Carousel>
             {/* Images */}
             <Carousel.Item>
@@ -338,8 +338,37 @@ export default function Home() {
             user.Email == item.Seller ? <p>Sold By : {user.Name}</p> : null
           )}
           <h3>{item.Name}</h3>
-          <p>{item.Description}</p>
           <h1 className="product-view-price">R{item.Price}</h1>
+          <p>{item.Description}</p>
+
+          {item.Specs != undefined ? (
+            <h4 className="table-title">Product Specifications</h4>
+          ) : (
+            <h4></h4>
+          )}
+
+          {item.Specs != undefined ? (
+            item.Specs.map((spec, index) => {
+              return (
+                <div
+                  className="spec-container"
+                  style={{ marginBottom: "0" }}
+                  key={index}
+                >
+                  <h6 className="spec-name" style={{ marginBottom: "0" }}>
+                    {spec.spec}
+                  </h6>
+                  <h6 className="spec-detail" style={{ marginBottom: "0" }}>
+                    {spec.detail}
+                  </h6>
+                </div>
+              );
+            })
+          ) : (
+            <h1></h1>
+          )}
+
+
           <div>
             <input
               type="number"
