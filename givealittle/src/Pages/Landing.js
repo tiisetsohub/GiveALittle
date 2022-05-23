@@ -216,6 +216,7 @@ export default function Landing() {
         setSearchTerm(event.target.value);
       }
 
+
     //function to search for an item in a given category
     const searchCategory = (categoryName) => {
         let category = categoriesActivity.find(category => category.categoryName == categoryName).products;
@@ -695,14 +696,18 @@ export default function Landing() {
                 setSuggestionDropdown={setSuggestionDropdown}/>
             <input className='edtsearch' placeholder='Search' type="text" value={searchTerm} onChange={handleSearchTermChange}></input>
 
-            {isFilter ? 
+
+        {show == false ? 
+        
+            <div>
+                {isFilter ? 
             
             <button className='filter' style={{backgroundColor: "#9ccc64"}} onClick={handleFilter}>Close Filter</button>
             :
             <button className='filter' onClick={handleFilter}>
             Filter by Category
             </button>
-        }
+            }
 
             {isFilter ? 
                 <CategorySelector 
@@ -753,7 +758,6 @@ export default function Landing() {
             
                 
 
-            {   currentActiveCategory != "All" ? 
                 <div>
                     <h6 className='category-heading'>{currentActiveCategory + " (" + categoriesActivity.find(category => category.categoryName == currentActiveCategory).products.length + ")"}</h6>
 
@@ -785,12 +789,15 @@ export default function Landing() {
                 })}
                 </div>
                 </div>
-                :null
-            }
+            </div>
+
+            : null
+        }
+
+            
             
 
 
-            <h6 className='category-heading'>All products{" (" + categoriesActivity.find(category => category.categoryName == "All").products.length + ")"}</h6>
             {
                 show ? <div className="reviewdiv">
                     {text}
@@ -801,23 +808,7 @@ export default function Landing() {
                             <div key={indx} className="itemdiv" onClick={() => {
                                 ProductView(item)
                             }}>
-                                <img src={item.Image} alt="nope" />
-                                <div className="textdiv">
-                                    <h1 className="itemname">{item.Name}</h1>
-                                </div>
-                                <h1 className="itemprice">R{item.Price}</h1>
-                                <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
-                                {(() => {
-                                    if (item.Quantity == 0) {
-                                        return (
-                                            <h1 style={{ fontWeight: "bold", color: "#B38B59" }} className="item-quantity">sold out</h1>
-                                        )
-                                    } else {
-                                        return (
-                                            <h1 className="item-quantity">in stock</h1>
-                                        )
-                                    }
-                                })()}
+                                
                             </div>
                             )
                         })}
