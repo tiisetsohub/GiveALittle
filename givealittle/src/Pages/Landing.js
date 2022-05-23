@@ -451,6 +451,10 @@ export default function Landing() {
                 <CgProfile className='profile-icon' />
               </Link>
 
+              <Link className="navlink" to='/landing'>
+                <p>Home</p>
+              </Link>
+
               <Link className="navlink" to='/sellerslanding'>
                 <p>Sell</p>
               </Link>
