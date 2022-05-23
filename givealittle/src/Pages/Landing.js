@@ -548,10 +548,12 @@ export default function Landing() {
     setText(
       <div>
         <div className="item-container">
-          <button className="btnclose" onClick={() => {
-            setShowReview(false)
-            ProductView(item)
-          }}>Close</button>
+          <div className="clod">
+            <button className="btnclose" onClick={() => {
+              setShowReview(false)
+              ProductView(item)
+            }}>Close Reviews</button>
+          </div>
 
           <div>
             <img style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }} src={item.Image} />
@@ -618,8 +620,10 @@ export default function Landing() {
     setText(
       <div>
         <div className="item-container">
-          <button className="btnclose" onClick={() => setShow(false)}>Close</button>
-          <p className="uselesstext"> -</p>
+          <div className="clod">
+            <button className="btnclose" onClick={() => setShow(false)}>Close</button>
+            
+          </div>
           <Carousel>
             {/* Images */}
             <Carousel.Item>

@@ -298,10 +298,10 @@ export default function Home() {
     setText(
       <div>
         <div className="item-container">
-          <button className="btnclose" onClick={() => setShow(false)}>
-            Close
-          </button>
-          <p className="uselesstext"> -</p> 
+          <div className="clod">
+            <button className="btnclose" onClick={() => setShow(false)}>Close</button>
+
+          </div> 
           <Carousel>
             {/* Images */}
             <Carousel.Item>
