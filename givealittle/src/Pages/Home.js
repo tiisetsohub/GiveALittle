@@ -58,7 +58,7 @@ export default function Home() {
   function review(reviews) {
     let reviewList = reviews.toString().split("*");
     reviewList.shift();
-    reviewList.unshift("Average")
+    reviewList.unshift("Stars")
     return reviewList;
   }
 
@@ -293,10 +293,10 @@ export default function Home() {
           <div className="revdivin">
             <h5>Reviews</h5>
 
-            <div className="inprodstar">
+            {/* <div className="inprodstar">
               <BsStarFill className="initemsstar" />
               {starCount}
-            </div>
+            </div> */}
 
             <div className="revcomm">{commentList}</div>
           </div>
