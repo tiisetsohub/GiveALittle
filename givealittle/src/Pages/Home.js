@@ -56,10 +56,18 @@ export default function Home() {
   }
   // Function to put reviews in a list
   function review(reviews) {
-    const reviewList = reviews.toString().split("*");
+    let reviewList = reviews.toString().split("*");
+    reviewList.shift();
+    reviewList.unshift("Stars")
     return reviewList;
   }
 
+  function starsL(stars, starCount){
+    const starsList = stars.toString().split("*");
+    starsList.shift();
+    starsList.unshift(starCount);
+    return starsList;
+  }
   // Funtion that returns the number of reviews
   function reviewNumber(reviews) {
     let counter = 0;
@@ -247,10 +255,17 @@ export default function Home() {
     setCart(cartitems);
   }, [cartitems]);
 
-  function viewReviews(item, starCount) {
+  function viewReviews(item, stars) {
+    const starCount = avgStars(stars);
+    const reviewStars = starsL(stars, starCount);
     const comments = review(item.Review);
-    const commentList = comments.map((comment) => (
-      <div className="indrev">{comment} </div>
+
+    //combine comment with a star
+    let zip = (comments, reviewStars) => comments.map((x, i) => [x, reviewStars[i]]);
+    const clist = zip(comments, reviewStars);
+    
+    const commentList = clist.map((comment) => (
+      <div className="indrev">{comment[0]} &emsp;  <BsStarFill className="initemsstar" /> {comment[1]}</div>
     ));
     setShowReview(true);
     setText(
@@ -278,10 +293,10 @@ export default function Home() {
           <div className="revdivin">
             <h5>Reviews</h5>
 
-            <div className="inprodstar">
+            {/* <div className="inprodstar">
               <BsStarFill className="initemsstar" />
               {starCount}
-            </div>
+            </div> */}
 
             <div className="revcomm">{commentList}</div>
           </div>
@@ -298,10 +313,10 @@ export default function Home() {
     setText(
       <div>
         <div className="item-container">
-          <div className="clod">
-            <button className="btnclose" onClick={() => setShow(false)}>Close</button>
-
-          </div> 
+          <button className="btnclose" onClick={() => setShow(false)}>
+            Close
+          </button>
+           <p className="uselesstext"> -</p> 
           <Carousel>
             {/* Images */}
             <Carousel.Item>
@@ -332,37 +347,8 @@ export default function Home() {
             user.Email == item.Seller ? <p>Sold By : {user.Name}</p> : null
           )}
           <h3>{item.Name}</h3>
-          <h1 className="product-view-price">R{item.Price}</h1>
           <p>{item.Description}</p>
-
-          {item.Specs != undefined ? (
-            <h4 className="table-title">Product Specifications</h4>
-          ) : (
-            <h4></h4>
-          )}
-
-          {item.Specs != undefined ? (
-            item.Specs.map((spec, index) => {
-              return (
-                <div
-                  className="spec-container"
-                  style={{ marginBottom: "0" }}
-                  key={index}
-                >
-                  <h6 className="spec-name" style={{ marginBottom: "0" }}>
-                    {spec.spec}
-                  </h6>
-                  <h6 className="spec-detail" style={{ marginBottom: "0" }}>
-                    {spec.detail}
-                  </h6>
-                </div>
-              );
-            })
-          ) : (
-            <h1></h1>
-          )}
-
-
+          <h1 className="product-view-price">R{item.Price}</h1>
           <div>
             <input
               type="number"
@@ -379,7 +365,7 @@ export default function Home() {
           <div className="inprodstar">
             <BsStarFill className="initemsstar" />
             {avgStars(item.Stars)}
-            <Link onClick={() => viewReviews(item, avgStars(item.Stars))}>
+            <Link onClick={() => viewReviews(item, item.Stars)}>
               {reviewNumberIn(item.Review)}
               {correctReview(item.Review)}
             </Link>
