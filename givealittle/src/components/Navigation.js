@@ -17,12 +17,12 @@ function Navigation() {
                         <CgProfile className='profile-icon' />
                     </Link>
 
-                    <Link className="navlink" to='/sellerslanding'>
-                        <p>Sell</p>
-                    </Link>
-
                     <Link className="navlink" to='/landing'>
                         <p>Home</p>
+                    </Link>
+
+                    <Link className="navlink" to='/sellerslanding'>
+                        <p>Sell</p>
                     </Link>
 
                     <Link className="navlink" to='/about'>
@@ -32,9 +32,19 @@ function Navigation() {
                     <Link className="navlink" to='/contact'>
                         <p>Contact</p>
                     </Link>
+
+                    <Link className="navlink" to="/landing">
+                        <p> Cart</p>
+                    </Link>
+
                     <Link className="navlink" to="/track">
                         <p> MyOrders</p>
                     </Link>
+
+                    <Link className="navlink" to="/sold">
+                        <p> Sold</p>
+                    </Link>
+
                 </div>
                 <button onClick={() => setShowLinks(!showLinks)} className="btnthings">
                     ≡

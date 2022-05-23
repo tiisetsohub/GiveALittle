@@ -32,6 +32,7 @@ import CategorySearchDropdown from "../components/CategorySearchDropdown";
 import SearchSuggestion from "../components/SearchSuggestion";
 import HashLoader from "react-spinners/HashLoader";
 import { css } from "@emotion/react";
+import { Carousel } from "react-bootstrap";
 
 //identical to home.js
 
@@ -492,6 +493,10 @@ export default function Landing() {
                 <CgProfile className="profile-icon" />
               </Link>
 
+              <Link className="navlink" to='/landing'>
+                <p>Home</p>
+              </Link>
+
               <Link className="navlink" to="/sellerslanding">
                 <p>Sell</p>
               </Link>
@@ -685,22 +690,33 @@ export default function Landing() {
           <button className="btnclose" onClick={() => setShow(false)}>
             Close
           </button>
-
-          <div>
-            <img
-              style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-              src={item.Image}
-            />
-            {item.Image2 ? (
+          <p className="uselesstext"> -</p>
+          <Carousel>
+            {/* Images */}
+            <Carousel.Item>
               <img
-                style={{
-                  boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)",
-                  marginLeft: "15px",
-                }}
-                src={item.Image2}
+                style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
+                src={item.Image}
+                alt=""
               />
-            ) : null}
-          </div>
+            </Carousel.Item>
+
+            <Carousel.Item>
+              <img
+                style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
+                src={item.Image2}
+                alt=""
+              />
+            </Carousel.Item>
+
+            <Carousel.Item>
+              <img
+                style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
+                src={item.Image3}
+                alt=""
+              />
+            </Carousel.Item>
+          </Carousel>
           {Users.map((user, index) =>
             user.Email == item.Seller ? (
               <p key={index}>Sold By : {user.Name}</p>
