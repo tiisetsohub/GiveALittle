@@ -1,16 +1,16 @@
 import React, { useContext } from 'react';
 import HomeNavBar from '../components/HomeNavBar';
-import Navigation from '../components/Navigation';
+import Navigation from '../components/HomeNavBar';
 import { NameContext, LoginContext, CartContext } from '../Context'
 
-export default function About() {
+export default function HomeAbout() {
     const { name, setName } = useContext(NameContext)
 
     const today = new Date();
 
     return (
         <div>
-            <Navigation/>
+            <HomeNavBar/>
             <h3 className='about_details'>
                 About Us 
             </h3>
