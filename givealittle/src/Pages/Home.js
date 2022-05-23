@@ -307,7 +307,7 @@ export default function Home() {
             <Carousel.Item>
               <img
                 style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-                src={item.Image1}
+                src={item.Image}
                 alt=""
               />
             </Carousel.Item>
