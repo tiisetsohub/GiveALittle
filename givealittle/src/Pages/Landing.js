@@ -1,43 +1,25 @@
-import React, { useContext, useRef } from "react";
-import { useState, useEffect } from "react";
-import { db } from "../firebase-config";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  setDoc,
-  updateDoc,
-  doc,
-} from "firebase/firestore";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import "./Home.css";
-import { CartContext } from "../Context";
+import React, { useContext, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { db } from '../firebase-config';
+import { collection, getDocs, addDoc, setDoc, updateDoc, doc } from "firebase/firestore";
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import './Home.css';
+import { CartContext } from '../Context'
 import { BsStarFill } from "react-icons/bs";
-import ReactStars from "react-rating-stars-component";
+import ReactStars from "react-rating-stars-component"
 import ReorderIcon from "@mui/icons-material/Reorder";
-import { NameContext } from "../Context";
-import { CgProfile } from "react-icons/cg";
-import {
-  MdDelete,
-  MdEdit,
-  MdExpandMore,
-  MdExpandLess,
-  MdModeComment,
-  MdOutlineComment,
-  MdOutlineUnfoldMore,
-  MdUnfoldLess,
-} from "react-icons/md";
-import CategorySelector from "../components/CategorySelector";
-import CategorySearchDropdown from "../components/CategorySearchDropdown";
-import SearchSuggestion from "../components/SearchSuggestion";
-import HashLoader from "react-spinners/HashLoader";
-import { css } from "@emotion/react";
+import { NameContext } from '../Context';
+import { CgProfile } from 'react-icons/cg';
+import { MdDelete, MdEdit, MdExpandMore, MdExpandLess, MdModeComment, MdOutlineComment, MdOutlineUnfoldMore, MdUnfoldLess } from 'react-icons/md';
+import CategorySelector from '../components/CategorySelector';
+import CategorySearchDropdown from '../components/CategorySearchDropdown';
+import SearchSuggestion from '../components/SearchSuggestion';
 import { Carousel } from "react-bootstrap";
-
 //identical to home.js
 
 export default function Landing() {
-  const [cartitems, setCartItems] = useState([]);
+
+  const [cartitems, setCartItems] = useState([])
   const [show, setShow] = useState(false);
   const [text, setText] = useState("hey");
 
@@ -46,21 +28,13 @@ export default function Landing() {
 
   const [Inventory, setItems] = useState([]);
   const itemRef = collection(db, "Inventory");
-  const { cart, setCart } = useContext(CartContext);
+  const { cart, setCart } = useContext(CartContext)
   const { name, setName } = useContext(NameContext);
   const [Users, setUsers] = useState([]);
 
-  // This is for loading spinner
-  let [loading, setLoading] = useState(true);
-  const override = css`
-    display: block;
-    margin: 0 auto;
-    border-color: red;
-    margin-top: 250px;
-  `;
 
   //for the search
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("")
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [suggestionDropdown, setSuggestionDropdown] = useState(true);
 
@@ -70,228 +44,203 @@ export default function Landing() {
     if (isFilter) {
       setIsFilter(false);
     } else {
-      setIsFilter(true);
+      setIsFilter(true)
     }
-  };
+  }
 
-  const allCategories = [
-    "All",
-    "Automotive",
-    "Baby",
-    "Beauty & Personal Care",
-    "Books",
-    "Cellphones & Wearables",
-    "Computers & Electronics",
-    "Gaming",
-    "Fashion",
-    "Health & Household",
-    "Home & Appliances",
-    "Liquor",
-    "Office & Stationary",
-    "Pets",
-    "Sport & Training",
-    "Toys",
-    "TV Audio & Media",
-  ];
+  const allCategories = ["All", "Automotive", "Baby", "Beauty & Personal Care", "Books", "Cellphones & Wearables", "Computers & Electronics", "Gaming", "Fashion", "Health & Household", "Home & Appliances", "Liquor", "Office & Stationary", "Pets", "Sport & Training", "Toys", "TV Audio & Media"]
 
   //State for the currently selected category
   const [categoriesActivity, setAllCategoriesActivity] = useState([
     {
       categoryName: "All",
       active: true,
-      products: [],
+      products: []
     },
     {
       categoryName: "Automotive",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Baby",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Beauty & Personal Care",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Books",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Cellphones & Wearables",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Computers & Electronics",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Gaming",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Fashion",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Health & Household",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Home & Appliances",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Liquor",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Office & Stationary",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Pets",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Sport & Training",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "Toys",
       active: false,
-      products: [],
+      products: []
     },
     {
       categoryName: "TV Audio & Media",
       active: false,
-      products: [],
-    },
-  ]);
+      products: []
+    }
+  ])
+
 
   //currently active search category
-  const [searchActiveCategory, setSearchActiveCategory] = useState([
-    {
-      categoryName: "All",
-      active: true,
-    },
-    {
-      categoryName: "Automotive",
-      active: false,
-    },
-    {
-      categoryName: "Baby",
-      active: false,
-    },
-    {
-      categoryName: "Beauty & Personal Care",
-      active: false,
-    },
-    {
-      categoryName: "Books",
-      active: false,
-    },
-    {
-      categoryName: "Cellphones & Wearables",
-      active: false,
-    },
-    {
-      categoryName: "Computers & Electronics",
-      active: false,
-    },
-    {
-      categoryName: "Gaming",
-      active: false,
-    },
-    {
-      categoryName: "Fashion",
-      active: false,
-    },
-    {
-      categoryName: "Health & Household",
-      active: false,
-    },
-    {
-      categoryName: "Home & Appliances",
-      active: false,
-    },
-    {
-      categoryName: "Liquor",
-      active: false,
-    },
-    {
-      categoryName: "Office & Stationary",
-      active: false,
-    },
-    {
-      categoryName: "Pets",
-      active: false,
-    },
-    {
-      categoryName: "Sport & Training",
-      active: false,
-    },
-    {
-      categoryName: "Toys",
-      active: false,
-    },
-    {
-      categoryName: "TV Audio & Media",
-      active: false,
-    },
-  ]);
+  const [searchActiveCategory, setSearchActiveCategory] = useState([{
+    categoryName: "All",
+    active: true,
+  },
+  {
+    categoryName: "Automotive",
+    active: false,
+  },
+  {
+    categoryName: "Baby",
+    active: false,
+  },
+  {
+    categoryName: "Beauty & Personal Care",
+    active: false,
+  },
+  {
+    categoryName: "Books",
+    active: false,
+  },
+  {
+    categoryName: "Cellphones & Wearables",
+    active: false,
+  },
+  {
+    categoryName: "Computers & Electronics",
+    active: false,
+  },
+  {
+    categoryName: "Gaming",
+    active: false,
+  },
+  {
+    categoryName: "Fashion",
+    active: false,
+  },
+  {
+    categoryName: "Health & Household",
+    active: false,
+  },
+  {
+    categoryName: "Home & Appliances",
+    active: false,
+  },
+  {
+    categoryName: "Liquor",
+    active: false,
+  },
+  {
+    categoryName: "Office & Stationary",
+    active: false,
+  },
+  {
+    categoryName: "Pets",
+    active: false,
+  },
+  {
+    categoryName: "Sport & Training",
+    active: false,
+  },
+  {
+    categoryName: "Toys",
+    active: false,
+  },
+  {
+    categoryName: "TV Audio & Media",
+    active: false,
+  }])
 
-  const [currentSearchCategory, setCurrentSearchCategory] = useState(
-    searchActiveCategory.find((category) => category.active).categoryName
-  );
+  const [currentSearchCategory, setCurrentSearchCategory] = useState(searchActiveCategory.find(category => category.active).categoryName);
 
   //handle user typing in search box
   const handleSearchTermChange = (event) => {
     setSearchTerm(event.target.value);
-  };
+  }
 
   //function to search for an item in a given category
   const searchCategory = (categoryName) => {
-    let category = categoriesActivity.find(
-      (category) => category.categoryName == categoryName
-    ).products;
+    let category = categoriesActivity.find(category => category.categoryName == categoryName).products;
     let tempArr = [];
     for (let i in category) {
-      let stringToSearch = category[i].Name.toLowerCase().replace(/\s/g, "");
+      let stringToSearch = category[i].Name.toLowerCase().replace(/\s/g, '')
 
-      if (
-        stringToSearch.includes(searchTerm.toLowerCase().replace(/\s/g, ""))
-      ) {
-        tempArr = [...tempArr, category[i]];
+      if (stringToSearch.includes(searchTerm.toLowerCase().replace(/\s/g, ''))) {
+        tempArr = [...tempArr, category[i]]
         setSearchedProducts([...tempArr]);
       }
     }
-  };
+  }
 
   //useEffect for when the category selection changes
   useEffect(() => {
     if (searchTerm != "") {
-      searchCategory(currentSearchCategory);
+      searchCategory(currentSearchCategory)
     }
-  }, [currentSearchCategory]);
+  }, [currentSearchCategory])
 
   useEffect(() => {
-    searchCategory(currentSearchCategory);
-  }, [searchTerm]);
+    searchCategory(currentSearchCategory)
+  }, [searchTerm])
 
   //used to show the category search dropdown menu
   const [categoryDropdown, setCategoryDropdown] = useState(false);
@@ -302,58 +251,58 @@ export default function Landing() {
     } else {
       setCategoryDropdown(true);
     }
-  };
+
+  }
 
   //function to split the string of categories by ,
   const splitCategories = (categoriesString) => {
     const categoriesArray = categoriesString.split(",");
-    return categoriesArray;
-  };
+    return categoriesArray
+  }
 
-  const [currentActiveCategory, setCurrentActiveCategory] = useState("All");
+  const [currentActiveCategory, setCurrentActiveCategory] = useState("All")
   //useEffect for the currenctly selected category
   useEffect(() => {
-    setCurrentActiveCategory(
-      categoriesActivity.find((category) => category.active).categoryName
-    );
-  }, [categoriesActivity]);
+    setCurrentActiveCategory(categoriesActivity.find(category => category.active).categoryName)
+  }, [categoriesActivity])
 
   //useEffect for setting up the categories
   useEffect(() => {
-    let tempArr = [...categoriesActivity];
+    let tempArr = [...categoriesActivity]
     for (let x in allCategories) {
-      let currentCategory = allCategories[x];
+      let currentCategory = allCategories[x]
       for (let i in Inventory) {
-        let productCategories = splitCategories(Inventory[i].Categories);
+        let productCategories = splitCategories(Inventory[i].Categories)
         if (productCategories.includes(currentCategory)) {
-          let theCategory = tempArr.find(
-            (category) => category.categoryName == currentCategory
-          );
-          theCategory.products.push(Inventory[i]);
+          let theCategory = tempArr.find(category => category.categoryName == currentCategory)
+          theCategory.products.push(Inventory[i])
         }
       }
     }
-    setAllCategoriesActivity([...tempArr]);
-  }, [Inventory]);
+    setAllCategoriesActivity([...tempArr])
+  }, [Inventory])
+
+
 
   // Variables for reviews
-  let str = "";
+  let str = ""
 
-  let add = "";
-  let rev = "";
+  let add = ""
+  let rev = ""
 
-  const AddReview = async (item, star, review) => {
-    //handles adding a review to database
+
+  const AddReview = async (item, star, review) => {           //handles adding a review to database
     await setDoc(
       doc(db, "Inventory", item.id),
       {
         Review: review,
-        Stars: star,
+        Stars: star
       },
       { merge: true }
     );
-    alert("Review submitted");
-  };
+    alert("Review submitted")
+  }
+
 
   // The following function count the average rating of each item (using stars)
   function avgStars(stars) {
@@ -364,7 +313,8 @@ export default function Landing() {
     for (let i = 0; i < starCount.length; i++) {
       if (starCount[i] == "*") {
         check++;
-      } else {
+      }
+      else {
         wholeSum = wholeSum + parseInt(starCount[i]);
       }
     }
@@ -372,15 +322,17 @@ export default function Landing() {
 
     if (starCount.length == 0) {
       return "5.0 ";
-    } else {
+    }
+    else {
       return average.toFixed(1) + " ";
     }
+
   }
 
   // Function to put reviews in a list
   function review(reviews) {
     const reviewList = reviews.toString().split("*");
-    return reviewList;
+    return reviewList
   }
 
   // Funtion that returns the number of reviews
@@ -388,28 +340,30 @@ export default function Landing() {
     let counter = 0;
     let review = "" + reviews;
     for (let i = 0; i < review.length; i++) {
-      if (review[i] == "*") {
+      if (review[i] == '*') {
         counter++;
       }
     }
     if (counter == 0) {
-      return "";
-    } else {
-      return " (" + counter.toString() + ")";
+      return ""
+    }
+    else {
+      return " (" + counter.toString() + ")"
     }
   }
   function reviewNumberIn(reviews) {
     let counter = 0;
     let review = "" + reviews;
     for (let i = 0; i < review.length; i++) {
-      if (review[i] == "*") {
+      if (review[i] == '*') {
         counter++;
       }
     }
     if (counter == 0) {
-      return " ";
-    } else {
-      return counter.toString() + " ";
+      return " "
+    }
+    else {
+      return counter.toString() + " "
     }
   }
 
@@ -418,100 +372,97 @@ export default function Landing() {
     let counter = 0;
     let review = "" + reviews;
     for (let i = 0; i < review.length; i++) {
-      if (review[i] == "*") {
+      if (review[i] == '*') {
         counter++;
       }
     }
 
     if (counter == 0) {
-      return "No reviews";
-    } else if (counter == 1) {
-      return "Review";
-    } else {
-      return "Reviews";
+      return "No reviews"
+    }
+    else if (counter == 1) {
+      return "Review"
+    }
+    else {
+      return "Reviews"
     }
   }
+
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(collection(db, "Users"));
       setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-    };
-    getUsers();
+    }
+    getUsers()
   }, []);
 
   useEffect(() => {
     const getItems = async () => {
-      setLoading(true);
       const data = await getDocs(itemRef);
       setItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      setLoading(false);
-    };
+    }
 
-    getItems();
+    getItems()
+
   }, []);
 
   function Navbar() {
     const [total, setTotal] = useState(0);
     const [showLinks, setShowLinks] = useState(false);
     const [showcart, setShowCart] = useState(false);
-    const [summary, setSummary] = useState("");
-    let t = 0;
+    const [summary, setSummary] = useState("")
+    let t = 0
 
     function CartView() {
-      setShowCart(!showcart);
+
+      setShowCart(!showcart)
       setSummary(
         cartitems.map(function (currentValue, index, array) {
-          return index >= 0 ? (
-            <div className="cartitemdiv">
-              <div className="cartleft">
-                <img src={currentValue.Image} className="pic" />
-              </div>
-              <div className="cartright">
-                <h6 className="cartid">{currentValue.Name}</h6>
-                <h6 className="cartpricep">R{currentValue.Price}</h6>
-              </div>
+          return index >= 0 ? <div className="cartitemdiv">
+            <div className="cartleft">
+              <img src={currentValue.Image} className="pic" />
             </div>
-          ) : null;
+            <div className="cartright">
+              <h6 className="cartid">{currentValue.Name}</h6>
+              <h6 className="cartpricep">R{currentValue.Price}</h6>
+            </div>
+          </div> : null
         })
-      );
+      )
 
       for (let i = 0; i < cartitems.length; i++) {
         const element = cartitems[i];
-        t += element.Price;
-      }
-      t = t.toFixed(2);
+        t += element.Price
 
-      setTotal(t);
+      }
+      t = t.toFixed(2)
+
+      setTotal(t)
+
     }
     return (
       <div>
         <div className="navbar">
+
           <div className="leftside">
             <div className="links" id={showLinks ? "hidden" : ""}>
-              <Link className="profile-icon" to="/profile">
-                <CgProfile className="profile-icon" />
+              <Link className="profile-icon" to='/profile'>
+                <CgProfile className='profile-icon' />
               </Link>
 
-              <Link className="navlink" to='/landing'>
-                <p>Home</p>
-              </Link>
-
-              <Link className="navlink" to="/sellerslanding">
+              <Link className="navlink" to='/sellerslanding'>
                 <p>Sell</p>
               </Link>
-              <Link className="navlink" to="/about">
+              <Link className="navlink" to='/about'>
                 <p>About</p>
               </Link>
-              <Link className="navlink" to="/contact">
+              <Link className="navlink" to='/contact'>
                 <p>Contact</p>
               </Link>
-              <Link
-                className="navlink"
-                onClick={() => {
-                  CartView();
-                }}
-              >
+              <Link className="navlink" onClick={() => {
+                CartView()
+              }}>
                 <p>Cart</p>
               </Link>
 
@@ -521,154 +472,130 @@ export default function Landing() {
               <Link className="navlink" to="/sold">
                 <p> Sold</p>
               </Link>
+
             </div>
 
-            <button onClick={() => setShowLinks(!showLinks)}>≡</button>
+            <button onClick={() => setShowLinks(!showLinks)}>
+              ≡
+            </button>
           </div>
 
+
+
           <div className="rightside">
-            <div className="drop-down-container">
-              <button
-                className="search-category-button"
-                onClick={handleDropdown}
-              >
+
+            <div className='drop-down-container'>
+              <button className='search-category-button' onClick={handleDropdown}>
                 {currentSearchCategory}
               </button>
-              {categoryDropdown ? (
+              {categoryDropdown ?
                 <CategorySearchDropdown
                   searchActiveCategory={searchActiveCategory}
                   setSearchActiveCategory={setSearchActiveCategory}
                   currentSearchCategory={currentSearchCategory}
                   setCurrentSearchCategory={setCurrentSearchCategory}
-                  setCategoryDropdown={setCategoryDropdown}
-                />
-              ) : null}
+                  setCategoryDropdown={setCategoryDropdown} />
+                : null
+              }
             </div>
 
-            <button
-              className="btnsearch"
-              onClick={() => searchCategory(currentSearchCategory)}
-            >
+            <button className="btnsearch" onClick={() => searchCategory(currentSearchCategory)}>
               Search
             </button>
           </div>
         </div>
 
-        {showcart ? (
-          <div className="cartdiv">
+        {
+          showcart ? <div className="cartdiv">
             {summary}
             <div className="demodiv">
-              <text className="textin">R{total}</text>
-              <Link to="/maketransactionaddress">
-                <button className="buttonin">Check out</button>
+              <text className='textin'>R{total}</text>
+              <Link to='/maketransactionaddress'>
+                <button className="buttonin" >Check out</button>
               </Link>
             </div>
-          </div>
-        ) : null}
+          </div> : null
+        }
       </div>
-    );
+    )
   }
 
-  function handleCartItems(item) {
-    setCartItems((prev) => {
-      return cartitems.includes(item) ? prev : [...prev, item];
-    });
 
-    alert("Item added to cart");
+
+
+  function handleCartItems(item) {
+    setCartItems(prev => {
+      return cartitems.includes(item) ? prev : [...prev, item];
+    })
+
+    alert('Item added to cart');
+
   }
 
   useEffect(() => {
-    setCart(cartitems);
-  }, [cartitems]);
+    setCart(cartitems)
+  }, [cartitems])
 
   function handleReviews(item) {
     const ratingChanged = (rating) => {
-      str = "" + item.Stars + "*" + rating.toString();
-    };
-    setShowReview(true);
+      str = "" + item.Stars + "*" + rating.toString()
+    }
+    setShowReview(true)
     setText(
       <div>
         <div className="item-container">
-          <button
-            className="btnclose"
-            onClick={() => {
-              setShowReview(false);
-              ProductView(item);
-            }}
-          >
-            Close
-          </button>
+          <button className="btnclose" onClick={() => {
+            setShowReview(false)
+            ProductView(item)
+          }}>Close</button>
 
           <div>
-            <img
-              style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-              src={item.Image}
-            />
+            <img style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }} src={item.Image} />
           </div>
           <h3>{item.Name}</h3>
           <p>{item.Description}</p>
 
           <div className="starratediv">
-            <ReactStars
+            < ReactStars
               size={45}
               count={5}
               isHalf={false}
               onChange={ratingChanged}
-              className="st"
-            />
+              className="st" />
+
           </div>
 
-          <input
-            className="edtdesc"
-            id="input"
-            placeholder="Item Review"
-            onChange={(event) => {
-              add = "*" + event.target.value.toString();
-            }}
-          />
+          <input className="edtdesc" id="input" placeholder="Item Review" onChange={(event) => {
+            add = "*" + event.target.value.toString()
+          }} />
 
           <div>
-            <button
-              className="btnclose"
-              onClick={() => {
-                rev = "" + item.Review + add;
-                AddReview(item, str, rev);
-                setShowReview(false);
-                ProductView(item);
-              }}
-            >
-              Submit
-            </button>
+            <button className="btnclose" onClick={() => {
+              rev = "" + item.Review + add
+              AddReview(item, str, rev)
+              setShowReview(false)
+              ProductView(item)
+            }}>Submit</button>
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   function viewReviews(item) {
     const comments = review(item.Review);
-    const commentList = comments.map((comment) => (
-      <div className="indrev">{comment} </div>
-    ));
-    setShowReview(true);
+    const commentList = comments.map(comment => <div className="indrev">{comment} </div>)
+    setShowReview(true)
     setText(
       <div>
         <div className="item-container">
-          <button
-            className="btnclose"
-            onClick={() => {
-              setShowReview(false);
-              ProductView(item);
-            }}
-          >
-            Close Reviews
-          </button>
+          <button className="btnclose" onClick={() => {
+            setShowReview(false)
+            ProductView(item)
+          }}>Close Reviews</button>
 
           <div>
-            <img
-              style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-              src={item.Image}
-            />
+            <img style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }} src={item.Image} />
           </div>
           <h3>{item.Name}</h3>
           <p>{item.Description}</p>
@@ -679,17 +606,15 @@ export default function Landing() {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   function ProductView(item) {
-    setShow(true);
+    setShow(true)
     setText(
       <div>
         <div className="item-container">
-          <button className="btnclose" onClick={() => setShow(false)}>
-            Close
-          </button>
+          <button className="btnclose" onClick={() => setShow(false)}>Close</button>
           <p className="uselesstext"> -</p>
           <Carousel>
             {/* Images */}
@@ -717,78 +642,66 @@ export default function Landing() {
               />
             </Carousel.Item>
           </Carousel>
-          {Users.map((user, index) =>
-            user.Email == item.Seller ? (
-              <p key={index}>Sold By : {user.Name}</p>
-            ) : null
-          )}
+          {Users.map((user, index) => (
+            user.Email == item.Seller
+              ? (
+                <p key={index}>Sold By : {user.Name}</p>
+              )
+              : null
+          ))}
+
+          <h5 style={{ color: "#50A181" }}>{item.Categories.substring(4)}</h5>
 
           <h3>{item.Name}</h3>
 
           <h1 className="product-view-price">R{item.Price}</h1>
 
+
           <p>{item.Description}</p>
 
-          {item.Specs != undefined ? (
-            <h4 className="table-title">Product Specifications</h4>
-          ) : (
-            <h4></h4>
-          )}
 
-          {item.Specs != undefined ? (
+          {item.Specs != undefined ?
+            <h4 className='table-title'>Product Specifications</h4>
+            : <h4></h4>
+          }
+
+
+          {item.Specs != undefined ?
+
             item.Specs.map((spec, index) => {
               return (
-                <div
-                  className="spec-container"
-                  style={{ marginBottom: "0" }}
-                  key={index}
-                >
-                  <h6 className="spec-name" style={{ marginBottom: "0" }}>
-                    {spec.spec}
-                  </h6>
-                  <h6 className="spec-detail" style={{ marginBottom: "0" }}>
-                    {spec.detail}
-                  </h6>
+                <div className='spec-container' style={{ marginBottom: "0" }} key={index}>
+                  <h6 className='spec-name' style={{ marginBottom: "0" }}>{spec.spec}</h6>
+                  <h6 className="spec-detail" style={{ marginBottom: "0" }}>{spec.detail}</h6>
                 </div>
-              );
+              )
             })
-          ) : (
-            <h1></h1>
-          )}
+
+            : <h1></h1>}
+
+
 
           <div className="add-to-cart">
-            <input
-              type="number"
-              className="edtnum"
-              placeholder="1"
-              min="0"
-              max={item.Quantity}
-            />
-            <button className="btnadd" onClick={() => handleCartItems(item)}>
-              Add to cart
-            </button>
+            <input type="number" className="edtnum" placeholder="1" min='0' max={item.Quantity} />
+            <button className="btnadd" onClick={() => handleCartItems(item)}>Add to cart</button>
 
             <div className="inprodstar">
-              <BsStarFill className="initemsstar" />
-              {avgStars(item.Stars)}
-              <Link onClick={() => viewReviews(item)}>
-                {reviewNumberIn(item.Review)}
-                {correctReview(item.Review)}
-              </Link>
+              <BsStarFill className="initemsstar" />{avgStars(item.Stars)}
+              <Link onClick={() => viewReviews(item)}>{reviewNumberIn(item.Review)}{correctReview(item.Review)}</Link>
             </div>
 
-            {showReview ? (
-              <div className="reviewdiv">{text}</div>
-            ) : (
-              <button className="btnReview" onClick={() => handleReviews(item)}>
-                Write a review
-              </button>
-            )}
+            {showReview ? <div className="reviewdiv">
+              {text}
+            </div> :
+              <button className="btnReview" onClick={() => handleReviews(item)}>Write a review</button>
+            }
           </div>
-          <div></div>
+          <div>
+
+          </div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -799,198 +712,139 @@ export default function Landing() {
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
         suggestionDropdown={suggestionDropdown}
-        setSuggestionDropdown={setSuggestionDropdown}
-      />
-      <input
-        className="edtsearch"
-        placeholder="Search"
-        type="text"
-        value={searchTerm}
-        onChange={handleSearchTermChange}
-      ></input>
+        setSuggestionDropdown={setSuggestionDropdown} />
+      <input className='edtsearch' placeholder='Search' type="text" value={searchTerm} onChange={handleSearchTermChange}></input>
 
-      {isFilter ? (
-        <button
-          className="filter"
-          style={{ backgroundColor: "#9ccc64" }}
-          onClick={handleFilter}
-        >
-          Close Filter
-        </button>
-      ) : (
-        <button className="filter" onClick={handleFilter}>
+      {isFilter ?
+
+        <button className='filter' style={{ backgroundColor: "#9ccc64" }} onClick={handleFilter}>Close Filter</button>
+        :
+        <button className='filter' onClick={handleFilter}>
           Filter by Category
         </button>
-      )}
+      }
 
-      {isFilter ? (
+      {isFilter ?
         <CategorySelector
           categoriesActivity={categoriesActivity}
           setAllCategoriesActivity={setAllCategoriesActivity}
-          setCategoryDropdown={setCategoryDropdown}
-        />
-      ) : null}
+          setCategoryDropdown={setCategoryDropdown} />
+        : null
+      }
 
-      {searchedProducts.length != 0 && searchTerm != "" ? (
+
+
+      {searchedProducts.length != 0 && searchTerm != "" ?
         <div>
-          {searchTerm != "" ? (
-            <h6 className="category-search-heading">
-              ({searchedProducts.length}) Results for "{searchTerm}" in{" "}
-              <span className="search-result-category">
-                {currentSearchCategory}
-              </span>
-            </h6>
-          ) : null}
-          <div className="bodydiv">
+          {searchTerm != "" ?
+            <h6 className='category-search-heading'>({searchedProducts.length}) Results for "{searchTerm}" in <span className='search-result-category'>{currentSearchCategory}</span></h6>
+            : null
+          }
+          <div className='bodydiv'>
             {searchedProducts.map((item, itemIndex) => {
               return (
-                <div
-                  key={itemIndex}
-                  className="itemdiv"
-                  onClick={() => {
-                    ProductView(item);
-                  }}
-                >
+                <div key={itemIndex} className="itemdiv" onClick={() => {
+                  ProductView(item)
+                }}>
                   <img src={item.Image} alt="nope" />
                   <div className="textdiv">
                     <h1 className="itemname">{item.Name}</h1>
                   </div>
                   <h1 className="itemprice">R{item.Price}</h1>
-                  <div className="itemstar">
-                    <BsStarFill className="sumstar" /> {avgStars(item.Stars)}
-                    {reviewNumber(item.Review)}
-                  </div>
+                  <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
                   {(() => {
                     if (item.Quantity == 0) {
                       return (
-                        <h1
-                          style={{ fontWeight: "bold", color: "#B38B59" }}
-                          className="item-quantity"
-                        >
-                          sold out
-                        </h1>
-                      );
+                        <h1 style={{ fontWeight: "bold", color: "#B38B59" }} className="item-quantity">sold out</h1>
+                      )
                     } else {
-                      return <h1 className="item-quantity">in stock</h1>;
+                      return (
+                        <h1 className="item-quantity">in stock</h1>
+                      )
                     }
                   })()}
                 </div>
-              );
+              )
             })}
           </div>
         </div>
-      ) : null}
+        : null
+      }
 
-      {currentActiveCategory != "All" ? (
+
+
+      {currentActiveCategory != "All" ?
         <div>
-          <h6 className="category-heading">
-            {currentActiveCategory +
-              " (" +
-              categoriesActivity.find(
-                (category) => category.categoryName == currentActiveCategory
-              ).products.length +
-              ")"}
-          </h6>
+          <h6 className='category-heading'>{currentActiveCategory + " (" + categoriesActivity.find(category => category.categoryName == currentActiveCategory).products.length + ")"}</h6>
 
-          <div className="bodydiv">
-            {categoriesActivity
-              .find(
-                (category) => category.categoryName == currentActiveCategory
-              )
-              .products.map((item, itemIndex) => {
-                return (
-                  <div
-                    key={itemIndex}
-                    className="itemdiv"
-                    onClick={() => {
-                      ProductView(item);
-                    }}
-                  >
-                    <img src={item.Image} alt="nope" />
-                    <div className="textdiv">
-                      <h1 className="itemname">{item.Name}</h1>
-                    </div>
-                    <h1 className="itemprice">R{item.Price}</h1>
-                    <div className="itemstar">
-                      <BsStarFill className="sumstar" /> {avgStars(item.Stars)}
-                      {reviewNumber(item.Review)}
-                    </div>
-                    {(() => {
-                      if (item.Quantity == 0) {
-                        return (
-                          <h1
-                            style={{ fontWeight: "bold", color: "#B38B59" }}
-                            className="item-quantity"
-                          >
-                            sold out
-                          </h1>
-                        );
-                      } else {
-                        return <h1 className="item-quantity">in stock</h1>;
-                      }
-                    })()}
+          <div className='bodydiv'>
+            {categoriesActivity.find(category => category.categoryName == currentActiveCategory).products.map((item, itemIndex) => {
+              return (
+                <div key={itemIndex} className="itemdiv" onClick={() => {
+                  ProductView(item)
+                }}>
+                  <img src={item.Image} alt="nope" />
+                  <div className="textdiv">
+                    <h1 className="itemname">{item.Name}</h1>
                   </div>
-                );
-              })}
+                  <h1 className="itemprice">R{item.Price}</h1>
+                  <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
+                  {(() => {
+                    if (item.Quantity == 0) {
+                      return (
+                        <h1 style={{ fontWeight: "bold", color: "#B38B59" }} className="item-quantity">sold out</h1>
+                      )
+                    } else {
+                      return (
+                        <h1 className="item-quantity">in stock</h1>
+                      )
+                    }
+                  })()}
+                </div>
+              )
+            })}
           </div>
         </div>
-      ) : null}
+        : null
+      }
 
-      <h6 className="category-heading">
-        All products
-        {" (" +
-          categoriesActivity.find((category) => category.categoryName == "All")
-            .products.length +
-          ")"}
-      </h6>
-      {loading ? (
-        <HashLoader
-          color={"B38B59"}
-          css={override}
-          loading={loading}
-          size={120}
-        />
-      ) : show ? (
-        <div className="reviewdiv">{text}</div>
-      ) : (
-        <div className="bodydiv">
-          {Inventory.map((item, indx) => {
-            return (
-              <div
-                key={indx}
-                className="itemdiv"
-                onClick={() => {
-                  ProductView(item);
-                }}
-              >
-                <img src={item.Image} alt="nope" />
-                <div className="textdiv">
-                  <h1 className="itemname">{item.Name}</h1>
+
+
+      <h6 className='category-heading'>All products{" (" + categoriesActivity.find(category => category.categoryName == "All").products.length + ")"}</h6>
+      {
+        show ? <div className="reviewdiv">
+          {text}
+        </div> :
+          <div className="bodydiv" >
+            {Inventory.map((item, indx) => {
+              return (
+                <div key={indx} className="itemdiv" onClick={() => {
+                  ProductView(item)
+                }}>
+                  <img src={item.Image} alt="nope" />
+                  <div className="textdiv">
+                    <h1 className="itemname">{item.Name}</h1>
+                  </div>
+                  <h1 className="itemprice">R{item.Price}</h1>
+                  <div className="itemstar"><BsStarFill className="sumstar" />     {avgStars(item.Stars)}{reviewNumber(item.Review)}</div>
+                  {(() => {
+                    if (item.Quantity == 0) {
+                      return (
+                        <h1 style={{ fontWeight: "bold", color: "#B38B59" }} className="item-quantity">sold out</h1>
+                      )
+                    } else {
+                      return (
+                        <h1 className="item-quantity">in stock</h1>
+                      )
+                    }
+                  })()}
                 </div>
-                <h1 className="itemprice">R{item.Price}</h1>
-                <div className="itemstar">
-                  <BsStarFill className="sumstar" /> {avgStars(item.Stars)}
-                  {reviewNumber(item.Review)}
-                </div>
-                {(() => {
-                  if (item.Quantity == 0) {
-                    return (
-                      <h1
-                        style={{ fontWeight: "bold", color: "#B38B59" }}
-                        className="item-quantity"
-                      >
-                        sold out
-                      </h1>
-                    );
-                  } else {
-                    return <h1 className="item-quantity">in stock</h1>;
-                  }
-                })()}
-              </div>
-            );
-          })}
-        </div>
-      )}
+              )
+            })}
+          </div>
+      }
+
     </div>
   );
+
 }
