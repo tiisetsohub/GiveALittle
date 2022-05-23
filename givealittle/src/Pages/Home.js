@@ -247,10 +247,16 @@ export default function Home() {
     setCart(cartitems);
   }, [cartitems]);
 
-  function viewReviews(item, starCount) {
+  function viewReviews(item, stars) {
+    const starCount = avgStars(stars);
+    const reviewStars = review(stars);
     const comments = review(item.Review);
-    const commentList = comments.map((comment) => (
-      <div className="indrev">{comment} </div>
+
+    //combine comment with a star
+    let zip = (comments, reviewStars) => comments.map((x, i) => [x, reviewStars[i]]);
+    const clist = zip(comments, reviewStars);
+    const commentList = clist.map((comment) => (
+      <div className="indrev">{comment[0]} &emsp  <BsStarFill className="initemsstar" /> {comment[1]}</div>
     ));
     setShowReview(true);
     setText(
@@ -350,7 +356,7 @@ export default function Home() {
           <div className="inprodstar">
             <BsStarFill className="initemsstar" />
             {avgStars(item.Stars)}
-            <Link onClick={() => viewReviews(item, avgStars(item.Stars))}>
+            <Link onClick={() => viewReviews(item, item.Stars)}>
               {reviewNumberIn(item.Review)}
               {correctReview(item.Review)}
             </Link>
