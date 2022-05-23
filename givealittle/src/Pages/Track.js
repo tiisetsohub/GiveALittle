@@ -33,14 +33,32 @@ export default function Track() {
     };
     getproducts();
   }, []);
+  const [array] = React.useState(["Preparing your order", "Your order is ready", "Your order is on its way", "Your order has arrived", "Order collected"]);
+  const [displayArray, setDisplayArray] = React.useState([]);
+  const [displayEl, setDisplayEl] = React.useState();
+
+  const delay = (ms) =>
+    new Promise((res) => {
+      setTimeout(() => {
+        res();
+      }, ms);
+    });
+
+  React.useEffect(() => {
+    (async function () {
+      for (let el of array) {
+        await delay(3000);
+        setDisplayEl(el);
+      }
+      setDisplayEl(undefined);
+    })();
+  }, [array]);
+
+  React.useEffect(() => {
+    displayEl && setDisplayArray((prev) => [...prev, displayEl]);
+  }, [displayEl]);
+
   function ProductView(product) {
-    const items = [];
-    for (var i = 0; i < product.Time.length; i++) {
-      items.push({
-        LocationDescription: product.LocationDescription[i],
-        Time: product.Time[i],
-      });
-    }
     setShow(true);
     setText(
       <div>
@@ -73,26 +91,15 @@ export default function Track() {
 
           <div className="right">
             <Card sx={{ maxWidth: 400 }}>
-              <Stepper
-                activeStep={
-                  items[items.length - 1].LocationDescription.includes(
-                    "COLLECTED"
-                  )
-                    ? items.length
-                    : items.length - 1
-                }
-                orientation="vertical"
-              >
-                {items.map((item) => {
-                  return (
-                    <Step>
-                      <StepLabel className="step-label">
-                        {item.LocationDescription} - {item.Time}
-                      </StepLabel>
-                    </Step>
-                  );
-                })}
-              </Stepper>
+                <Stepper
+                  activeStep={4}
+                  orientation="vertical"
+                >
+                  {displayArray.map((elem, key) => (
+                    <div key={key}>{elem}</div>
+                  ))}
+                  
+                </Stepper>
             </Card>
           </div>
         </div>
@@ -122,13 +129,7 @@ export default function Track() {
                       image={product.Image}
                       name={product.Name}
                       price={product.Price}
-                      delivery={
-                        product.LocationDescription[
-                          product.LocationDescription.length - 1
-                        ].includes("COLLECTED")
-                          ? "Order Collected!"
-                          : "Your Order Is On Its Way!"
-                      }
+                    
                     />
                   </div>
                 );

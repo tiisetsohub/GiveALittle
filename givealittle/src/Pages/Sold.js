@@ -69,25 +69,32 @@ export default function Sold() {
 
     getItems();
   }, []);
+  const [array] = React.useState(["Order collected"]);
+  const [displayArray, setDisplayArray] = React.useState([]);
+  const [displayEl, setDisplayEl] = React.useState();
+
+  const delay = (ms) =>
+    new Promise((res) => {
+      setTimeout(() => {
+        res();
+      }, ms);
+    });
+
+  React.useEffect(() => {
+    (async function () {
+      for (let el of array) {
+        await delay(0);
+        setDisplayEl(el);
+      }
+      setDisplayEl(undefined);
+    })();
+  }, [array]);
+
+  React.useEffect(() => {
+    displayEl && setDisplayArray((prev) => [...prev, displayEl]);
+  }, [displayEl]);
 
   function ProductView(item) {
-    const items = [
-      { LocationDescription: "Preparing your order" },
-      { LocationDescription: "Your order is ready" },
-      { LocationDescription: "Your order is on its way" },
-      { LocationDescription: "Your order has arrived" },
-      { LocationDescription: "Order collected" },
-    ];
-
-    const throttledProcess = (items, interval) => {
-      if (items.length == 0) {
-        console.log("All done!");
-        return;
-      }
-      console.log(items[0].LocationDescription + "  " + new Date().getSeconds());
-      setTimeout(() => throttledProcess(items.slice(1), interval), interval);
-    };
-
     setShow(true);
     setText(
       <div>
@@ -121,28 +128,12 @@ export default function Sold() {
             <div className="right-botton">
               <Card sx={{ maxWidth: 400 }}>
                 <Stepper
-                  activeStep={
-                    items[4].LocationDescription.includes("collected") ? 5 : 4
-                  }
+                  activeStep={4}
                   orientation="vertical"
                 >
-                  {/* {items.map((it) => {
-                    return (
-                      <Step>
-                        <StepLabel className="step-label">
-                          {it.LocationDescription} : {new Date().toDateString()}{",  "}
-                          {new Date().getHours()}{":"}
-                          {new Date().getMinutes()}
-                        </StepLabel>
-                      </Step>
-                    );
-                  })} */}
-                  <Step>
-                    <StepLabel className="step-label">
-                      {new Date().getMinutes()}
-                      {throttledProcess(items, 3000)}
-                    </StepLabel>
-                  </Step>
+                  {displayArray.map((elem, key) => (
+                    <div key={key}>{elem}</div>
+                  ))}
                 </Stepper>
               </Card>
             </div>
@@ -155,6 +146,7 @@ export default function Sold() {
   return (
     <div>
       <Navbar />
+      <h1>Sold Items </h1>
       {show ? (
         <div className="reviewdiv">{text}</div>
       ) : (
