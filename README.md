@@ -30,6 +30,7 @@ This is what you can do with GiveALittle:
 * You can track your order after you have bought it
 * You can add the items you want to buy into a cart
 * And many more features to be added
+* As a seller you can add as many images for the product you're selling.
 
 ## Built Using
 
