@@ -120,6 +120,14 @@ useEffect(() => {
         :
         null
       }
+
+      {
+        currentTab == "Product Insights" ?
+        <div style={{display: "flex", justifyContent: "center", marginTop: "100px"}}>
+          <h2>Under Construction!</h2>
+        </div>
+        : null
+      }
       
       
         
