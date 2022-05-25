@@ -8,6 +8,7 @@ import { collection, getDocs, addDoc, deleteDoc, doc } from "firebase/firestore"
 import { db } from '../firebase-config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import SellerDetails from '../components/SellerDetails';
+import Sell from "../Pages/Sell"
 
 import { QuerySnapshot } from "firebase/firestore";
 
@@ -50,6 +51,10 @@ useEffect(() => {
 //State for currently selected tab
 const [allTabs, setAllTabs] = useState([
   {
+    tabName: "Add Product",
+    active: false
+  },
+  {
     tabName: "All Products",
     active: true
   },
@@ -71,14 +76,7 @@ useEffect(() => {
   return (
     <div className='body'>
 
-      <Navigation/>
-      <div style={{textAlign: "center"}}>
-
-        <Link to="/sell">
-          <button className='add-product-button'>Add Product</button>
-        </Link>
-      
-      </div> 
+      <Navigation/> 
 
       <SellersTabs
         allTabs={allTabs}
@@ -112,10 +110,15 @@ useEffect(() => {
         </ul> 
         </div>
         : 
-            //The other tab
-          <div style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-            <h1 >Under Construction</h1>
-          </div>
+          null
+      }
+
+      {
+        currentTab == "Add Product" ?
+        <Sell allTabs={allTabs}
+        setAllTabs={setAllTabs}/>
+        :
+        null
       }
       
       

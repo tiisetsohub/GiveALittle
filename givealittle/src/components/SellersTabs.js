@@ -27,9 +27,18 @@ const handleClick = (tabName) => {
         {
             allTabs.map((tab, index) => {
                 return (
-                    <button key={index} className="tab" style={{backgroundColor: tab.active ? "#75b58c" : "#e5dacb", width: tab.active ? "550px" : "300px"}}
-                    onClick={() => handleClick(tab.tabName)}
-                    >{tab.tabName}</button>
+                    <div key={index}>
+                        {tab.tabName == "Add Product" ? 
+                        <button className='add-tab' style={{backgroundColor: tab.active ? "#B38B59" : "#e5dacb", width: tab.active ? "400px" : "250px"}}
+                            onClick={() => handleClick(tab.tabName)}
+                        >{tab.tabName}</button>
+                        :
+                        <button className="tab" style={{backgroundColor: tab.active ? "#75b58c" : "#e5dacb", width: tab.active ? "400px" : "250px"}}
+                        onClick={() => handleClick(tab.tabName)}
+                        >{tab.tabName}</button>
+                    }
+                    </div>
+                    
                 )
             })
         }
