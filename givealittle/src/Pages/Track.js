@@ -17,8 +17,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import Navigation from '../components/Navigation'
-
 export default function Track() {
   const [bought, setproducts] = useState([]); //state for bought
   const productRef = collection(db, "Bought"); //reference to bought in database
@@ -104,7 +102,7 @@ export default function Track() {
 
   return (
     <div>
-      <Navigation />
+      <Navbar />
       {show ? (
         <div className="reviewdiv">{text}</div>
       ) : (

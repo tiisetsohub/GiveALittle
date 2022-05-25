@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap');
 
-
 .navbar {
     background-color: #113E21;
     width: 100%;
@@ -44,17 +43,12 @@ button:hover {
     background-color: #B38B59;
     border: 0px solid;
     left: 2px;
-    position: sticky;
+    position: absolute;
     margin-top: 10px;
     color : white;
-    top: 0;
 
 }
-.clod{
-    display: flex;
-    position: sticky;
-    top: 0;
-}
+
 .btnadd {
     transition: 0.5s;
     animation: ease-in;
@@ -492,6 +486,3 @@ input[type="radio"] {
     border-radius: 5px;
 }
 
-.uselesstext{
-    color: #F0F0F0;
-}
