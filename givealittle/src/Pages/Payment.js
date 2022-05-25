@@ -10,6 +10,7 @@ import { CartContext } from '../Context'
 import { NameContext, LoginContext ,CarddetailsContext, AddressContext} from '../Context'
 import { connectFirestoreEmulator } from 'firebase/firestore';
 import emailjs from 'emailjs-com'; // library used to send users emails
+import Navigation from '../components/Navigation';
 
 export default function Payment() {
     const { cardno, setCardNo } = useContext(CarddetailsContext); 
@@ -65,7 +66,7 @@ export default function Payment() {
           };
 
           emailjs.send('service_ew7io57', 'template_25ddejk', details).then(function (res) {
-           alert("Email Sent Successfully");
+           alert("Item Bought Successfully");
           },
           reason => {
             alert("Error Occur");
@@ -118,7 +119,7 @@ export default function Payment() {
         return (
           <div>
             
-            <Navbar />
+            <Navigation />
             <div className = "sumdiv">
               
               <h1 className="h1in">Summary</h1>
@@ -182,8 +183,8 @@ export default function Payment() {
 
             <div className="totalbar">
               <text className='textin'>R{totalPrice()}</text>
-              <button className="btncomplete" onClick={() =>Purchase() } >Purchase
-              </button>
+              <Link className="btncomplete" to='/landing' onClick={Purchase}>Purchase
+              </Link>
             </div>
            
         </div>
