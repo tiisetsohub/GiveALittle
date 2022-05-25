@@ -16,19 +16,3 @@
 .tab:hover {
     transform: translate(10px);
 }
-
-.add-tab {
-    border: none;
-    border-radius: 15px;
-    margin: 15px;
-    font-weight: bold;
-    transition: 1s;
-    animation: ease-in;
-    width: 300px;
-}
-
-.add-tab:hover {
-    border-radius: 3px;
-    box-shadow: 0px 0px 10px -5px rgb(59, 59, 59);
-    transform: scale(1.05);
-}
