@@ -7,6 +7,7 @@ import './Login.css';
 import { NameContext } from '../Context';
 import SpecsPage from './SpecsPage';
 import "../components/Categories.css"
+import Navigation from '../components/Navigation';
 
 
 export default function Sell() {
@@ -159,7 +160,7 @@ export default function Sell() {
 
   return (
     <div className="bigdiv">
-      <Navbar />
+      <Navigation />
       <h1>Add Item</h1>
       <div className='logindivb'>          {/*form for item information*/}
         <input className="edtname" id="input" placeholder="Item Name" onChange={(event) => {
