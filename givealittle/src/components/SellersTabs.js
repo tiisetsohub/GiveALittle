@@ -27,7 +27,7 @@ const handleClick = (tabName) => {
         {
             allTabs.map((tab, index) => {
                 return (
-                    <button key={index} className="tab" style={{backgroundColor: tab.active ? "#9ccc64" : "#e5dacb", width: tab.active ? "500px" : "300px"}}
+                    <button key={index} className="tab" style={{backgroundColor: tab.active ? "#75b58c" : "#e5dacb", width: tab.active ? "550px" : "300px"}}
                     onClick={() => handleClick(tab.tabName)}
                     >{tab.tabName}</button>
                 )
