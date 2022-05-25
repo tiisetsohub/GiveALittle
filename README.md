@@ -4,6 +4,8 @@
 
 [![CircleCI](https://circleci.com/gh/tiisetsohub/GiveALittle/tree/dummy-transaction.svg?style=svg)](https://circleci.com/gh/tiisetsohub/GiveALittle/tree/dummy-transaction)
 [![codecov](https://codecov.io/gh/tiisetsohub/GiveALittle/branch/main/graph/badge.svg?token=UP3WVJRWXL)](https://codecov.io/gh/tiisetsohub/GiveALittle)
+[![repo size](https://img.shields.io/github/repo-size/tiisetsohub/GiveALittle)](https://github.com/tiisetsohub/GiveALittle)
+
 
 GiveALittle is a Web Application for both Buyers and Sellers which allows them to buy products 
 or goods they need online OR sell the items they want to sell,
@@ -15,7 +17,7 @@ meaning they can be both a buyer and the seller at the same time.
   then type `npm start` to run app on local server
   
 ### Developed For Any Device Having A Browser
-    !!! This application is still in development
+    NB!!! This application is still in development
         and some features may not work.
         
 ## Features
@@ -30,6 +32,7 @@ This is what you can do with GiveALittle:
 * You can track your order after you have bought it
 * You can add the items you want to buy into a cart
 * And many more features to be added
+* As a seller you can add as many images for the product you're selling.
 
 ## Built Using
 
@@ -49,4 +52,4 @@ This is what you can do with GiveALittle:
 
 
 ### To find out more, please visit the 
-[GiveALittle wiki](https://github.com/tiisetsohub/GiveALittle/wiki)
+[GiveALittle Wiki](https://github.com/tiisetsohub/GiveALittle/wiki)
