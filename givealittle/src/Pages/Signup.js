@@ -87,6 +87,10 @@ function Navbar() {     //function for navbar component
                     <Link className="navlink" to='/signup'>
                         <p>Signup</p>
                     </Link>
+
+                    <Link className="navlink" to='/login'>
+                        <p>Login</p>
+                    </Link>
                     
                     <Link className="navlink" to='/homeabout'>
                         <p>About</p>
