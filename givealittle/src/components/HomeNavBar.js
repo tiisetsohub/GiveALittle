@@ -16,10 +16,10 @@ export default function HomeNavBar() {
             <Link className="navlink" to="/login">
               <p>Login/Signup</p>
             </Link>
-            <Link className="navlink" to="/about">
+            <Link className="navlink" to="/homeabout">
               <p>About</p>
             </Link>
-            <Link className="navlink" to="/contact">
+            <Link className="navlink" to="/homecontact">
               <p>Contact</p>
             </Link>
           </div>

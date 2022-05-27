@@ -62,10 +62,18 @@ export default function Home() {
   }
   // Function to put reviews in a list
   function review(reviews) {
-    const reviewList = reviews.toString().split("*");
+    let reviewList = reviews.toString().split("*");
+    reviewList.shift();
+    reviewList.unshift("Stars")
     return reviewList;
   }
 
+  function starsL(stars, starCount){
+    const starsList = stars.toString().split("*");
+    starsList.shift();
+    starsList.unshift(starCount);
+    return starsList;
+  }
   // Funtion that returns the number of reviews
   function reviewNumber(reviews) {
     let counter = 0;
@@ -176,13 +184,17 @@ export default function Home() {
         <div className="navbar">
           <div className="leftside">
             <div className="links" id={showLinks ? "hidden" : ""}>
+              <Link className="navlink" to='/'>
+                <p>Home</p>
+              </Link>
+
               <Link className="navlink" to="/login">
                 <p>Login/Signup</p>
               </Link>
-              <Link className="navlink" to="/about">
+              <Link className="navlink" to="/homeabout">
                 <p>About</p>
               </Link>
-              <Link className="navlink" to="/contact">
+              <Link className="navlink" to="/homecontact">
                 <p>Contact</p>
               </Link>
               <Link
@@ -255,10 +267,17 @@ export default function Home() {
     setCart(cartitems);
   }, [cartitems]);
 
-  function viewReviews(item, starCount) {
+  function viewReviews(item, stars) {
+    const starCount = avgStars(stars);
+    const reviewStars = starsL(stars, starCount);
     const comments = review(item.Review);
-    const commentList = comments.map((comment) => (
-      <div className="indrev">{comment} </div>
+
+    //combine comment with a star
+    let zip = (comments, reviewStars) => comments.map((x, i) => [x, reviewStars[i]]);
+    const clist = zip(comments, reviewStars);
+    
+    const commentList = clist.map((comment) => (
+      <div className="indrev">{comment[0]} &emsp;  <BsStarFill className="initemsstar" /> {comment[1]}</div>
     ));
     setShowReview(true);
     setText(
@@ -286,10 +305,10 @@ export default function Home() {
           <div className="revdivin">
             <h5>Reviews</h5>
 
-            <div className="inprodstar">
+            {/* <div className="inprodstar">
               <BsStarFill className="initemsstar" />
               {starCount}
-            </div>
+            </div> */}
 
             <div className="revcomm">{commentList}</div>
           </div>
@@ -315,7 +334,7 @@ export default function Home() {
             <Carousel.Item>
               <img
                 style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-                src={item.Image1}
+                src={item.Image}
                 alt=""
               />
             </Carousel.Item>
@@ -358,7 +377,7 @@ export default function Home() {
           <div className="inprodstar">
             <BsStarFill className="initemsstar" />
             {avgStars(item.Stars)}
-            <Link onClick={() => viewReviews(item, avgStars(item.Stars))}>
+            <Link onClick={() => viewReviews(item, item.Stars)}>
               {reviewNumberIn(item.Review)}
               {correctReview(item.Review)}
             </Link>

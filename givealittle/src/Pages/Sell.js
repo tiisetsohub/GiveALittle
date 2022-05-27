@@ -7,9 +7,10 @@ import './Login.css';
 import { NameContext } from '../Context';
 import SpecsPage from './SpecsPage';
 import "../components/Categories.css"
+import Navigation from '../components/Navigation';
 
 
-export default function Sell() {
+export default function Sell({allTabs, setAllTabs}) {
     const [newName, setNewName] = useState("");     //state for item name
     const [newDescription, setNewDesnewDescription] = useState("");         //state for description 
     const [newImg, setnewImg] = useState("");                   //state for image
@@ -23,6 +24,24 @@ export default function Sell() {
   const [Specs, setSpecs] = useState([]);     //State for the specs
 
   const [productCategories, setProductCategories] = useState("");
+
+  //function for when the add button is clicked
+  const handleClick = (tabName) => {
+    const tempArr = [...allTabs];
+    let currentTab = tempArr.find(tab => tab.tabName == tabName);
+
+    if (!currentTab.active){
+        currentTab.active = true;
+    }
+    for (let i in tempArr){
+        let loopTab = tempArr[i];
+        if (loopTab.tabName != tabName){
+            loopTab.active = false;
+        }
+    }
+
+    setAllTabs(tempArr);
+}
 
   //state for the categories the product belongs to
   const [categoriesActivity, setAllCategoriesActivity] = useState([
@@ -111,6 +130,7 @@ export default function Sell() {
       Categories: productCategories
     });
     alert("Added");
+    handleClick("All Products")
   };
 
   useEffect(() => {
@@ -159,8 +179,6 @@ export default function Sell() {
 
   return (
     <div className="bigdiv">
-      <Navbar />
-      <h1>Add Item</h1>
       <div className='logindivb'>          {/*form for item information*/}
         <input className="edtname" id="input" placeholder="Item Name" onChange={(event) => {
           setNewName(event.target.value)
@@ -209,12 +227,8 @@ export default function Sell() {
         </div>
          </div>
 
-        <Link to="/sellerslanding">
-          <button className="btnadd" id="btn" onClick={addItem}>Add</button>
-        </Link>
-
-
-
+        
+        <button className="btnadd" id="btn" onClick={addItem}>Add</button>
 
       </div>
     </div>

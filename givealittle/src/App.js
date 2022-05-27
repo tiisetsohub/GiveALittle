@@ -14,6 +14,8 @@ import MakeTransactionPayment from './Pages/MakeTransactionPayment'
 import Payment from './Pages/Payment'
 import About from './Pages/About'
 import Review from './Pages/Review'
+import HomeAbout from './Pages/HomeAbout'
+import HomeContact from './Pages/HomeContact'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { NameContext, LoginContext, CartContext, CarddetailsContext, AddressContext ,isEligibleContext , CurrentUserContext } from './Context'      //imports all global contexts in here where they will be initialized
 import { useState } from 'react'
@@ -106,6 +108,14 @@ function App() {
 
                   <Route path="/contact">                 {/*route to contact page*/}
                     <Contact />
+                  </Route>
+
+                  <Route path="/homeabout">
+                    <HomeAbout />
+                  </Route>
+
+                  <Route path="/homecontact">
+                    <HomeContact />
                   </Route>
 
             </Switch>

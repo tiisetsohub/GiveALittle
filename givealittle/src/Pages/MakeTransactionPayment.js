@@ -10,6 +10,7 @@ import './MakeTransaction.css';
 import { CartContext } from '../Context'
 import { connectFirestoreEmulator } from 'firebase/firestore';
 import { Bars } from 'react-loading-icons';
+import Navigation from '../components/Navigation';
 
 
 
@@ -47,9 +48,8 @@ export default function MakeTransactionPayment() {
   }
 
    return (
-     <div>
-          
-           <Navbar />
+      <div>
+           <Navigation />
            <div className='container'>      {/*form containing all inputs for user*/}
             <text className="itemname" >Add card</text>
             <br />

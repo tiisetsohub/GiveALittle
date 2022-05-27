@@ -9,6 +9,8 @@ import './Home.css';
 import './MakeTransaction.css';
 import { db } from '../firebase-config';
 import { collection, getDocs, addDoc } from "firebase/firestore";
+import Navigation from '../components/Navigation';
+
 
 
 export default function MakeTransactionAddress() {
@@ -41,7 +43,7 @@ export default function MakeTransactionAddress() {
       
         {   isEligible ? <Redirect to='/Payment'/>     //ternary for redirecting page if logged in
             : null }
-          < Navbar />
+          < Navigation />
           <div className='container'>      {/*form containing all inputs for user*/}
             
             <text className="itemname"> Enter address to proceed</text>   

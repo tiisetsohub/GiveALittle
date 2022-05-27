@@ -31,6 +31,7 @@ import {
 import CategorySelector from "../components/CategorySelector";
 import CategorySearchDropdown from "../components/CategorySearchDropdown";
 import SearchSuggestion from "../components/SearchSuggestion";
+import { Carousel } from "react-bootstrap";
 import HashLoader from "react-spinners/HashLoader";
 import { css } from "@emotion/react";
 
@@ -54,6 +55,11 @@ export default function Landing() {
 
 
 
+  //for the search
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchedProducts, setSearchedProducts] = useState([]);
+  const [suggestionDropdown, setSuggestionDropdown] = useState(true);
+
   // This is for loading spinner
   let [loading, setLoading] = useState(true);
   const override = css`
@@ -62,11 +68,6 @@ export default function Landing() {
     border-color: red;
     margin-top: 250px;
   `;
-
-  //for the search
-  const [searchTerm, setSearchTerm] = useState("");
-  const [searchedProducts, setSearchedProducts] = useState([]);
-  const [suggestionDropdown, setSuggestionDropdown] = useState(true);
 
   //state for collapsing the filter by category
   const [isFilter, setIsFilter] = useState(false);
@@ -513,6 +514,10 @@ export default function Landing() {
                 <CgProfile className="profile-icon" />
               </Link>
 
+              <Link className="navlink" to="/landing">
+                <p>Home</p>
+              </Link>
+
               <Link className="navlink" to="/sellerslanding">
                 <p>Sell</p>
               </Link>
@@ -609,15 +614,17 @@ export default function Landing() {
     setText(
       <div>
         <div className="item-container">
-          <button
-            className="btnclose"
-            onClick={() => {
-              setShowReview(false);
-              ProductView(item);
-            }}
-          >
-            Close
-          </button>
+          <div className="clod">
+            <button
+              className="btnclose"
+              onClick={() => {
+                setShowReview(false);
+                ProductView(item);
+              }}
+            >
+              Close Reviews
+            </button>
+          </div>
 
           <div>
             <img
@@ -707,30 +714,44 @@ export default function Landing() {
     setText(
       <div>
         <div className="item-container">
-          <button className="btnclose" onClick={() => setShow(false)}>
-            Close
-          </button>
-
-          <div>
-            <img
-              style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-              src={item.Image}
-            />
-            {item.Image2 ? (
-              <img
-                style={{
-                  boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)",
-                  marginLeft: "15px",
-                }}
-                src={item.Image2}
-              />
-            ) : null}
+          <div className="clod">
+            <button className="btnclose" onClick={() => setShow(false)}>
+              Close
+            </button>
           </div>
+          <Carousel>
+            {/* Images */}
+            <Carousel.Item>
+              <img
+                style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
+                src={item.Image}
+                alt=""
+              />
+            </Carousel.Item>
+
+            <Carousel.Item>
+              <img
+                style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
+                src={item.Image2}
+                alt=""
+              />
+            </Carousel.Item>
+
+            <Carousel.Item>
+              <img
+                style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
+                src={item.Image3}
+                alt=""
+              />
+            </Carousel.Item>
+          </Carousel>
           {Users.map((user, index) =>
             user.Email == item.Seller ? (
               <p key={index}>Sold By : {user.Name}</p>
             ) : null
           )}
+
+          <h5 style={{ color: "#50A181" }}>{item.Categories.substring(4)}</h5>
 
           <h3>{item.Name}</h3>
 

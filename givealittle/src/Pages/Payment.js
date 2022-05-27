@@ -11,6 +11,7 @@ import { CartContext } from '../Context'
 import { NameContext, LoginContext ,CarddetailsContext, AddressContext ,isEligibleContext} from '../Context'
 import { connectFirestoreEmulator } from 'firebase/firestore';
 import emailjs from 'emailjs-com'; // library used to send users emails
+import Navigation from '../components/Navigation';
 
 export default function Payment() {
     const { isEligible, setIsEligible } = useContext(isEligibleContext);
@@ -135,7 +136,7 @@ export default function Payment() {
           };
 
           emailjs.send('service_ew7io57', 'template_25ddejk', details).then(function (res) {
-           //alert("Email Sent Successfully");
+           alert("Item Bought Successfully");
           },
           reason => {
             alert("Invalid user email or internet connection is low");
@@ -189,9 +190,11 @@ export default function Payment() {
         }
 
         return (
-          <div> 
-            <Navbar />
-            <div className = "sumdiv">              
+          <div>
+            
+            <Navigation />
+            <div className = "sumdiv">
+              
               <h1 className="h1in">Summary</h1>
               <br />
               <h5>Items</h5>
