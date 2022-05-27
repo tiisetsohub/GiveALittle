@@ -120,8 +120,10 @@ export default function Payment() {
           
     AddtoDatabase();
     if (canSendEmail) {
-      sendemail();      
+      sendemail();  
+      alert("Your transaction was succesful , continue buying");      
     }
+    
 
 
         }
@@ -140,7 +142,7 @@ export default function Payment() {
           };
 
           emailjs.send('service_ew7io57', 'template_25ddejk', details).then(function (res) {
-              alert("Your transaction was succesful , continue buying");;
+              //lert("Your transaction was successful , continue buying");
           },
           reason => {
             alert("Invalid user email or internet connection is low");
