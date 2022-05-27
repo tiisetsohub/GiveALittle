@@ -1,65 +1,46 @@
-import React from 'react'
-import ContactCard from '../components/ContactCard'
-import Navigation from '../components/Navigation';
-import { useState, useEffect } from 'react';
+import Navigation from "../components/Navigation";
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
-export default function () {
+export default function Contact() {
 
-  const [contacts, setContacts] = useState([
-    {
-      name: "Brian Makhubele",
-      email: "2113525@students.wits.ac.za",
-      color: "#FAEBD7"
-    },
-    {
-      name: "Motheo Tsirwe",
-      email: "2329751@students.wits.ac.za",
-      color: "#D4CFB4"
-    },
-    {
-      name: "Thulasizwe Sabela",
-      email: "2140615@students.wits.ac.za",
-      color: "#ABB596"
-    },
-    {
-      name: "Aubrey Nalane",
-      email: "2167773@students.wits.ac.za",
-      color: "#7F9C7E"
-    },
-    {
-      name: "Zukisa Moto",
-      email: "2340955@students.wits.ac.za",
-      color: "#50836C"
-    },
-    {
-      name: "Tshepiso Mahoko",
-      email: "2352695@students.wits.ac.za",
-      color: "#FAEBD7"
-    },
-    {
-      name: "Pamela Segana",
-      email: "2265335@students.wits.ac.za",
-      color: "#9DBCB1"
-    },
-    {
-      name: "Tiisetso Mojalefa",
-      email: "2369718@students.wits.ac.za",
-      color: "#80cbc4"
-    }
-  ]);
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_z2ky82v', 'template_j0a2bot', form.current, 'WQW9l5NT67mT0P5kn')
+      .then((result) => {
+          console.log(result.text);
+          e.target.reset();
+          alert("Message Sent Successfully, We'll Get Back To You Soon")
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
 
   return (
     <div>
-        <Navigation/>
-        <h2 style={{display: "flex", justifyContent: "center"}}>Developers</h2>
-        <div className='all-contacts-container'>
-          {contacts.map((contact, index) => {
-            return (
-              <ContactCard key={index} name={contact.name} email={contact.email} color={contact.color}/>
-            )
-          })}
+      <Navigation/>
+      <br />
+      <h2 className="heading">Contact Us</h2>
+      <form className="contact-form" ref={form} onSubmit={sendEmail}>
+        <br/>
+        <div className="block">
+          <label className="contact-label">Full Name: </label>
+          <input className="contact-input" type="text" name="user_name" placeholder="Enter Your Name" />
         </div>
-        
+        <div className="block">
+          <label className="contact-label">Email: </label>
+          <input className="contact-input" type="email" name="user_email" placeholder="Enter Your Email" />
+        </div>
+        <div className="block">
+          <label className="contact-label" >Message: </label>
+          <textarea className="contact-input" name="message" placeholder="What Would You Like To Tell Us?" />
+        </div>
+        <br/>
+        <input type="submit" value="Send" />
+      </form>
     </div>
-  )
+  );
 }
