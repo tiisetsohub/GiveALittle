@@ -24,13 +24,22 @@ export default function HomeContact() {
     <div>
       <HomeNavBar />
       <br />
-      <form ref={form} onSubmit={sendEmail}>
-        <label>Name</label>
-        <input type="text" name="user_name" />
-        <label>Email</label>
-        <input type="email" name="user_email" />
-        <label>Message</label>
-        <textarea name="message" />
+      <h2 className="heading">Contact Us</h2>
+      <form className="contact-form" ref={form} onSubmit={sendEmail}>
+        <br/>
+        <div className="block">
+          <label className="contact-label">Full Name: </label>
+          <input className="contact-input" type="text" name="user_name" placeholder="Enter Your Name" />
+        </div>
+        <div className="block">
+          <label className="contact-label">Email: </label>
+          <input className="contact-input" type="email" name="user_email" placeholder="Enter Your Email" />
+        </div>
+        <div className="block">
+          <label className="contact-label" >Message: </label>
+          <textarea className="contact-input" name="message" placeholder="What Would You Like To Tell Us?" />
+        </div>
+        <br/>
         <input type="submit" value="Send" />
       </form>
     </div>
