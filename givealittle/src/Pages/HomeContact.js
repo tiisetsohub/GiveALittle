@@ -10,7 +10,7 @@ export default function HomeContact() {
   const sendEmail = (e) => {
     e.preventDefault();
 
-    emailjs.sendForm('service_z2ky82v', 'template_j0a2bot', form.current, 'WQW9l5NT67mT0P5kn')
+    emailjs.sendForm('service_jqq0ke6', 'template_rraqekf', form.current, 'V_itaO6_FgMhs0fH8')
       .then((result) => {
           console.log(result.text);
           e.target.reset();
