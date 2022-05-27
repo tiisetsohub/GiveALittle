@@ -28,7 +28,7 @@ export default function Payment() {
     const [UsersCardDetails, setUsersCardDetails ] = useState([]);
     const [UsersAddressDetails, setUsersAddressDetails ] = useState([]);
     const [Cardvalue , setCardvalue] = useState("")
-
+    let canSendEmail = false; //you don't want to  an send email if the countity is zero
   
   
   useEffect(() => {
@@ -110,6 +110,7 @@ export default function Payment() {
                   // a buyer can't buy zeros items so don't add to database 
             update(i)
             addItems(cart[i])    
+            canSendEmail = true;
             }
         
           }
@@ -117,9 +118,12 @@ export default function Payment() {
 
   function Purchase() {   // a wrapper for the functions called when the user hits purchase button
           
-          AddtoDatabase();
-          sendemail();
-    alert("Your transaction was suuccesful , continue buying");
+    AddtoDatabase();
+    if (canSendEmail) {
+      sendemail();      
+    }
+
+
         }
   
 
@@ -136,7 +140,7 @@ export default function Payment() {
           };
 
           emailjs.send('service_ew7io57', 'template_25ddejk', details).then(function (res) {
-           alert("Item Bought Successfully");
+              alert("Your transaction was succesful , continue buying");;
           },
           reason => {
             alert("Invalid user email or internet connection is low");
