@@ -15,12 +15,16 @@ import Payment from './Pages/Payment'
 import About from './Pages/About'
 import Review from './Pages/Review'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { NameContext, LoginContext, CartContext, CarddetailsContext, AddressContext} from './Context'      //imports all global contexts in here where they will be initialized
+import { NameContext, LoginContext, CartContext, CarddetailsContext, AddressContext ,isEligibleContext , CurrentUserContext } from './Context'      //imports all global contexts in here where they will be initialized
 import { useState } from 'react'
 import Profile from './Pages/Profile';
 import Contact from './Pages/Contact';
 
 function App() {
+
+  const [User, setUser] = useState({}); //global context for name of client
+
+
   const [name, setName] = useState(""); //global context for name of client
 
   const [login, setLogin] = useState(false); //global context for knowing if someone is logged in
@@ -31,7 +35,11 @@ function App() {
 
   const [address, setAddress] = useState("") //global context for address
 
+    const [isEligible ,setIsEligible] = useState("") //global context for address
+
   return (
+    <CurrentUserContext.Provider value= {{ User, setUser }}>
+    <isEligibleContext.Provider value= {{ isEligible, setIsEligible }}>
     <AddressContext.Provider value= {{ address, setAddress }}>
       <CartContext.Provider value={{ cart, setCart }}>      {/*provider for global cart*/}
         <LoginContext.Provider value={{ login, setLogin }}>   {/*provider for global login checker*/}
@@ -107,6 +115,8 @@ function App() {
       </LoginContext.Provider>
     </CartContext.Provider>
   </AddressContext.Provider>
+  </isEligibleContext.Provider>
+  </CurrentUserContext.Provider>
   );
 }
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { NameContext, LoginContext } from '../Context'
+import { NameContext, LoginContext ,isEligibleContext  } from '../Context'
 import { CartContext, AddressContext } from '../Context';
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link , Redirect } from 'react-router-dom';
 import './Home.css';
 import './MakeTransaction.css';
 import { db } from '../firebase-config';
@@ -22,20 +22,25 @@ export default function MakeTransactionAddress() {
     const [province, setProvince] = useState("");
     const [city, setCity] = useState("");
     const [street, setStreet] = useState("");
+    const { isEligible, setIsEligible } = useContext(isEligibleContext);
     
     const addressRef = collection(db, "Address");            //refernce for item
 
-    const {address, setAddress} = useContext(AddressContext);
+    const { address, setAddress } = useContext(AddressContext);
+    const [Users, setUsers] = useState([]);
 
     const addAddress = async () => {           //handles adding an item to database
       await addDoc(addressRef, { Name: name, Country: country, Province: province, City: city, Street: street })
       setAddress({ Name: name, Country: country, Province: province, City: city, Street: street })
         
     }
-
-
+ 
+     
   return (
-      <div>
+    <div>
+      
+        {   isEligible ? <Redirect to='/Payment'/>     //ternary for redirecting page if logged in
+            : null }
           < Navbar />
           <div className='container'>      {/*form containing all inputs for user*/}
             
@@ -95,3 +100,5 @@ function Navbar() {
     </div>
   );
 }
+
+

@@ -2,7 +2,7 @@ import React, { useContext, useRef } from "react";
 import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link , Redirect} from "react-router-dom";
 import "./Home.css";
 import { css } from "@emotion/react";
 import { CartContext } from "../Context";
@@ -23,6 +23,12 @@ export default function Home() {
   const [Users, setUsers] = useState([]);
 
   const [showReview, setShowReview] = useState(false);
+
+  function isCheckout() {
+    alert("create a profile or login to Checkout")
+
+  }
+
 
   // This is for loading spinner
   let [loading, setLoading] = useState(false);
@@ -113,6 +119,8 @@ export default function Home() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
+ 
+
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(collection(db, "Users"));
@@ -182,7 +190,7 @@ export default function Home() {
                 onClick={() => {
                   CartView();
                 }}
-              >
+              >  
                 <p>Cart</p>
               </Link>
             </div>
@@ -210,11 +218,11 @@ export default function Home() {
           <div className="cartdiv">
             {summary}
             <div className="demodiv">
-              <text className="textin">R{total}</text>
-
-              <Link to="/maketransactionaddress">
-                <button className="buttonin">Check out</button>
-              </Link>
+              <text className="textin">R{total}</text>   
+              <button className="buttonin" onClick={() => isCheckout()}>
+                Check out
+              </button>
+            
             </div>
           </div>
         ) : null}

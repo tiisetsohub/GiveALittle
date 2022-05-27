@@ -26,7 +26,7 @@ export default function Signup() {
         setLoading(true);
         try {
             await signupmethod(emailRef.current.value, passwordRef.current.value);
-            await addDoc(userRef, { Name: newName, Email: newEmail, Cell: newCell });
+            await addDoc(userRef, { Name: newName, Email: newEmail, Cell: newCell , isEligibleToPay:false});
             setName(emailRef.current.value);
             setLogin(true);
             move = true;

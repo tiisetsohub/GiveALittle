@@ -1,8 +1,8 @@
 import React from 'react';
-import { NameContext, LoginContext ,CarddetailsContext } from '../Context'
+import { NameContext, LoginContext ,CarddetailsContext ,CurrentUserContext } from '../Context'
 import { useContext } from 'react';
 import { db } from '../firebase-config';
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, addDoc, setDoc ,doc } from "firebase/firestore";
 import { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import './Home.css';
@@ -12,7 +12,9 @@ import { connectFirestoreEmulator } from 'firebase/firestore';
 import { Bars } from 'react-loading-icons';
 
 
+
 export default function MakeTransactionPayment() {
+    const { User, setUser } = useContext(CurrentUserContext);
     const { name, setName } = useContext(NameContext)
     const { cardno, setCardNo } = useContext(CarddetailsContext);        //global context for name
 
@@ -24,10 +26,29 @@ export default function MakeTransactionPayment() {
     const addItem = async () => {           //handles adding an item to database
       await addDoc(itemRef, { Name: name, CardNumber: cardnumber, CVV: cvv ,ExpireDate:Expiredate })
       setCardNo(cardnumber)
-    }
+  }
+  
+  // update user eligibility to make a purchase in the database
+  const UpDateRow = async (id) => {
+    //handles adding a review to database
+    await setDoc(
+      doc(db, "Users", id),
+      {
+        isEligibleToPay: true    // subtract quantity from local cart item
+      },
+      { merge: true }
+    );
+
+  };
+
+  function CheckOut() {
+    UpDateRow(User.id);
+    addItem();
+  }
 
    return (
-      <div>
+     <div>
+          
            <Navbar />
            <div className='container'>      {/*form containing all inputs for user*/}
             <text className="itemname" >Add card</text>
@@ -55,7 +76,7 @@ export default function MakeTransactionPayment() {
 
             <Link to='/payment'>
 
-           <button className="buyttonin-add-card" onClick={addItem} >Check out</button>
+           <button className="buyttonin-add-card" onClick={()=>CheckOut()} >Check out</button>
             </Link>
             
           </div>     
@@ -64,9 +85,7 @@ export default function MakeTransactionPayment() {
   )
 }
 
-function varified() {
-      alert('Card details varified');
-}
+
 
 
 function Navbar() {

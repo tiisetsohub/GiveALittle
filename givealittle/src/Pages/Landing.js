@@ -9,13 +9,14 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link ,Redirect} from "react-router-dom";
 import "./Home.css";
 import { CartContext } from "../Context";
 import { BsStarFill } from "react-icons/bs";
 import ReactStars from "react-rating-stars-component";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import { NameContext } from "../Context";
+import { isEligibleContext , CurrentUserContext } from "../Context";
 import { CgProfile } from "react-icons/cg";
 import {
   MdDelete,
@@ -48,6 +49,10 @@ export default function Landing() {
   const { cart, setCart } = useContext(CartContext);
   const { name, setName } = useContext(NameContext);
   const [Users, setUsers] = useState([]);
+  const { isEligible, setIsEligible } = useContext(isEligibleContext);
+  const { User, setUser } = useContext(CurrentUserContext);
+
+
 
   // This is for loading spinner
   let [loading, setLoading] = useState(true);
@@ -254,9 +259,25 @@ export default function Landing() {
     },
   ]);
 
+
   const [currentSearchCategory, setCurrentSearchCategory] = useState(
     searchActiveCategory.find((category) => category.active).categoryName
   );
+        // check if user has details or not
+  function hasdetails() {
+
+        for (let i = 0; i < Users.length; i = i + 1){
+
+          if (Users[i].Email == name) {
+            setUser(Users[i]);
+          }
+
+          if (Users[i].Email == name && Users[i].isEligibleToPay) {
+            return true;
+          }
+        }
+          return false;
+      }
 
   //handle user typing in search box
   const handleSearchTermChange = (event) => {
@@ -554,9 +575,13 @@ export default function Landing() {
             {summary}
             <div className="demodiv">
               <text className="textin">R{total}</text>
-              <Link to="/maketransactionaddress">
-                <button className="buttonin">Check out</button>
+              <Link className="navlink" to="/MakeTransactionAddress">
+                {setIsEligible(hasdetails())}
+                
+                 <button className="buttonin">Check out</button>               
               </Link>
+
+              
             </div>
           </div>
         ) : null}
