@@ -24,7 +24,7 @@ export default function HomeContact() {
     <div>
       <HomeNavBar />
       <br />
-      <h2 className="heading">Contact Us</h2>
+      <h2 style={{ display: "flex", justifyContent: "center" }}>Contact Us</h2>
       <form className="contact-form" ref={form} onSubmit={sendEmail}>
         <br/>
         <div className="block">

@@ -56,7 +56,7 @@ export default function HomeAbout() {
   return (
     <div>
       <HomeNavBar />
-      <h3 className="about_details">About Us</h3>
+      <h3 style={{ display: "flex", justifyContent: "center" }}>About Us</h3>
       <br />
       <h6>
         GiveALittle is an Online MarketPlace similar to takealot for both Buyers
