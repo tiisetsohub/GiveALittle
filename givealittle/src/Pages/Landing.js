@@ -681,6 +681,7 @@ export default function Landing() {
     setText(
       <div>
         <div className="item-container">
+          <div className="clod">
           <button
             className="btnclose"
             onClick={() => {
@@ -690,6 +691,7 @@ export default function Landing() {
           >
             Close Reviews
           </button>
+          </div>
 
           <div>
             <img

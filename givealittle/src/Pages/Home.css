@@ -496,3 +496,10 @@ input[type="radio"] {
 .uselesstext{
     color: #F0F0F0;
 }
+
+.edtsearchhome{
+    border-radius: 5px;
+    height: 28px;
+    width: 200px;
+    border: 1px solid #B38B59;
+}

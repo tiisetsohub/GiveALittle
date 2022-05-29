@@ -214,7 +214,7 @@ export default function Home() {
             </button>
           </div>
           <div className="rightside">
-            <input type="text" placeholder="Search..." ref={searchRef} />
+            <input class="edtsearchhome" type="text" placeholder="Search..." ref={searchRef} />
             <button
               className="btnsearch"
               onClick={() => {
@@ -283,6 +283,7 @@ export default function Home() {
     setText(
       <div>
         <div className="item-container">
+          <div className="clod">          
           <button
             className="btnclose"
             onClick={() => {
@@ -292,6 +293,7 @@ export default function Home() {
           >
             Close Reviews
           </button>
+          </div>
 
           <div>
             <img
@@ -325,9 +327,11 @@ export default function Home() {
     setText(
       <div>
         <div className="item-container">
-          <button className="btnclose" onClick={() => setShow(false)}>
-            Close
-          </button>
+          <div className="clod">
+            <button className="btnclose" onClick={() => setShow(false)}>
+              Close
+            </button>
+          </div>
            <p className="uselesstext"> -</p> 
           <Carousel>
             {/* Images */}
