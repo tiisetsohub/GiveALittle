@@ -16,7 +16,12 @@ import About from "./Pages/About";
 import Review from "./Pages/Review";
 import HomeAbout from "./Pages/HomeAbout";
 import HomeContact from "./Pages/HomeContact";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import {
   NameContext,
   LoginContext,
@@ -46,6 +51,8 @@ function App() {
 
   const [isEligible, setIsEligible] = useState(""); //global context for address
 
+  const location = useLocation(); // location hook for page transition
+
   return (
     <AnimatePresence>
       <CurrentUserContext.Provider value={{ User, setUser }}>
@@ -64,7 +71,7 @@ function App() {
                     <Router>
                       {" "}
                       {/*stores all the routes to all pages*/}
-                      <Switch>
+                      <Switch location={location} key={location.pathname}>
                         {" "}
                         {/*allows for different routes*/}
                         <Route exact path="/">
