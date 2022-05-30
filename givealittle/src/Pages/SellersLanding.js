@@ -15,6 +15,7 @@ import { db } from "../firebase-config";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SellerDetails from "../components/SellerDetails";
 import Sell from "../Pages/Sell";
+import Insights from "../components/Insights";
 import { motion } from "framer-motion";
 
 import { QuerySnapshot } from "firebase/firestore";
@@ -29,10 +30,33 @@ import SellersTabs from "../components/SellersTabs";
 function SellersLanding() {
   const [currentUser, setCurrentUser] = useState();
   const { name, setName } = useContext(NameContext);
+  const [Users, setUsers] = useState([]);
   const [Inventory, setItems] = useState([]); //state for inventory
   const itemRef = collection(db, "Inventory"); //reference to inventory in database
+  const itemhRef = collection(db, "Bought");
+  const [Bought, setBItems] = useState([]);
+  const [topCustomer, setTopCustomer] = useState('');
+  const [totalSale, setTotalSale] = useState('');
+  const [topProduct, setTopProduct] = useState('');
 
-  const [Users, setUsers] = useState([]);
+
+  useEffect(() => {
+    //loads data from database
+    const getBItems = async () => {
+      const data = await getDocs(itemhRef);
+      setBItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
+    getBItems();
+  }, []);
+
+  useEffect(() => {
+    //Bought.map((item) =>)
+    setTopCustomer('Tiisetso')
+    setTotalSale(19999.99)
+    setTopProduct('JBL 510')
+  }, []);
+
+
 
   useEffect(() => {
     //loads data from database
@@ -40,6 +64,7 @@ function SellersLanding() {
       const data = await getDocs(itemRef);
       setItems(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
+    
 
     getItems();
   }, []);
@@ -121,15 +146,11 @@ function SellersLanding() {
       ) : null}
 
       {currentTab == "Product Insights" ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "100px",
-          }}
-        >
-          <h2>Under Construction!</h2>
-        </div>
+          <Insights 
+          key ={name}
+          topCustomer = {topCustomer}
+          topProduct = {topProduct}
+          totalSale = {totalSale}/>
       ) : null}
     </motion.div>
   );
