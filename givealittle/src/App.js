@@ -16,12 +16,7 @@ import About from "./Pages/About";
 import Review from "./Pages/Review";
 import HomeAbout from "./Pages/HomeAbout";
 import HomeContact from "./Pages/HomeContact";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import {
   NameContext,
   LoginContext,
@@ -31,7 +26,7 @@ import {
   isEligibleContext,
   CurrentUserContext,
 } from "./Context"; //imports all global contexts in here where they will be initialized
-import { useState } from "react";
+import { useState, useLocation } from "react";
 import Profile from "./Pages/Profile";
 import Contact from "./Pages/Contact";
 import { AnimatePresence } from "framer-motion";
@@ -51,7 +46,7 @@ function App() {
 
   const [isEligible, setIsEligible] = useState(""); //global context for address
 
-  const location = useLocation(); // location hook for page transition
+  //const location = useLocation(); // location hook for page transition
 
   return (
     <AnimatePresence>
@@ -71,7 +66,7 @@ function App() {
                     <Router>
                       {" "}
                       {/*stores all the routes to all pages*/}
-                      <Switch location={location} key={location.pathname}>
+                      <Switch>
                         {" "}
                         {/*allows for different routes*/}
                         <Route exact path="/">

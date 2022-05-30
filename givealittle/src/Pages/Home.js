@@ -2,7 +2,13 @@ import React, { useContext, useRef } from "react";
 import { useState, useEffect } from "react";
 import { db } from "../firebase-config";
 import { collection, getDocs, addDoc } from "firebase/firestore";
-import { BrowserRouter as Router, Switch, Route, Link , Redirect} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import "./Home.css";
 import { css } from "@emotion/react";
 import { CartContext } from "../Context";
@@ -11,6 +17,7 @@ import { BsStarFill } from "react-icons/bs";
 import { NameContext } from "../Context";
 import { Carousel } from "react-bootstrap";
 import HashLoader from "react-spinners/HashLoader";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [cartitems, setCartItems] = useState([]); //state for local cart array
@@ -25,10 +32,8 @@ export default function Home() {
   const [showReview, setShowReview] = useState(false);
 
   function isCheckout() {
-    alert("create a profile or login to Checkout")
-
+    alert("create a profile or login to Checkout");
   }
-
 
   // This is for loading spinner
   let [loading, setLoading] = useState(false);
@@ -64,11 +69,11 @@ export default function Home() {
   function review(reviews) {
     let reviewList = reviews.toString().split("*");
     reviewList.shift();
-    reviewList.unshift("Stars")
+    reviewList.unshift("Stars");
     return reviewList;
   }
 
-  function starsL(stars, starCount){
+  function starsL(stars, starCount) {
     const starsList = stars.toString().split("*");
     starsList.shift();
     starsList.unshift(starCount);
@@ -127,8 +132,6 @@ export default function Home() {
 
   const [searchTerm, setSearchTerm] = useState("");
 
- 
-
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(collection(db, "Users"));
@@ -154,7 +157,7 @@ export default function Home() {
 
       setSummary(
         //set summary to all items in cart array
-        cartitems.map(function (currentValue, index, array) {
+        cartitems.map(function(currentValue, index, array) {
           return index >= 0 ? (
             <div className="cartitemdiv">
               <div className="cartleft">
@@ -184,7 +187,7 @@ export default function Home() {
         <div className="navbar">
           <div className="leftside">
             <div className="links" id={showLinks ? "hidden" : ""}>
-              <Link className="navlink" to='/'>
+              <Link className="navlink" to="/">
                 <p>Home</p>
               </Link>
 
@@ -202,7 +205,7 @@ export default function Home() {
                 onClick={() => {
                   CartView();
                 }}
-              >  
+              >
                 <p>Cart</p>
               </Link>
             </div>
@@ -214,7 +217,12 @@ export default function Home() {
             </button>
           </div>
           <div className="rightside">
-            <input class="edtsearchhome" type="text" placeholder="Search..." ref={searchRef} />
+            <input
+              class="edtsearchhome"
+              type="text"
+              placeholder="Search..."
+              ref={searchRef}
+            />
             <button
               className="btnsearch"
               onClick={() => {
@@ -230,11 +238,10 @@ export default function Home() {
           <div className="cartdiv">
             {summary}
             <div className="demodiv">
-              <text className="textin">R{total}</text>   
+              <text className="textin">R{total}</text>
               <button className="buttonin" onClick={() => isCheckout()}>
                 Check out
               </button>
-            
             </div>
           </div>
         ) : null}
@@ -273,26 +280,29 @@ export default function Home() {
     const comments = review(item.Review);
 
     //combine comment with a star
-    let zip = (comments, reviewStars) => comments.map((x, i) => [x, reviewStars[i]]);
+    let zip = (comments, reviewStars) =>
+      comments.map((x, i) => [x, reviewStars[i]]);
     const clist = zip(comments, reviewStars);
-    
+
     const commentList = clist.map((comment) => (
-      <div className="indrev">{comment[0]} &emsp;  <BsStarFill className="initemsstar" /> {comment[1]}</div>
+      <div className="indrev">
+        {comment[0]} &emsp; <BsStarFill className="initemsstar" /> {comment[1]}
+      </div>
     ));
     setShowReview(true);
     setText(
       <div>
         <div className="item-container">
-          <div className="clod">          
-          <button
-            className="btnclose"
-            onClick={() => {
-              setShowReview(false);
-              ProductView(item);
-            }}
-          >
-            Close Reviews
-          </button>
+          <div className="clod">
+            <button
+              className="btnclose"
+              onClick={() => {
+                setShowReview(false);
+                ProductView(item);
+              }}
+            >
+              Close Reviews
+            </button>
           </div>
 
           <div>
@@ -332,7 +342,7 @@ export default function Home() {
               Close
             </button>
           </div>
-           <p className="uselesstext"> -</p> 
+          <p className="uselesstext"> -</p>
           <Carousel>
             {/* Images */}
             <Carousel.Item>
@@ -392,7 +402,11 @@ export default function Home() {
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={({ opacity: 0 }, { duration: 0.5 })}
+    >
       <Navbar />
       {loading ? (
         <HashLoader
@@ -449,6 +463,6 @@ export default function Home() {
           })}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

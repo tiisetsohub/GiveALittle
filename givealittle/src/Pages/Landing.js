@@ -9,14 +9,20 @@ import {
   updateDoc,
   doc,
 } from "firebase/firestore";
-import { BrowserRouter as Router, Switch, Route, Link ,Redirect} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect,
+} from "react-router-dom";
 import "./Home.css";
 import { CartContext } from "../Context";
 import { BsStarFill } from "react-icons/bs";
 import ReactStars from "react-rating-stars-component";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import { NameContext } from "../Context";
-import { isEligibleContext , CurrentUserContext } from "../Context";
+import { isEligibleContext, CurrentUserContext } from "../Context";
 import { CgProfile } from "react-icons/cg";
 import {
   MdDelete,
@@ -34,6 +40,7 @@ import SearchSuggestion from "../components/SearchSuggestion";
 import { Carousel } from "react-bootstrap";
 import HashLoader from "react-spinners/HashLoader";
 import { css } from "@emotion/react";
+import { motion } from "framer-motion";
 
 //identical to home.js
 
@@ -52,8 +59,6 @@ export default function Landing() {
   const [Users, setUsers] = useState([]);
   const { isEligible, setIsEligible } = useContext(isEligibleContext);
   const { User, setUser } = useContext(CurrentUserContext);
-
-
 
   //for the search
   const [searchTerm, setSearchTerm] = useState("");
@@ -260,25 +265,22 @@ export default function Landing() {
     },
   ]);
 
-
   const [currentSearchCategory, setCurrentSearchCategory] = useState(
     searchActiveCategory.find((category) => category.active).categoryName
   );
-        // check if user has details or not
+  // check if user has details or not
   function hasdetails() {
-
-        for (let i = 0; i < Users.length; i = i + 1){
-
-          if (Users[i].Email == name) {
-            setUser(Users[i]);
-          }
-
-          if (Users[i].Email == name && Users[i].isEligibleToPay) {
-            return true;
-          }
-        }
-          return false;
+    for (let i = 0; i < Users.length; i = i + 1) {
+      if (Users[i].Email == name) {
+        setUser(Users[i]);
       }
+
+      if (Users[i].Email == name && Users[i].isEligibleToPay) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   //handle user typing in search box
   const handleSearchTermChange = (event) => {
@@ -482,7 +484,7 @@ export default function Landing() {
     function CartView() {
       setShowCart(!showcart);
       setSummary(
-        cartitems.map(function (currentValue, index, array) {
+        cartitems.map(function(currentValue, index, array) {
           return index >= 0 ? (
             <div className="cartitemdiv">
               <div className="cartleft">
@@ -582,11 +584,9 @@ export default function Landing() {
               <text className="textin">R{total}</text>
               <Link className="navlink" to="/MakeTransactionAddress">
                 {setIsEligible(hasdetails())}
-                
-                 <button className="buttonin">Check out</button>               
-              </Link>
 
-              
+                <button className="buttonin">Check out</button>
+              </Link>
             </div>
           </div>
         ) : null}
@@ -682,15 +682,15 @@ export default function Landing() {
       <div>
         <div className="item-container">
           <div className="clod">
-          <button
-            className="btnclose"
-            onClick={() => {
-              setShowReview(false);
-              ProductView(item);
-            }}
-          >
-            Close Reviews
-          </button>
+            <button
+              className="btnclose"
+              onClick={() => {
+                setShowReview(false);
+                ProductView(item);
+              }}
+            >
+              Close Reviews
+            </button>
           </div>
 
           <div>
@@ -824,7 +824,11 @@ export default function Landing() {
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={({ opacity: 0 }, { duration: 5 })}
+    >
       <Navbar />
       <SearchSuggestion
         searchedProducts={searchedProducts}
@@ -841,153 +845,148 @@ export default function Landing() {
         onChange={handleSearchTermChange}
       ></input>
 
-      {show == false ? 
-      
-      <div>
-      {isFilter ? (
-        <button
-          className="filter"
-          style={{ backgroundColor: "#9ccc64" }}
-          onClick={handleFilter}
-        >
-          Close Filter
-        </button>
-      ) : (
-        <button className="filter" onClick={handleFilter}>
-          Filter by Category
-        </button>
-      )}
-
-      {isFilter ? (
-        <CategorySelector
-          categoriesActivity={categoriesActivity}
-          setAllCategoriesActivity={setAllCategoriesActivity}
-          setCategoryDropdown={setCategoryDropdown}
-        />
-      ) : null}
-
-      {searchedProducts.length != 0 && searchTerm != "" ? (
+      {show == false ? (
         <div>
-          {searchTerm != "" ? (
-            <h6 className="category-search-heading">
-              ({searchedProducts.length}) Results for "{searchTerm}" in{" "}
-              <span className="search-result-category">
-                {currentSearchCategory}
-              </span>
-            </h6>
+          {isFilter ? (
+            <button
+              className="filter"
+              style={{ backgroundColor: "#9ccc64" }}
+              onClick={handleFilter}
+            >
+              Close Filter
+            </button>
+          ) : (
+            <button className="filter" onClick={handleFilter}>
+              Filter by Category
+            </button>
+          )}
+
+          {isFilter ? (
+            <CategorySelector
+              categoriesActivity={categoriesActivity}
+              setAllCategoriesActivity={setAllCategoriesActivity}
+              setCategoryDropdown={setCategoryDropdown}
+            />
           ) : null}
-          <div className="bodydiv">
-            {searchedProducts.map((item, itemIndex) => {
-              return (
-                <div
-                  key={itemIndex}
-                  className="itemdiv"
-                  onClick={() => {
-                    ProductView(item);
-                  }}
-                >
-                  <img src={item.Image} alt="nope" />
-                  <div className="textdiv">
-                    <h1 className="itemname">{item.Name}</h1>
-                  </div>
-                  <h1 className="itemprice">R{item.Price}</h1>
-                  <div className="itemstar">
-                    <BsStarFill className="sumstar" /> {avgStars(item.Stars)}
-                    {reviewNumber(item.Review)}
-                  </div>
-                  {(() => {
-                    if (item.Quantity == 0) {
-                      return (
-                        <h1
-                          style={{ fontWeight: "bold", color: "#B38B59" }}
-                          className="item-quantity"
-                        >
-                          sold out
-                        </h1>
-                      );
-                    } else {
-                      return <h1 className="item-quantity">in stock</h1>;
-                    }
-                  })()}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      ) : null}
 
+          {searchedProducts.length != 0 && searchTerm != "" ? (
+            <div>
+              {searchTerm != "" ? (
+                <h6 className="category-search-heading">
+                  ({searchedProducts.length}) Results for "{searchTerm}" in{" "}
+                  <span className="search-result-category">
+                    {currentSearchCategory}
+                  </span>
+                </h6>
+              ) : null}
+              <div className="bodydiv">
+                {searchedProducts.map((item, itemIndex) => {
+                  return (
+                    <div
+                      key={itemIndex}
+                      className="itemdiv"
+                      onClick={() => {
+                        ProductView(item);
+                      }}
+                    >
+                      <img src={item.Image} alt="nope" />
+                      <div className="textdiv">
+                        <h1 className="itemname">{item.Name}</h1>
+                      </div>
+                      <h1 className="itemprice">R{item.Price}</h1>
+                      <div className="itemstar">
+                        <BsStarFill className="sumstar" />{" "}
+                        {avgStars(item.Stars)}
+                        {reviewNumber(item.Review)}
+                      </div>
+                      {(() => {
+                        if (item.Quantity == 0) {
+                          return (
+                            <h1
+                              style={{ fontWeight: "bold", color: "#B38B59" }}
+                              className="item-quantity"
+                            >
+                              sold out
+                            </h1>
+                          );
+                        } else {
+                          return <h1 className="item-quantity">in stock</h1>;
+                        }
+                      })()}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : null}
 
-        <div>
-          <h6 className="category-heading">
-            {currentActiveCategory +
-              " (" +
-              categoriesActivity.find(
-                (category) => category.categoryName == currentActiveCategory
-              ).products.length +
-              ")"}
-          </h6>
+          <div>
+            <h6 className="category-heading">
+              {currentActiveCategory +
+                " (" +
+                categoriesActivity.find(
+                  (category) => category.categoryName == currentActiveCategory
+                ).products.length +
+                ")"}
+            </h6>
 
-          {loading ? (
-            <HashLoader
-              color={"B38B59"}
-              css={override}
-              loading={loading}
-              size={120}
+            {loading ? (
+              <HashLoader
+                color={"B38B59"}
+                css={override}
+                loading={loading}
+                size={120}
               />
             ) : show ? (
               <div className="reviewdiv">{text}</div>
-            ) :
-
-          <div className="bodydiv">
-            {categoriesActivity
-              .find(
-                (category) => category.categoryName == currentActiveCategory
-              )
-              .products.map((item, itemIndex) => {
-                return (
-                  <div
-                    key={itemIndex}
-                    className="itemdiv"
-                    onClick={() => {
-                      ProductView(item);
-                    }}
-                  >
-                    <img src={item.Image} alt="nope" />
-                    <div className="textdiv">
-                      <h1 className="itemname">{item.Name}</h1>
-                    </div>
-                    <h1 className="itemprice">R{item.Price}</h1>
-                    <div className="itemstar">
-                      <BsStarFill className="sumstar" /> {avgStars(item.Stars)}
-                      {reviewNumber(item.Review)}
-                    </div>
-                    {(() => {
-                      if (item.Quantity == 0) {
-                        return (
-                          <h1
-                            style={{ fontWeight: "bold", color: "#B38B59" }}
-                            className="item-quantity"
-                          >
-                            sold out
-                          </h1>
-                        );
-                      } else {
-                        return <h1 className="item-quantity">in stock</h1>;
-                      }
-                    })()}
-                  </div>
-                );
-              })}
+            ) : (
+              <div className="bodydiv">
+                {categoriesActivity
+                  .find(
+                    (category) => category.categoryName == currentActiveCategory
+                  )
+                  .products.map((item, itemIndex) => {
+                    return (
+                      <div
+                        key={itemIndex}
+                        className="itemdiv"
+                        onClick={() => {
+                          ProductView(item);
+                        }}
+                      >
+                        <img src={item.Image} alt="nope" />
+                        <div className="textdiv">
+                          <h1 className="itemname">{item.Name}</h1>
+                        </div>
+                        <h1 className="itemprice">R{item.Price}</h1>
+                        <div className="itemstar">
+                          <BsStarFill className="sumstar" />{" "}
+                          {avgStars(item.Stars)}
+                          {reviewNumber(item.Review)}
+                        </div>
+                        {(() => {
+                          if (item.Quantity == 0) {
+                            return (
+                              <h1
+                                style={{ fontWeight: "bold", color: "#B38B59" }}
+                                className="item-quantity"
+                              >
+                                sold out
+                              </h1>
+                            );
+                          } else {
+                            return <h1 className="item-quantity">in stock</h1>;
+                          }
+                        })()}
+                      </div>
+                    );
+                  })}
+              </div>
+            )}
           </div>
-        }     
         </div>
-     </div>
-     : null
-    }
+      ) : null}
 
-      
-
-      
       {show ? (
         <div className="reviewdiv">{text}</div>
       ) : (
@@ -1000,13 +999,11 @@ export default function Landing() {
                 onClick={() => {
                   ProductView(item);
                 }}
-              >
-                
-              </div>
+              ></div>
             );
           })}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }

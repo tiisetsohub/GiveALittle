@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import Navigation from "../components/Navigation";
 import { NameContext, LoginContext, CartContext } from "../Context";
 import ContactCard from "../components/ContactCard";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function About() {
   const { name, setName } = useContext(NameContext);
@@ -53,8 +54,12 @@ export default function About() {
   ]);
 
   return (
-    <div>
-      <Navigation/>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={({ opacity: 0 }, { duration: 0.5 })}
+    >
+      <Navigation />
       <h3 className="about_details">About Us</h3>
       <br />
       <h6>
@@ -77,6 +82,6 @@ export default function About() {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 }
