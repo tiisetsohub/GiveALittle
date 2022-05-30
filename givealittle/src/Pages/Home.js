@@ -419,7 +419,13 @@ export default function Home() {
       ) : show ? (
         <div className="reviewdiv">{text}</div>
       ) : (
-        <div className="bodydiv">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.1 }}
+          exit={({ opacity: 0 }, { duration: 0.5 })}
+          className="bodydiv"
+        >
           {Inventory.filter((item) => {
             if (searchTerm == "") {
               return item;
@@ -462,7 +468,7 @@ export default function Home() {
               </div>
             );
           })}
-        </div>
+        </motion.div>
       )}
     </motion.div>
   );

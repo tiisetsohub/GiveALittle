@@ -2,6 +2,7 @@ import Navigation from "../components/HomeNavBar";
 import HomeNavBar from "../components/HomeNavBar";
 import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
+import { motion } from "framer-motion";
 
 export default function HomeContact() {
   const form = useRef();
@@ -29,7 +30,12 @@ export default function HomeContact() {
   };
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.1 }}
+      exit={({ opacity: 0 }, { duration: 0.5 })}
+    >
       <HomeNavBar />
       <br />
       <h2 className="heading">Contact Us</h2>
@@ -64,6 +70,6 @@ export default function HomeContact() {
         <br />
         <input type="submit" value="Send" />
       </form>
-    </div>
+    </motion.div>
   );
 }

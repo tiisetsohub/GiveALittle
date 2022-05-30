@@ -3,7 +3,8 @@ import HomeNavBar from "../components/HomeNavBar";
 import Navigation from "../components/HomeNavBar";
 import { NameContext, LoginContext, CartContext } from "../Context";
 import ContactCard from "../components/ContactCard";
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 export default function HomeAbout() {
   const { name, setName } = useContext(NameContext);
@@ -54,7 +55,12 @@ export default function HomeAbout() {
   ]);
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.1 }}
+      exit={({ opacity: 0 }, { duration: 0.5 })}
+    >
       <HomeNavBar />
       <h3 className="about_details">About Us</h3>
       <br />
@@ -78,6 +84,6 @@ export default function HomeAbout() {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 }
