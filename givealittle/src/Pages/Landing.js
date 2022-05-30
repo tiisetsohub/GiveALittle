@@ -841,6 +841,9 @@ export default function Landing() {
         onChange={handleSearchTermChange}
       ></input>
 
+      {show == false ? 
+      
+      <div>
       {isFilter ? (
         <button
           className="filter"
@@ -913,7 +916,7 @@ export default function Landing() {
         </div>
       ) : null}
 
-      {currentActiveCategory != "All" ? (
+
         <div>
           <h6 className="category-heading">
             {currentActiveCategory +
@@ -923,6 +926,17 @@ export default function Landing() {
               ).products.length +
               ")"}
           </h6>
+
+          {loading ? (
+            <HashLoader
+              color={"B38B59"}
+              css={override}
+              loading={loading}
+              size={120}
+              />
+            ) : show ? (
+              <div className="reviewdiv">{text}</div>
+            ) :
 
           <div className="bodydiv">
             {categoriesActivity
@@ -965,24 +979,16 @@ export default function Landing() {
                 );
               })}
           </div>
+        }     
         </div>
-      ) : null}
+     </div>
+     : null
+    }
 
-      <h6 className="category-heading">
-        All products
-        {" (" +
-          categoriesActivity.find((category) => category.categoryName == "All")
-            .products.length +
-          ")"}
-      </h6>
-      {loading ? (
-        <HashLoader
-          color={"B38B59"}
-          css={override}
-          loading={loading}
-          size={120}
-        />
-      ) : show ? (
+      
+
+      
+      {show ? (
         <div className="reviewdiv">{text}</div>
       ) : (
         <div className="bodydiv">
@@ -995,29 +1001,7 @@ export default function Landing() {
                   ProductView(item);
                 }}
               >
-                <img src={item.Image} alt="nope" />
-                <div className="textdiv">
-                  <h1 className="itemname">{item.Name}</h1>
-                </div>
-                <h1 className="itemprice">R{item.Price}</h1>
-                <div className="itemstar">
-                  <BsStarFill className="sumstar" /> {avgStars(item.Stars)}
-                  {reviewNumber(item.Review)}
-                </div>
-                {(() => {
-                  if (item.Quantity == 0) {
-                    return (
-                      <h1
-                        style={{ fontWeight: "bold", color: "#B38B59" }}
-                        className="item-quantity"
-                      >
-                        sold out
-                      </h1>
-                    );
-                  } else {
-                    return <h1 className="item-quantity">in stock</h1>;
-                  }
-                })()}
+                
               </div>
             );
           })}
