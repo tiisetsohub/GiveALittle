@@ -285,7 +285,12 @@ export default function Sell({ allTabs, setAllTabs }) {
 function Navbar() {
   const [showLinks, setShowLinks] = useState(false);
   return (
-    <div className="navbar">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="navbar"
+    >
       <div className="leftside">
         <div className="links" id={showLinks ? "hidden" : ""}>
           <Link className="navlink" to="/landing">
@@ -302,6 +307,6 @@ function Navbar() {
           ≡
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
