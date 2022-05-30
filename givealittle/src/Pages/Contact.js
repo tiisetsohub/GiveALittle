@@ -32,6 +32,7 @@ export default function Contact() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      transition={{ delay: 0.2 }}
       exit={({ opacity: 0 }, { duration: 0.5 })}
     >
       <Navigation />
