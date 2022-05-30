@@ -468,9 +468,6 @@ export default function Landing() {
                             <Link className="navlink" to="/track">
                                 <p> MyOrders</p>
                             </Link>
-                            <Link className="navlink" to="/sold">
-                                <p> Sold</p>
-                            </Link>
 
                         </div>
 

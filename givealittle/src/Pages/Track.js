@@ -33,22 +33,26 @@ export default function Track() {
     };
     getproducts();
   }, []);
-  const [array] = React.useState(["Preparing your order", "Your order is ready", "Your order is on its way", "Your order has arrived", "Order collected"]);
+  const [array] = React.useState([
+    "Preparing your order",
+    "Your order is ready",
+    "Your order is on its way",
+    "Your order has arrived",
+    "Order collected",
+  ]);
   const [displayArray, setDisplayArray] = React.useState([]);
   const [displayEl, setDisplayEl] = React.useState();
-
   const delay = (ms) =>
     new Promise((res) => {
       setTimeout(() => {
         res();
       }, ms);
     });
-
   React.useEffect(() => {
     (async function () {
       for (let el of array) {
-        await delay(3000);
-        setDisplayEl(el);
+        await delay(1000 * (1 + Math.floor(Math.random() * 3)));
+        setDisplayEl(el + ", " + new Date().toString());
       }
       setDisplayEl(undefined);
     })();
@@ -91,15 +95,20 @@ export default function Track() {
 
           <div className="right">
             <Card sx={{ maxWidth: 400 }}>
-                <Stepper
-                  activeStep={4}
-                  orientation="vertical"
-                >
-                  {displayArray.map((elem, key) => (
-                    <div key={key}>{elem}</div>
-                  ))}
-                  
-                </Stepper>
+              <Stepper
+                activeStep={
+                  displayArray.length == 5
+                    ? displayArray.length
+                    : displayArray.length - 1
+                }
+                orientation="vertical"
+              >
+                {displayArray.map((elem) => (
+                  <Step>
+                    <StepLabel>{elem}</StepLabel>
+                  </Step>
+                ))}
+              </Stepper>
             </Card>
           </div>
         </div>
@@ -129,7 +138,6 @@ export default function Track() {
                       image={product.Image}
                       name={product.Name}
                       price={product.Price}
-                    
                     />
                   </div>
                 );
@@ -155,9 +163,6 @@ function Navbar() {
           </Link>
           <Link className="navlink" to="/login">
             <p>Contact</p>
-          </Link>
-          <Link className="navlink" to="/sold">
-            <p>Sold</p>
           </Link>
         </div>
         <button onClick={() => setShowLinks(!showLinks)} className="btnthings">

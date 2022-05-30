@@ -15,11 +15,6 @@ import {
   CardMedia,
   CardContent,
   Card,
-  ListItem,
-  TextField,
-  Button,
-  SwipeableDrawer,
-  Box,
 } from "@mui/material";
 export default function Sold() {
   const [show, setShow] = useState(false);
@@ -44,10 +39,6 @@ export default function Sold() {
               <Link className="navlink" to="/contact">
                 <p> Contact</p>
               </Link>
-
-              <Link className="navlink" to="/track">
-                <p> MyOrders</p>
-              </Link>
             </div>
             <button
               onClick={() => setShowLinks(!showLinks)}
@@ -69,30 +60,6 @@ export default function Sold() {
 
     getItems();
   }, []);
-  const [array] = React.useState(["Order collected"]);
-  const [displayArray, setDisplayArray] = React.useState([]);
-  const [displayEl, setDisplayEl] = React.useState();
-
-  const delay = (ms) =>
-    new Promise((res) => {
-      setTimeout(() => {
-        res();
-      }, ms);
-    });
-
-  React.useEffect(() => {
-    (async function () {
-      for (let el of array) {
-        await delay(0);
-        setDisplayEl(el);
-      }
-      setDisplayEl(undefined);
-    })();
-  }, [array]);
-
-  React.useEffect(() => {
-    displayEl && setDisplayArray((prev) => [...prev, displayEl]);
-  }, [displayEl]);
 
   function ProductView(item) {
     setShow(true);
@@ -127,14 +94,7 @@ export default function Sold() {
           <div className="right-side">
             <div className="right-botton">
               <Card sx={{ maxWidth: 400 }}>
-                <Stepper
-                  activeStep={4}
-                  orientation="vertical"
-                >
-                  {displayArray.map((elem, key) => (
-                    <div key={key}>{elem}</div>
-                  ))}
-                </Stepper>
+                <Stepper activeStep={4} orientation="vertical"></Stepper>
               </Card>
             </div>
           </div>
