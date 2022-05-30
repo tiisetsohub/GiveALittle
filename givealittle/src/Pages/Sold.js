@@ -21,7 +21,8 @@ import {
   SwipeableDrawer,
   Box,
 } from "@mui/material";
-import { CgProfile } from 'react-icons/cg';
+import { CgProfile } from "react-icons/cg";
+import { motion } from "framer-motion";
 
 export default function Sold() {
   const [show, setShow] = useState(false);
@@ -33,7 +34,12 @@ export default function Sold() {
     const [showLinks, setShowLinks] = useState(false);
 
     return (
-      <div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.2 }}
+        exit={({ opacity: 0 }, { duration: 0.5 })}
+      >
         <div className="navbar">
           <div className="leftside">
             <div className="links" id={showLinks ? "hidden" : ""}>
@@ -41,7 +47,7 @@ export default function Sold() {
                 <CgProfile className="profile-icon" />
               </Link>
 
-              <Link className="navlink" to='/landing'>
+              <Link className="navlink" to="/landing">
                 <p>Home</p>
               </Link>
 
@@ -65,7 +71,6 @@ export default function Sold() {
               <Link className="navlink" to="/sold">
                 <p> Sold</p>
               </Link>
-
             </div>
             <button
               onClick={() => setShowLinks(!showLinks)}
@@ -75,7 +80,7 @@ export default function Sold() {
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     );
   }
 

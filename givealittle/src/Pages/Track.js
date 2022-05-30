@@ -17,7 +17,8 @@ import {
   Typography,
 } from "@mui/material";
 
-import Navigation from '../components/Navigation'
+import Navigation from "../components/Navigation";
+import { motion } from "framer-motion";
 
 export default function Track() {
   const [bought, setproducts] = useState([]); //state for bought
@@ -103,7 +104,12 @@ export default function Track() {
   }
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ delay: 0.2 }}
+      exit={({ opacity: 0 }, { duration: 0.5 })}
+    >
       <Navigation />
       {show ? (
         <div className="reviewdiv">{text}</div>
@@ -138,7 +144,7 @@ export default function Track() {
           </Row>
         </Container>
       )}
-    </div>
+    </motion.div>
   );
 }
 
