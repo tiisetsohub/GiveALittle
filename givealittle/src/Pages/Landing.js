@@ -716,11 +716,16 @@ export default function Landing() {
     setText(
       <div>
         <div className="item-container">
-          <div className="clod">
+          <motion.div
+            initial={{ y: -250 }}
+            animate={{ y: -10 }}
+            transition={{ delay: 0.1, type: "spring", stiffness: 50 }}
+            className="clod"
+          >
             <button className="btnclose" onClick={() => setShow(false)}>
               Close
             </button>
-          </div>
+          </motion.div>
           <Carousel>
             {/* Images */}
             <Carousel.Item>
@@ -941,7 +946,13 @@ export default function Landing() {
             ) : show ? (
               <div className="reviewdiv">{text}</div>
             ) : (
-              <div className="bodydiv">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.1 }}
+                exit={({ opacity: 0 }, { duration: 0.5 })}
+                className="bodydiv"
+              >
                 {categoriesActivity
                   .find(
                     (category) => category.categoryName == currentActiveCategory
@@ -982,7 +993,7 @@ export default function Landing() {
                       </div>
                     );
                   })}
-              </div>
+              </motion.div>
             )}
           </div>
         </div>
