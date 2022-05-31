@@ -788,10 +788,17 @@ export default function Landing() {
             transition={{ delay: 0.1, type: "spring", stiffness: 50 }}
             className="clod"
           >
-            <button className="btnclose" onClick={() => setShow(false)}>
-              Close
-            </button>
+            <Tooltip
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+              title="Close Product View"
+            >
+              <button className="btnclose" onClick={() => setShow(false)}>
+                Close
+              </button>
+            </Tooltip>
           </motion.div>
+
           <Carousel>
             {/* Images */}
             <Carousel.Item>
