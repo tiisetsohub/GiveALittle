@@ -16,9 +16,7 @@ meaning they can be both a buyer and the seller at the same time.
 --type `npm install all --save` to install all dependenacies,
   then type `npm start` to run app on local server
   
-### Developed For Any Device Having A Browser
-    NB!!! This application is still in development
-        and some features may not work.
+### (Developed For Any Device That Has A Browser)
         
 ## Features
 
