@@ -41,6 +41,7 @@ import { Carousel } from "react-bootstrap";
 import HashLoader from "react-spinners/HashLoader";
 import { css } from "@emotion/react";
 import { motion } from "framer-motion";
+import { Tooltip } from "@mui/material";
 
 //identical to home.js
 
@@ -516,9 +517,11 @@ export default function Landing() {
                 <CgProfile className="profile-icon" />
               </Link>
 
-              <Link className="navlink" to="/landing">
-                <p>Home</p>
-              </Link>
+              <Tooltip title="Go to home">
+                <Link className="navlink" to="/landing">
+                  <p>Home</p>
+                </Link>
+              </Tooltip>
 
               <Link className="navlink" to="/sellerslanding">
                 <p>Sell</p>
