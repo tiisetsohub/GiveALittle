@@ -15,7 +15,7 @@ function Navigation() {
           <Tooltip
             TransitionComponent={Fade}
             TransitionProps={{ timeout: 600 }}
-            title="Profile"
+            title="My Profile"
           >
             <Link className="profile-icon" to="/profile">
               <CgProfile className="profile-icon" />

@@ -1,5 +1,5 @@
 .contact-card {
-    background-color: ;
+    background-color: #FAEBD7;
     margin-left: 25%;
     margin-right: 25%;
     padding: 15px;
@@ -16,13 +16,17 @@
     border: 1px solid #B38B59;
     border-radius: 3px;
     background-color: white;
+    padding-left: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .contact-textarea{
     border: 1px solid #B38B59;
     border-radius: 3px;
     background-color: white;
-    height :150px;
+    height: 150px;
+    padding: 10px;
 }
 
 .subbut{

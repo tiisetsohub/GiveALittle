@@ -58,13 +58,14 @@ export default function HomeAbout() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      transition={{ delay: 0.1 }}
+      transition={{ delay: 0.2 }}
       exit={({ opacity: 0 }, { duration: 0.5 })}
     >
       <HomeNavBar />
+      <div style={{display: "flex", alignItems: "center", flexDirection: "column"}}>
       <h3 className="about_details">About Us</h3>
       <br />
-      <h6>
+      <h6 style={{marginLeft: "10%", marginRight: "10%"}}>
         GiveALittle is an Online MarketPlace similar to takealot for both Buyers
         and Sellers which allows them to buy products or goods they need online
         OR sell the items they want to sell, meaning they can be both a buyer
@@ -83,6 +84,7 @@ export default function HomeAbout() {
             />
           );
         })}
+      </div>
       </div>
     </motion.div>
   );

@@ -13,7 +13,7 @@ export default function HomeContact() {
     emailjs
       .sendForm(
         "service_jqq0ke6",
-        "template_rraqekf",
+        "template_62hvg2x",
         form.current,
         "V_itaO6_FgMhs0fH8"
       )
@@ -30,46 +30,40 @@ export default function HomeContact() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.1 }}
-      exit={({ opacity: 0 }, { duration: 0.5 })}
-    >
+    <div>
       <HomeNavBar />
       <br />
       <h2 className="heading">Contact Us</h2>
+
+      <div className="contact-card">
       <form className="contact-form" ref={form} onSubmit={sendEmail}>
         <br />
-        <div className="block">
-          <label className="contact-label">Full Name: </label>
+        <div className="block2">
           <input
             className="contact-input"
             type="text"
             name="user_name"
             placeholder="Enter Your Name"
           />
-        </div>
-        <div className="block">
-          <label className="contact-label">Email: </label>
+          <br/>
           <input
             className="contact-input"
             type="email"
             name="user_email"
             placeholder="Enter Your Email"
           />
-        </div>
-        <div className="block">
-          <label className="contact-label">Message: </label>
+          <br />
           <textarea
-            className="contact-input"
+            className="contact-textarea"
             name="message"
             placeholder="What Would You Like To Tell Us?"
           />
         </div>
         <br />
-        <input type="submit" value="Send" />
+        <input type="submit" value="Submit" className = "subbut"/>
       </form>
-    </motion.div>
+      </div>
+      
+    </div>
   );
 }
