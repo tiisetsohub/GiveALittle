@@ -15,10 +15,12 @@ import { CartContext } from "../Context";
 import { LoginContext } from "../Context";
 import { BsStarFill } from "react-icons/bs";
 import { NameContext } from "../Context";
-import { Carousel } from "react-bootstrap";
+import { Carousel, ProgressBar } from "react-bootstrap";
 import HashLoader from "react-spinners/HashLoader";
 import { motion } from "framer-motion";
-import { Tooltip } from "@mui/material";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
+import Typography from "@mui/material/Typography";
+import { styled } from "@mui/material/styles";
 import Fade from "@mui/material/Fade";
 
 export default function Home() {
@@ -45,6 +47,18 @@ export default function Home() {
     border-color: red;
     margin-top: 250px;
   `;
+  // Advanced Tooltip for Reviews
+  const HtmlTooltip = styled(({ className, ...props }) => (
+    <Tooltip {...props} classes={{ popper: className }} />
+  ))(({ theme }) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+      backgroundColor: "#f5f5f9",
+      color: "rgba(0, 0, 0, 0.87)",
+      maxWidth: 220,
+      fontSize: theme.typography.pxToRem(12),
+      border: "1px solid #dadde9",
+    },
+  }));
 
   // The following function count the average rating of each item (using stars)
   function avgStars(stars) {
@@ -128,6 +142,43 @@ export default function Home() {
     } else {
       return "Reviews";
     }
+  }
+
+  // Function to return the percentage of stars
+  function percentOfStars(stars) {
+    let s = stars + "";
+    const starsList = s.split("*");
+    let count = [0, 0, 0, 0, 0];
+
+    for (let i = 0; i < starsList.length; i++) {
+      switch (starsList[i]) {
+        case "1":
+          count[0] += 1;
+          break;
+        case "2":
+          count[1] += 1;
+          break;
+        case "3":
+          count[2] += 1;
+          break;
+        case "4":
+          count[3] += 1;
+          break;
+        case "5":
+          count[4] += 1;
+      }
+    }
+
+    let n = starsList.length - 1;
+    let percentage = [
+      (count[0] / n) * 100,
+      (count[1] / n) * 100,
+      (count[2] / n) * 100,
+      (count[3] / n) * 100,
+      (count[4] / n) * 100,
+    ];
+
+    return percentage;
   }
 
   const searchRef = useRef();
@@ -433,20 +484,52 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="inprodstar">
-            <BsStarFill className="initemsstar" />
-            {avgStars(item.Stars)}
-            <Tooltip
-              TransitionComponent={Fade}
-              TransitionProps={{ timeout: 600 }}
-              title="View Reviews"
-            >
-              <Link onClick={() => viewReviews(item, item.Stars)}>
+          <HtmlTooltip
+            title={
+              <React.Fragment>
+                <Typography color="inherit">
+                  Star Rating for this item
+                </Typography>
+
+                <div>
+                  <ProgressBar
+                    now={percentOfStars(item.Stars)[4]}
+                    label={`5`}
+                  />
+                  <ProgressBar
+                    variant="success"
+                    now={percentOfStars(item.Stars)[3]}
+                    label={`4`}
+                  />
+                  <ProgressBar
+                    variant="info"
+                    now={percentOfStars(item.Stars)[2]}
+                    label={`3`}
+                  />
+                  <ProgressBar
+                    variant="warning"
+                    now={percentOfStars(item.Stars)[1]}
+                    label={`2`}
+                  />
+                  <ProgressBar
+                    variant="danger"
+                    now={percentOfStars(item.Stars)[0]}
+                    label={`1`}
+                  />
+                </div>
+              </React.Fragment>
+            }
+          >
+            <div className="inprodstar">
+              <BsStarFill className="initemsstar" />
+              {avgStars(item.Stars)}
+
+              <Link onClick={() => viewReviews(item)}>
                 {reviewNumberIn(item.Review)}
                 {correctReview(item.Review)}
               </Link>
-            </Tooltip>
-          </div>
+            </div>
+          </HtmlTooltip>
         </div>
       </div>
     );
