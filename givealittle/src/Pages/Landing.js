@@ -505,7 +505,7 @@ export default function Landing() {
       (count[3] / n) * 100,
       (count[4] / n) * 100,
     ];
-    console.log((count[4] / n) * 100);
+
     return percentage;
   }
 
