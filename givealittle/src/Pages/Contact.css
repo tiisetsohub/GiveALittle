@@ -1,3 +1,11 @@
+.contact-card {
+    background-color: ;
+    margin-left: 25%;
+    margin-right: 25%;
+    padding: 15px;
+    border-radius: 15px;
+}
+
 .block2 {
     text-align: center;
     display: flex;

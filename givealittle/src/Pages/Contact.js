@@ -30,15 +30,12 @@ export default function Contact() {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.2 }}
-      exit={({ opacity: 0 }, { duration: 0.5 })}
-    >
+    <div>
       <Navigation />
       <br />
       <h2 className="heading">Contact Us</h2>
+
+      <div className="contact-card">
       <form className="contact-form" ref={form} onSubmit={sendEmail}>
         <br />
         <div className="block2">
@@ -65,6 +62,8 @@ export default function Contact() {
         <br />
         <input type="submit" value="Send" className = "subbut"/>
       </form>
-    </motion.div>
+      </div>
+      
+    </div>
   );
 }
