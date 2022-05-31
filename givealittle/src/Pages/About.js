@@ -59,9 +59,9 @@ export default function About() {
       animate={{ opacity: 1 }}
       transition={{ delay: 0.2 }}
       exit={({ opacity: 0 }, { duration: 0.5 })}
-      style={{display: "flex", alignItems: "center", flexDirection: "column"}}
     >
       <Navigation />
+      <div style={{display: "flex", alignItems: "center", flexDirection: "column"}}>
       <h3 className="about_details">About Us</h3>
       <br />
       <h6 style={{marginLeft: "10%", marginRight: "10%"}}>
@@ -83,6 +83,7 @@ export default function About() {
             />
           );
         })}
+      </div>
       </div>
     </motion.div>
   );
