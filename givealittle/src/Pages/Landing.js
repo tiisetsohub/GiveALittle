@@ -527,7 +527,7 @@ export default function Landing() {
               <Tooltip
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 600 }}
-                title="Go to home"
+                title="Go to Home"
               >
                 <Link className="navlink" to="/landing">
                   <p>Home</p>
