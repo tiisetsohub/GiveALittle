@@ -18,6 +18,8 @@ import { NameContext } from "../Context";
 import { Carousel } from "react-bootstrap";
 import HashLoader from "react-spinners/HashLoader";
 import { motion } from "framer-motion";
+import { Tooltip } from "@mui/material";
+import Fade from "@mui/material/Fade";
 
 export default function Home() {
   const [cartitems, setCartItems] = useState([]); //state for local cart array
@@ -187,9 +189,15 @@ export default function Home() {
         <div className="navbar">
           <div className="leftside">
             <div className="links" id={showLinks ? "hidden" : ""}>
-              <Link className="navlink" to="/">
-                <p>Home</p>
-              </Link>
+              <Tooltip
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+                title="Go to home"
+              >
+                <Link className="navlink" to="/">
+                  <p>Home</p>
+                </Link>
+              </Tooltip>
 
               <Link className="navlink" to="/login">
                 <p>Login/Signup</p>
