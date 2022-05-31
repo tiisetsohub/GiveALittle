@@ -49,7 +49,7 @@ export default function Track() {
       }, ms);
     });
   React.useEffect(() => {
-    (async function () {
+    (async function() {
       for (let el of array) {
         await delay(1000 * (1 + Math.floor(Math.random() * 3)));
         setDisplayEl(el + ", " + new Date().toString());
