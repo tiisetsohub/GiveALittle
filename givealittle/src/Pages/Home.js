@@ -199,23 +199,50 @@ export default function Home() {
                 </Link>
               </Tooltip>
 
-              <Link className="navlink" to="/login">
-                <p>Login/Signup</p>
-              </Link>
-              <Link className="navlink" to="/homeabout">
-                <p>About</p>
-              </Link>
-              <Link className="navlink" to="/homecontact">
-                <p>Contact</p>
-              </Link>
-              <Link
-                className="navlink"
-                onClick={() => {
-                  CartView();
-                }}
+              <Tooltip
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+                title="Login Or Signup"
               >
-                <p>Cart</p>
-              </Link>
+                <Link className="navlink" to="/login">
+                  <p>Login/Signup</p>
+                </Link>
+              </Tooltip>
+
+              <Tooltip
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+                title="About Us"
+              >
+                <Link className="navlink" to="/homeabout">
+                  <p>About</p>
+                </Link>
+              </Tooltip>
+
+              <Tooltip
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+                title="Contact Us"
+              >
+                <Link className="navlink" to="/homecontact">
+                  <p>Contact</p>
+                </Link>
+              </Tooltip>
+
+              <Tooltip
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+                title="Your Cart"
+              >
+                <Link
+                  className="navlink"
+                  onClick={() => {
+                    CartView();
+                  }}
+                >
+                  <p>Cart</p>
+                </Link>
+              </Tooltip>
             </div>
             <button
               onClick={() => setShowLinks(!showLinks)}
@@ -231,15 +258,20 @@ export default function Home() {
               placeholder="Search..."
               ref={searchRef}
             />
-            <button
-              className="btnsearch"
-              onClick={() => {
-                setSearchTerm(searchRef.current.value);
-              }}
+            <Tooltip
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+              title="Search for product"
             >
-              {/* <SearchIcon/> */}
-              Search
-            </button>
+              <button
+                className="btnsearch"
+                onClick={() => {
+                  setSearchTerm(searchRef.current.value);
+                }}
+              >
+                Search
+              </button>
+            </Tooltip>
           </div>
         </div>
         {showcart ? (
@@ -325,11 +357,6 @@ export default function Home() {
           <div className="revdivin">
             <h5>Reviews</h5>
 
-            {/* <div className="inprodstar">
-              <BsStarFill className="initemsstar" />
-              {starCount}
-            </div> */}
-
             <div className="revcomm">{commentList}</div>
           </div>
         </div>
@@ -345,12 +372,22 @@ export default function Home() {
     setText(
       <div>
         <div className="item-container">
-          <div className="clod">
-            <button className="btnclose" onClick={() => setShow(false)}>
-              Close
-            </button>
-          </div>
-          <p className="uselesstext"> -</p>
+          <motion.div
+            initial={{ y: -250 }}
+            animate={{ y: -10 }}
+            transition={{ delay: 0.1, type: "spring", stiffness: 50 }}
+            className="clod"
+          >
+            <Tooltip
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+              title="Close Product View"
+            >
+              <button className="btnclose" onClick={() => setShow(false)}>
+                Close
+              </button>
+            </Tooltip>
+          </motion.div>
           <Carousel>
             {/* Images */}
             <Carousel.Item>
@@ -399,10 +436,16 @@ export default function Home() {
           <div className="inprodstar">
             <BsStarFill className="initemsstar" />
             {avgStars(item.Stars)}
-            <Link onClick={() => viewReviews(item, item.Stars)}>
-              {reviewNumberIn(item.Review)}
-              {correctReview(item.Review)}
-            </Link>
+            <Tooltip
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+              title="View Reviews"
+            >
+              <Link onClick={() => viewReviews(item, item.Stars)}>
+                {reviewNumberIn(item.Review)}
+                {correctReview(item.Review)}
+              </Link>
+            </Tooltip>
           </div>
         </div>
       </div>
