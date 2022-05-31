@@ -54,6 +54,7 @@ export default function Login() {
         initial={{ y: -250 }}
         animate={{ y: -10 }}
         transition={{ delay: 0.1, type: "spring", stiffness: 20 }}
+        className="loginmot"
       >
         Login
       </motion.h1>

@@ -2,6 +2,7 @@ import Navigation from "../components/Navigation";
 import React, { useRef } from "react";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
+import './Contact.css';
 
 export default function Contact() {
   const form = useRef();
@@ -40,34 +41,29 @@ export default function Contact() {
       <h2 className="heading">Contact Us</h2>
       <form className="contact-form" ref={form} onSubmit={sendEmail}>
         <br />
-        <div className="block">
-          <label className="contact-label">Full Name: </label>
+        <div className="block2">
           <input
             className="contact-input"
             type="text"
             name="user_name"
             placeholder="Enter Your Name"
           />
-        </div>
-        <div className="block">
-          <label className="contact-label">Email: </label>
+          <br/>
           <input
             className="contact-input"
             type="email"
             name="user_email"
             placeholder="Enter Your Email"
           />
-        </div>
-        <div className="block">
-          <label className="contact-label">Message: </label>
+          <br />
           <textarea
-            className="contact-input"
+            className="contact-textarea"
             name="message"
             placeholder="What Would You Like To Tell Us?"
           />
         </div>
         <br />
-        <input type="submit" value="Send" />
+        <input type="submit" value="Send" className = "subbut"/>
       </form>
     </motion.div>
   );
