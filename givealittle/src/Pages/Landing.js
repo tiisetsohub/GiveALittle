@@ -497,7 +497,7 @@ export default function Landing() {
       }
     }
 
-    let n = starsList.length;
+    let n = starsList.length - 1;
     let percentage = [
       (count[0] / n) * 100,
       (count[1] / n) * 100,
@@ -505,7 +505,7 @@ export default function Landing() {
       (count[3] / n) * 100,
       (count[4] / n) * 100,
     ];
-
+    console.log((count[4] / n) * 100);
     return percentage;
   }
 
