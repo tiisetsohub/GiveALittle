@@ -17,9 +17,6 @@ import {
   Typography,
 } from "@mui/material";
 
-import Navigation from "../components/Navigation";
-import { motion } from "framer-motion";
-
 export default function Track() {
   const [bought, setproducts] = useState([]); //state for bought
   const productRef = collection(db, "Bought"); //reference to bought in database
@@ -36,14 +33,36 @@ export default function Track() {
     };
     getproducts();
   }, []);
+  const [array] = React.useState([
+    "Preparing your order",
+    "Your order is ready",
+    "Your order is on its way",
+    "Your order has arrived",
+    "Order collected",
+  ]);
+  const [displayArray, setDisplayArray] = React.useState([]);
+  const [displayEl, setDisplayEl] = React.useState();
+  const delay = (ms) =>
+    new Promise((res) => {
+      setTimeout(() => {
+        res();
+      }, ms);
+    });
+  React.useEffect(() => {
+    (async function () {
+      for (let el of array) {
+        await delay(1000 * (1 + Math.floor(Math.random() * 3)));
+        setDisplayEl(el + ", " + new Date().toString());
+      }
+      setDisplayEl(undefined);
+    })();
+  }, [array]);
+
+  React.useEffect(() => {
+    displayEl && setDisplayArray((prev) => [...prev, displayEl]);
+  }, [displayEl]);
+
   function ProductView(product) {
-    const items = [];
-    for (var i = 0; i < product.Time.length; i++) {
-      items.push({
-        LocationDescription: product.LocationDescription[i],
-        Time: product.Time[i],
-      });
-    }
     setShow(true);
     setText(
       <div>
@@ -78,23 +97,17 @@ export default function Track() {
             <Card sx={{ maxWidth: 400 }}>
               <Stepper
                 activeStep={
-                  items[items.length - 1].LocationDescription.includes(
-                    "COLLECTED"
-                  )
-                    ? items.length
-                    : items.length - 1
+                  displayArray.length == 5
+                    ? displayArray.length
+                    : displayArray.length - 1
                 }
                 orientation="vertical"
               >
-                {items.map((item) => {
-                  return (
-                    <Step>
-                      <StepLabel className="step-label">
-                        {item.LocationDescription} - {item.Time}
-                      </StepLabel>
-                    </Step>
-                  );
-                })}
+                {displayArray.map((elem) => (
+                  <Step>
+                    <StepLabel>{elem}</StepLabel>
+                  </Step>
+                ))}
               </Stepper>
             </Card>
           </div>
@@ -104,13 +117,8 @@ export default function Track() {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ delay: 0.2 }}
-      exit={({ opacity: 0 }, { duration: 0.5 })}
-    >
-      <Navigation />
+    <div>
+      <Navbar />
       {show ? (
         <div className="reviewdiv">{text}</div>
       ) : (
@@ -130,13 +138,6 @@ export default function Track() {
                       image={product.Image}
                       name={product.Name}
                       price={product.Price}
-                      delivery={
-                        product.LocationDescription[
-                          product.LocationDescription.length - 1
-                        ].includes("COLLECTED")
-                          ? "Order Collected!"
-                          : "Your Order Is On Its Way!"
-                      }
                     />
                   </div>
                 );
@@ -144,7 +145,7 @@ export default function Track() {
           </Row>
         </Container>
       )}
-    </motion.div>
+    </div>
   );
 }
 
@@ -162,9 +163,6 @@ function Navbar() {
           </Link>
           <Link className="navlink" to="/login">
             <p>Contact</p>
-          </Link>
-          <Link className="navlink" to="/sold">
-            <p>Sold</p>
           </Link>
         </div>
         <button onClick={() => setShowLinks(!showLinks)} className="btnthings">
