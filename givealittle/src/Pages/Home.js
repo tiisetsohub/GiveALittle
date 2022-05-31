@@ -15,7 +15,7 @@ import { CartContext } from "../Context";
 import { LoginContext } from "../Context";
 import { BsStarFill } from "react-icons/bs";
 import { NameContext } from "../Context";
-import { Carousel } from "react-bootstrap";
+import { Carousel, ProgressBar } from "react-bootstrap";
 import HashLoader from "react-spinners/HashLoader";
 import { motion } from "framer-motion";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
@@ -484,20 +484,52 @@ export default function Home() {
             </button>
           </div>
 
-          <div className="inprodstar">
-            <BsStarFill className="initemsstar" />
-            {avgStars(item.Stars)}
-            <Tooltip
-              TransitionComponent={Fade}
-              TransitionProps={{ timeout: 600 }}
-              title="View Reviews"
-            >
-              <Link onClick={() => viewReviews(item, item.Stars)}>
+          <HtmlTooltip
+            title={
+              <React.Fragment>
+                <Typography color="inherit">
+                  Star Rating for this item
+                </Typography>
+
+                <div>
+                  <ProgressBar
+                    now={percentOfStars(item.Stars)[4]}
+                    label={`5`}
+                  />
+                  <ProgressBar
+                    variant="success"
+                    now={percentOfStars(item.Stars)[3]}
+                    label={`4`}
+                  />
+                  <ProgressBar
+                    variant="info"
+                    now={percentOfStars(item.Stars)[2]}
+                    label={`3`}
+                  />
+                  <ProgressBar
+                    variant="warning"
+                    now={percentOfStars(item.Stars)[1]}
+                    label={`2`}
+                  />
+                  <ProgressBar
+                    variant="danger"
+                    now={percentOfStars(item.Stars)[0]}
+                    label={`1`}
+                  />
+                </div>
+              </React.Fragment>
+            }
+          >
+            <div className="inprodstar">
+              <BsStarFill className="initemsstar" />
+              {avgStars(item.Stars)}
+
+              <Link onClick={() => viewReviews(item)}>
                 {reviewNumberIn(item.Review)}
                 {correctReview(item.Review)}
               </Link>
-            </Tooltip>
-          </div>
+            </div>
+          </HtmlTooltip>
         </div>
       </div>
     );
