@@ -874,10 +874,16 @@ export default function Landing() {
             <div className="inprodstar">
               <BsStarFill className="initemsstar" />
               {avgStars(item.Stars)}
-              <Link onClick={() => viewReviews(item)}>
-                {reviewNumberIn(item.Review)}
-                {correctReview(item.Review)}
-              </Link>
+              <Tooltip
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+                title="View Reviews"
+              >
+                <Link onClick={() => viewReviews(item)}>
+                  {reviewNumberIn(item.Review)}
+                  {correctReview(item.Review)}
+                </Link>
+              </Tooltip>
             </div>
 
             {showReview ? (
