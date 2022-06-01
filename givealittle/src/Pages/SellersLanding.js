@@ -38,6 +38,9 @@ function SellersLanding() {
   const [topCustomer, setTopCustomer] = useState('');
   const [totalSale, setTotalSale] = useState('');
   const [topProduct, setTopProduct] = useState('');
+  const [getData, setGetData] = useState(false);
+  const [custDict, setCustDict] = useState('');
+  const [prodDict, setProdDict] = useState('');
 
 
   useEffect(() => {
@@ -56,20 +59,39 @@ function SellersLanding() {
     let dict = {};
     let max = 0;
     Bought.map((item) =>
-       (item.Buyer in dict ? dict[item.Buyer]+=1 : dict[item.Buyer] = 1) 
+    (item.Cart.Seller === name ?
+      (item.Buyer in dict ? dict[item.Buyer] += 1 : dict[item.Buyer] = 1) : null) 
     )
     for (const [key, value] of Object.entries(dict)){
       if (value > max){
         max = value
       }
     }
+
+    let dict2 = {};
+    let max2 = 0;
     Bought.map((item) =>
-      (setTopProduct(item.Cart.Name))
+    (item.Cart.Seller === name ?
+      (item.Cart.Name in dict2 ? dict2[item.Cart.Name] += item.Cart.Quantity : dict2[item.Cart.Name] = item.Cart.Quantity) : null)
     )
 
-    setTopCustomer(getObjKey(dict, max)); 
-    setTotalSale(19999.99);
-  }, []);
+    for (const [key, value] of Object.entries(dict2)) {
+      if (value > max2) {
+        max2 = value
+      }
+    }
+    setCustDict(dict);
+    setTopCustomer(getObjKey(dict, max));
+    setProdDict(dict2); 
+    setTopProduct(getObjKey(dict2, max2));
+    let total = 0;
+    Bought.map((item) =>
+    (item.Cart.Seller === name ?
+      total += item.Cart.Price * item.Cart.Quantity : null)
+    )
+    setTotalSale(Math.round(total * 100) / 100);
+    
+  }, [getData]);
 
 
 
@@ -118,7 +140,7 @@ function SellersLanding() {
     setCurrentTab(allTabs.find((tab) => tab.active).tabName);
     console.log(currentTab);
   }, [allTabs]);
-
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -128,7 +150,7 @@ function SellersLanding() {
     >
       <Navigation />
 
-      <SellersTabs allTabs={allTabs} setAllTabs={setAllTabs} />
+      <SellersTabs allTabs={allTabs} setAllTabs={setAllTabs} getData={getData} setGetData={setGetData}/>
 
       {currentTab == "All Products" ? (
         <div className="products-container">
@@ -165,7 +187,9 @@ function SellersLanding() {
           key ={name}
           topCustomer = {topCustomer}
           topProduct = {topProduct}
-          totalSale = {totalSale}/>
+          totalSale = {totalSale}
+          custDict = {custDict}
+          prodDict = {prodDict}/>
       ) : null}
     </motion.div>
   );

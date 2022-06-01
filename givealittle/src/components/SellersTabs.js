@@ -1,7 +1,7 @@
 import React from 'react'
 import "../components/SellersTabs.css"
 
-function SellersTabs({allTabs, setAllTabs}) {
+function SellersTabs({allTabs, setAllTabs, getData, setGetData}) {
 
 //funtion for when a tab is clicked
 const handleClick = (tabName) => {
@@ -17,8 +17,8 @@ const handleClick = (tabName) => {
             loopTab.active = false;
         }
     }
-
     setAllTabs(tempArr);
+    setGetData(true);
 }
 
 
