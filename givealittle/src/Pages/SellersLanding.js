@@ -50,10 +50,25 @@ function SellersLanding() {
   }, []);
 
   useEffect(() => {
-    //Bought.map((item) =>)
-    setTopCustomer('Tiisetso')
-    setTotalSale(19999.99)
-    setTopProduct('JBL 510')
+    function getObjKey(obj, value) {
+      return Object.keys(obj).find(key => obj[key] === value);
+    }
+    let dict = {};
+    let max = 0;
+    Bought.map((item) =>
+       (item.Buyer in dict ? dict[item.Buyer]+=1 : dict[item.Buyer] = 1) 
+    )
+    for (const [key, value] of Object.entries(dict)){
+      if (value > max){
+        max = value
+      }
+    }
+    Bought.map((item) =>
+      (setTopProduct(item.Cart.Name))
+    )
+
+    setTopCustomer(getObjKey(dict, max)); 
+    setTotalSale(19999.99);
   }, []);
 
 
