@@ -1,10 +1,11 @@
 import React from 'react';
+import ReactJsAlert from "reactjs-alert";
 import { useContext } from 'react';
 import { db } from '../firebase-config';
 import {setDoc,doc} from "firebase/firestore";
 import { collection, getDocs, addDoc } from "firebase/firestore";
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Link ,Redirect} from 'react-router-dom';
 import './Home.css';
 import './MakeTransaction.css';
 import { CartContext } from '../Context'
@@ -18,7 +19,7 @@ export default function Payment() {
     const { cardno, setCardNo } = useContext(CarddetailsContext); 
     const [cartitems, setCartItems] = useState([])
     const { login, setLogin } = useContext(LoginContext)  
-    const { cart, setCart } = useContext(CartContext);
+    const [ cart, setCart ] = useState(useContext(CartContext).cart);
     const { name, setName } = useContext(NameContext)
     let total = 0;   
     const {address, setAddress} = useContext(AddressContext);
@@ -29,6 +30,15 @@ export default function Payment() {
     const [UsersAddressDetails, setUsersAddressDetails ] = useState([]);
     const [Cardvalue , setCardvalue] = useState("")
     let canSendEmail = false; //you don't want to  an send email if the countity is zero
+    const [move, setMove] = useState(false); 
+    const [status, setStatus] = useState(false);
+
+
+
+  function onStatus() {
+    setStatus(false)
+  }
+
   
   
   useEffect(() => {
@@ -68,6 +78,8 @@ export default function Payment() {
 
 
 
+
+
   // update the row(quantity) after a user has purchased
   const UpDateRow = async (item ,index) => {
     //handles adding a review to database
@@ -83,7 +95,7 @@ export default function Payment() {
     
   const itemRef = collection(db, "Bought"); 
   
-        function update(index) {  //update the quantity of cart items relative to the  simulataneously in the inventory
+        function update(index) {  //update the quantity of cart items relative to the user  simulataneously in the inventory
           
           
           
@@ -117,12 +129,15 @@ export default function Payment() {
         }
 
   function Purchase() {   // a wrapper for the functions called when the user hits purchase button
-          
-    AddtoDatabase();
-    if (canSendEmail) {
-      sendemail();  
-      alert("Your transaction was succesful , continue buying");      
-    }
+    setStatus(true);
+    setMove(true);
+
+     AddtoDatabase();
+     if (canSendEmail) {
+       sendemail();  
+     }
+
+
     
 
 
@@ -163,17 +178,25 @@ export default function Payment() {
               alert("maximum number of available items reached")
           }
           };
-
-
-  function onMinus(index) { // decrements quantity
+        function onRemove(index) {
+          let tempQuant = [...quantity];
+          let tempcart = [...cart];
+          tempQuant.splice(index, 1);
+          tempcart.splice(index, 1);
+          setQuantity(tempQuant);
+          setCart(tempcart);
           
+        }
           
-          let array = [...quantity];
-          if (array[index] > 1) {
-            array[index] = array[index] - 1;
-            setQuantity(array);
-          }
-                    
+        
+
+         function onMinus(index) { // decrements quantity           
+            let array = [...quantity];
+            if (array[index] > 1) {
+              array[index] = array[index] - 1;
+              setQuantity(array);
+            }
+                          
         };
         function GetTotal(){
             for (let i = 0; i < cart.length; i++) {
@@ -196,7 +219,7 @@ export default function Payment() {
         }
 
         return (
-          <div>
+          <div>            
             
             <Navigation />
             <div className = "sumdiv">
@@ -219,8 +242,11 @@ export default function Payment() {
                       <div className='btnclick'>
                       <button className="btndecrement" onClick={() => onMinus(index)} >-</button>
                                       {quantity[index]}
-                      <button className="btncomplete" onClick={() => onPlus(index)}  >+ </button>
-                      </div>  
+                      <button className="btncomplete" onClick={() => onPlus(index)}  >+ </button>                   
+                      </div>
+                      <button className="btnremove"  onClick={() => onRemove(index)}>
+                        <img src="https://png.pngtree.com/png-clipart/20190705/original/pngtree-trash-icon-vector-illustration-in-line-style-for-any-purpose-png-image_4246280.jpg" />                        
+                      </button>
                     </div>
                   </div>)
               })}
@@ -246,15 +272,27 @@ export default function Payment() {
               </div>
             </div>
             <div className="totalbar">
-              <text className='textin'>R{totalPrice()}</text>
-              <Link  to="/landing">
+              <text className='textin'>R{totalPrice()}</text>             
+                < ReactJsAlert
+                status={status} // true or false
+                type="success" // success, warning, error, info
+                title="Yours Transaction was succesful"
+                quotes={true}
+                color = "#113E21"
+                quote="You will receive a confirmation through an email , you may Continue shopping"
+                Close={() => onStatus()}
+                
+                />
                 <button className="btncomplete" onClick={() => Purchase()} >
                   Purchase
                 </button>
-              </Link>
+
             </div>
-           
-          </div>
+
+        {  move && !status ? <Redirect to="/landing"/>    
+        : null }              
+        </div>
+
 
 
     )

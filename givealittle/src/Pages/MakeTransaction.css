@@ -287,3 +287,16 @@ text {
     padding-left: 5px;
     padding-right: 5px;
 }
+
+
+
+.btnremove img {
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    
+
+}
+.btnremove{
+    border: 0px;
+}
