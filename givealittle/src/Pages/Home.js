@@ -22,8 +22,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Fade from "@mui/material/Fade";
-import StarRatings from 'react-star-ratings';
-
+import StarRatings from "react-star-ratings";
 
 export default function Home() {
   const [cartitems, setCartItems] = useState([]); //state for local cart array
@@ -92,7 +91,8 @@ export default function Home() {
   }
 
   function starsL(stars, starCount) {
-    const starsList = stars.toString().split("*");
+    const s = stars + "";
+    const starsList = s.split("*");
     starsList.shift();
     starsList.unshift(starCount);
     return starsList;
@@ -118,7 +118,6 @@ export default function Home() {
     for (let i = 0; i < review.length; i++) {
       if (review[i] == "*") {
         counter++;
-        console.log(i);
       }
     }
     if (counter == 0) {
@@ -212,7 +211,7 @@ export default function Home() {
 
       setSummary(
         //set summary to all items in cart array
-        cartitems.map(function(currentValue, index, array) {
+        cartitems.map(function (currentValue, index, array) {
           return index >= 0 ? (
             <div className="cartitemdiv">
               <div className="cartleft">
@@ -530,16 +529,18 @@ export default function Home() {
                 {reviewNumberIn(item.Review)}
                 {correctReview(item.Review)}
               </Link>
-              <div style={{
-              marginTop:"10px"
-            }}>
-            <StarRatings
-        rating= {parseFloat(avgStars(item.Stars))}
-        starRatedColor="yellow"
-        starDimension= "20px"
-        name='rating'
-      />
-      </div>
+              <div
+                style={{
+                  marginTop: "10px",
+                }}
+              >
+                <StarRatings
+                  rating={parseFloat(avgStars(item.Stars))}
+                  starRatedColor="yellow"
+                  starDimension="20px"
+                  name="rating"
+                />
+              </div>
             </div>
           </HtmlTooltip>
         </div>
