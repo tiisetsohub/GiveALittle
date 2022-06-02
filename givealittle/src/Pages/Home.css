@@ -503,3 +503,9 @@ input[type="radio"] {
     width: 200px;
     border: 1px solid #B38B59;
 }
+
+.descr{
+    width: 750px;
+    margin-left: auto;
+    margin-right:auto;
+}

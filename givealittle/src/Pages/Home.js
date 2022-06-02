@@ -366,19 +366,23 @@ export default function Home() {
     setCart(cartitems);
   }, [cartitems]);
 
-  function viewReviews(item, stars) {
-    const starCount = avgStars(stars);
-    const reviewStars = starsL(stars, starCount);
+  function viewReviews(item) {
+    const starCount = avgStars(item.Stars);
+    const reviewStars = starsL(item.Stars, starCount);
     const comments = review(item.Review);
 
     //combine comment with a star
     let zip = (comments, reviewStars) =>
       comments.map((x, i) => [x, reviewStars[i]]);
     const clist = zip(comments, reviewStars);
-
     const commentList = clist.map((comment) => (
-      <div className="indrev">
-        {comment[0]} &emsp; <BsStarFill className="initemsstar" /> {comment[1]}
+      <div className="indrev">{comment[0]}
+      <div style={{}}><StarRatings
+        rating = {parseFloat(comment[1])}
+        starRatedColor="yellow"
+        starDimension= "20px"
+        name='rating'
+      /></div>      
       </div>
     ));
     setShowReview(true);
@@ -400,11 +404,13 @@ export default function Home() {
           <div>
             <img
               style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-              src={item.Image}
+              src={item.Image} alt=""
             />
           </div>
+          <div className="descr">
           <h3>{item.Name}</h3>
           <p>{item.Description}</p>
+          </div>
           <br />
           <div className="revdivin">
             <h5>Reviews</h5>
@@ -467,10 +473,12 @@ export default function Home() {
             </Carousel.Item>
           </Carousel>
           {Users.map((user, idx) =>
-            user.Email == item.Seller ? <p>Sold By : {user.Name}</p> : null
+            user.Email === item.Seller ? <p>Sold By : {user.Name}</p> : null
           )}
+          <div className="descr">
           <h3>{item.Name}</h3>
           <p>{item.Description}</p>
+          </div>
           <h1 className="product-view-price">R{item.Price}</h1>
           <div>
             <input
