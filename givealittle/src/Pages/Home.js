@@ -22,6 +22,8 @@ import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Fade from "@mui/material/Fade";
+import StarRatings from 'react-star-ratings';
+
 
 export default function Home() {
   const [cartitems, setCartItems] = useState([]); //state for local cart array
@@ -521,13 +523,23 @@ export default function Home() {
             }
           >
             <div className="inprodstar">
-              <BsStarFill className="initemsstar" />
-              {avgStars(item.Stars)}
+              {/* <BsStarFill className="initemsstar" />
+              {avgStars(item.Stars)} */}
 
               <Link onClick={() => viewReviews(item)}>
                 {reviewNumberIn(item.Review)}
                 {correctReview(item.Review)}
               </Link>
+              <div style={{
+              marginTop:"10px"
+            }}>
+            <StarRatings
+        rating= {parseFloat(avgStars(item.Stars))}
+        starRatedColor="yellow"
+        starDimension= "20px"
+        name='rating'
+      />
+      </div>
             </div>
           </HtmlTooltip>
         </div>
