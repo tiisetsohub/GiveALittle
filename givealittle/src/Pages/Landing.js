@@ -69,6 +69,15 @@ export default function Landing() {
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [suggestionDropdown, setSuggestionDropdown] = useState(true);
 
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+    for (let i in Users) {
+      if (Users[i].Email == name) {
+        setUserName(Users[i].Name);
+      }
+    }
+  }, [Users]);
+
   // This is for loading spinner
   let [loading, setLoading] = useState(true);
   const override = css`
@@ -382,13 +391,16 @@ export default function Landing() {
   let add = "";
   let rev = "";
 
-  const AddReview = async (item, star, review) => {
+  let user = "";
+
+  const AddReview = async (item, star, review, user) => {
     //handles adding a review to database
     await setDoc(
       doc(db, "Inventory", item.id),
       {
         Review: review,
         Stars: star,
+        ReviewUser: user,
       },
       { merge: true }
     );
@@ -538,7 +550,7 @@ export default function Landing() {
     function CartView() {
       setShowCart(!showcart);
       setSummary(
-        cartitems.map(function(currentValue, index, array) {
+        cartitems.map(function (currentValue, index, array) {
           return index >= 0 ? (
             <div className="cartitemdiv">
               <div className="cartleft">
@@ -727,6 +739,8 @@ export default function Landing() {
   function handleReviews(item) {
     const ratingChanged = (rating) => {
       str = "" + item.Stars + "*" + rating.toString();
+      user = "" + item.ReviewUser + "*" + userName.toString();
+      console.log(name);
     };
     setShowReview(true);
     setText(
@@ -777,7 +791,7 @@ export default function Landing() {
               className="btnclose"
               onClick={() => {
                 rev = "" + item.Review + add;
-                AddReview(item, str, rev);
+                AddReview(item, str, rev, user);
                 setShowReview(false);
                 ProductView(item);
               }}

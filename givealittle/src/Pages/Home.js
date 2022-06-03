@@ -90,6 +90,12 @@ export default function Home() {
     return reviewList;
   }
 
+  // Function to put user's name for the review in a list
+  function reviewUser(users) {
+    let usersList = users.toString().split("*");
+    return usersList;
+  }
+
   function starsL(stars, starCount) {
     const s = stars + "";
     const starsList = s.split("*");
@@ -370,19 +376,24 @@ export default function Home() {
     const starCount = avgStars(item.Stars);
     const reviewStars = starsL(item.Stars, starCount);
     const comments = review(item.Review);
+    const users = reviewUser(item.ReviewUser);
 
     //combine comment with a star
-    let zip = (comments, reviewStars) =>
-      comments.map((x, i) => [x, reviewStars[i]]);
-    const clist = zip(comments, reviewStars);
+    let zip = (users, comments, reviewStars) =>
+      comments.map((x, i) => [x, reviewStars[i], users[i]]);
+    const clist = zip(users, comments, reviewStars);
     const commentList = clist.map((comment) => (
-      <div className="indrev">{comment[0]}
-      <div style={{}}><StarRatings
-        rating = {parseFloat(comment[1])}
-        starRatedColor="yellow"
-        starDimension= "20px"
-        name='rating'
-      /></div>      
+      <div className="indrev">
+        {users[0]}
+        {comment[0]}
+        <div style={{}}>
+          <StarRatings
+            rating={parseFloat(comment[1])}
+            starRatedColor="yellow"
+            starDimension="20px"
+            name="rating"
+          />
+        </div>
       </div>
     ));
     setShowReview(true);
@@ -404,12 +415,13 @@ export default function Home() {
           <div>
             <img
               style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
-              src={item.Image} alt=""
+              src={item.Image}
+              alt=""
             />
           </div>
           <div className="descr">
-          <h3>{item.Name}</h3>
-          <p>{item.Description}</p>
+            <h3>{item.Name}</h3>
+            <p>{item.Description}</p>
           </div>
           <br />
           <div className="revdivin">
@@ -476,8 +488,8 @@ export default function Home() {
             user.Email === item.Seller ? <p>Sold By : {user.Name}</p> : null
           )}
           <div className="descr">
-          <h3>{item.Name}</h3>
-          <p>{item.Description}</p>
+            <h3>{item.Name}</h3>
+            <p>{item.Description}</p>
           </div>
           <h1 className="product-view-price">R{item.Price}</h1>
           <div>
