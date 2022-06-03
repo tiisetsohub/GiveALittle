@@ -22,15 +22,18 @@ meaning they can be both a buyer and the seller at the same time.
 
 This is what you can do with GiveALittle:
 
-* You can view the products that are sold in our store without needing to
-  have an account and do the same if you have account.
-* You can become both the seller and a buyer.
-* You can review the product you've bought and read other
-  people's reviews if you want to buy a certain product.
-* You can track your order after you have bought it
-* You can add the items you want to buy into a cart
-* And many more features to be added
-* As a seller you can add as many images for the product you're selling.
+- Dummy transactions fully implemented
+- Item descriptions added
+- Item tracking added
+- Search products by category
+- Check the products you sold as a seller
+- Multiple pictures for the product you're viewing
+- Filter products you want to buy (by category)
+- You can review the product after buying it
+- You can contact us on the contact page and you'll hear the feedback from us
+- View your profile
+- Insights of the products you are selling and how much you made if you are a seller
+- The products you bought if you are a buyer
 
 ## Built Using
 
