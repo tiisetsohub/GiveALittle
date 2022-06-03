@@ -68,25 +68,25 @@ export default function Sold() {
         <button className="btnclose" onClick={() => setShow(false)}>
           <KeyboardBackspaceIcon />
         </button>
-        <div className="buyer">Reciever: {item.Buyer}</div>
+        <div className="buyer">Reciever: {item.Cart.Buyer}</div>
         <div className="prodView">
           <div className="left-side">
             <Card sx={{ maxWidth: 345 }}>
               <CardMedia
                 component="img"
                 height="140"
-                image={item.Image}
+                image={item.Cart.Image}
                 alt=""
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {item.Name}
+                  {item.Cart.Name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {item.Description}
+                  {item.Cart.Description}
                 </Typography>
                 <Typography gutterBottom variant="h6" component="div">
-                  R {item.Price}
+                  R {item.Cart.Price}
                 </Typography>
               </CardContent>
             </Card>
@@ -112,7 +112,7 @@ export default function Sold() {
       ) : (
         <div className="bodydiv">
           {purchased.map((item) => {
-            if (item.Seller == name)
+            if (item.Cart.Seller == name)
               //the logged in user should only see his/her products that they have been bought buy others.
               return (
                 <div
@@ -121,11 +121,11 @@ export default function Sold() {
                     ProductView(item);
                   }}
                 >
-                  <img src={item.Image} alt="" />
+                  <img src={item.Cart.Image} alt="" />
                   <div className="textdiv">
-                    <h1 className="itemname">{item.Name}</h1>
+                    <h1 className="itemname">{item.Cart.Name}</h1>
                   </div>
-                  <h1 className="itemprice">R{item.Price}</h1>
+                  <h1 className="itemprice">R{item.Cart.Price}</h1>
                 </div>
               );
             // else return;
