@@ -384,7 +384,8 @@ export default function Home() {
     const clist = zip(users, comments, reviewStars);
     const commentList = clist.map((comment) => (
       <div className="indrev">
-        {users[0]}
+        <div className="user">{comment[2]}</div>
+
         {comment[0]}
         <div style={{}}>
           <StarRatings

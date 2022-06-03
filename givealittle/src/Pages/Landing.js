@@ -45,6 +45,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Fade from "@mui/material/Fade";
+import StarRatings from "react-star-ratings";
 
 //identical to home.js
 
@@ -435,6 +436,19 @@ export default function Landing() {
     return reviewList;
   }
 
+  // Function to put user's name for the review in a list
+  function reviewUser(users) {
+    let usersList = users.toString().split("*");
+    return usersList;
+  }
+  function starsL(stars, starCount) {
+    const s = stars + "";
+    const starsList = s.split("*");
+    starsList.shift();
+    starsList.unshift(starCount);
+    return starsList;
+  }
+
   // Funtion that returns the number of reviews
   function reviewNumber(reviews) {
     let counter = 0;
@@ -805,9 +819,29 @@ export default function Landing() {
   }
 
   function viewReviews(item) {
+    const starCount = avgStars(item.Stars);
+    const reviewStars = starsL(item.Stars, starCount);
     const comments = review(item.Review);
-    const commentList = comments.map((comment) => (
-      <div className="indrev">{comment} </div>
+    const users = reviewUser(item.ReviewUser);
+
+    //combine comment with a star
+    let zip = (users, comments, reviewStars) =>
+      comments.map((x, i) => [x, reviewStars[i], users[i]]);
+    const clist = zip(users, comments, reviewStars);
+    const commentList = clist.map((comment) => (
+      <div className="indrev">
+        <div className="user">{comment[2]}</div>
+
+        {comment[0]}
+        <div style={{}}>
+          <StarRatings
+            rating={parseFloat(comment[1])}
+            starRatedColor="yellow"
+            starDimension="20px"
+            name="rating"
+          />
+        </div>
+      </div>
     ));
     setShowReview(true);
     setText(

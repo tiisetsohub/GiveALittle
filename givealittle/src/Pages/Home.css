@@ -509,3 +509,7 @@ input[type="radio"] {
     margin-left: auto;
     margin-right:auto;
 }
+
+.user{
+    font-weight: bold;
+}
