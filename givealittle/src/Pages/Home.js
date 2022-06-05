@@ -86,7 +86,6 @@ export default function Home() {
   function review(reviews) {
     let reviewList = reviews.toString().split("*");
     reviewList.shift();
-    reviewList.unshift("Stars");
     return reviewList;
   }
 
