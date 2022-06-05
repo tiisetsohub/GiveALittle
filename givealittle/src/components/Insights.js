@@ -1,7 +1,7 @@
 import { arrayRemove } from 'firebase/firestore';
 import React, { useContext, useState, useEffect } from 'react';
 import './Insights.css';
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryPie } from 'victory';
+import { VictoryArea, VictoryBar, VictoryChart, VictoryAxis, VictoryTheme, VictoryPie } from 'victory';
 
 
 export default function Insights(props){
@@ -17,7 +17,7 @@ export default function Insights(props){
             (first, second) => { return second[1] - first[1] }
         );
         setNewPage(
-            <div>
+            <div className = "wholpdiv">
                 <button className="btnclose" onClick={() => setShow(true)}>Close</button>
                 <div className="allprodsdiv">
                     <div className="allprodheaddiv">
@@ -43,7 +43,7 @@ export default function Insights(props){
             (first, second) => { return second[1] - first[1] }
         );
         setNewPage(
-        <div>
+        <div className = "wholpdiv">
             <button className = "btnclose" onClick={() => setShow(true)}>Close</button>
             <div className = "allprodsdiv">
                 <div className = "allprodheaddiv">
@@ -62,12 +62,39 @@ export default function Insights(props){
 
     function saleHistory() {
         setShow(false);
-        setNewPage(
-            <div>
-                <button className="btnclose" onClick={() => setShow(true)}>Close</button>
-                <h1>TO DO</h1>
-                
-            </div>)
+        if (props.totalSale === 0) {
+            setNewPage(
+                <div className="wholpdiv">
+                    <button className="btnclose" onClick={() => setShow(true)}>Close</button>
+                </div>
+            )
+        }
+        else {
+            setNewPage(
+                <div className="wholpdiv">
+                    <button className="btnclose" onClick={() => setShow(true)}>Close</button>
+                    <h3 className="histhead">Monthly Sale History</h3>
+                    <div className="vichicdiv">
+                        <VictoryChart>
+                            <VictoryArea
+                                style={{
+                                    data: { fill: "none", fillOpacity: 0.7, stroke: "#B38B59", strokeWidth: 3 },
+                                    labels: { fontSize: 6 }
+                                }}
+                                data={props.histData}
+
+                            />
+                        </VictoryChart>
+                    </div>
+                    <div className="histsumdiv">
+                        <h2>This is visualization of your monthly sale history</h2>
+                        <h5>You have been selling on Givealittle for <mark style={{ color: "#B38B59", backgroundColor: "#FFFFFF" }}>{props.histData.length}</mark> months now</h5>
+                        <h5>Your monthly revenue is <mark style={{ color: "#B38B59", backgroundColor: "#FFFFFF" }}>R{props.monAve}</mark></h5>
+                    </div>
+
+                </div>
+            )
+        }
     }
         
     return(
@@ -129,7 +156,7 @@ export default function Insights(props){
                         />
                     </div>
                     <div className="vich1">
-                        <h5>Your total revenue is:</h5>
+                        <h5>Your total revenue is</h5>
                         <h1 className="totalh1">R{props.totalSale}</h1>
                     </div>
                 </div>

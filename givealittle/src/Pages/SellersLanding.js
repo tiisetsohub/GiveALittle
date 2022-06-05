@@ -42,7 +42,8 @@ function SellersLanding() {
   const [custDict, setCustDict] = useState('');
   const [prodDict, setProdDict] = useState('');
   const [pData, setPData] = useState([]);
-
+  const [histData, setHistData] = useState([]);
+  const [totMonAverage, setTotMonAverage] = useState(0)
 
 
   useEffect(() => {
@@ -109,6 +110,26 @@ function SellersLanding() {
       setPData([{x : 0, y : 0,label : 0}])
     }
     
+
+    let dict4 = {}
+    Bought.map((item) =>
+    (item.Cart.Seller === name ?
+      (item.Cart.Date.slice(4, 7) in dict4 ? dict4[item.Cart.Date.slice(4, 7)] += item.Cart.Quantity * item.Cart.Price : dict4[item.Cart.Date.slice(4, 7)] = item.Cart.Quantity * item.Cart.Price) : null)
+    )
+    let datArr2 = []
+    let monave =0
+    for (const [key, value] of Object.entries(dict4)) {
+      datArr2.push({ x: key, y: value, label: 'R'+Math.round(value * 100) / 100 });
+      monave += value
+    }
+    monave /=datArr2.length
+    setTotMonAverage(Math.round(monave * 100) / 100)
+
+    if (datArr2.length > 0) {
+      setHistData(datArr2)
+    } else {
+      setHistData([{ x: 0, y: 0, label: 0 }])
+    }
   }, [getData]);
 
 
@@ -208,7 +229,9 @@ function SellersLanding() {
           totalSale = {totalSale}
           custDict = {custDict}
           prodDict = {prodDict}
-          pData = {pData}/>
+          pData = {pData}
+          histData = {histData}
+          monAve={totMonAverage}/>
       ) : null}
     </motion.div>
   );

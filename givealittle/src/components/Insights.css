@@ -142,3 +142,25 @@
     justify-content: flex-end;
     padding-right: 50px;
 }
+
+.vichicdiv{
+    height: 480px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.histhead{
+    margin: 10px 0px;
+    text-align: center;
+    
+}
+
+.histsumdiv{
+    margin-bottom: 40px;
+    text-align: center;
+}
+
+.wholpdiv{
+    margin: 0 10px;
+}
