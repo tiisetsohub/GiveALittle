@@ -41,6 +41,8 @@ function SellersLanding() {
   const [getData, setGetData] = useState(false);
   const [custDict, setCustDict] = useState('');
   const [prodDict, setProdDict] = useState('');
+  const [pData, setPData] = useState([]);
+
 
 
   useEffect(() => {
@@ -90,6 +92,22 @@ function SellersLanding() {
       total += item.Cart.Price * item.Cart.Quantity : null)
     )
     setTotalSale(Math.round(total * 100) / 100);
+    
+    let dict3={}
+    Bought.map((item) =>
+    (item.Cart.Seller === name ?
+      (item.Cart.Name in dict3 ? dict3[item.Cart.Name] += item.Cart.Quantity*item.Cart.Price : dict3[item.Cart.Name] = item.Cart.Quantity* item.Cart.Price) : null)
+    )
+    let datArr=[]
+    for (const [key, value] of Object.entries(dict3)) {
+      datArr.push({x: value, y: (value) * 100, label: `${key} - R${value}`});
+    }
+
+    if (datArr.length > 0) {
+      setPData(datArr)
+    } else {
+      setPData([{x : 0, y : 0,label : 0}])
+    }
     
   }, [getData]);
 
@@ -189,7 +207,8 @@ function SellersLanding() {
           topProduct = {topProduct}
           totalSale = {totalSale}
           custDict = {custDict}
-          prodDict = {prodDict}/>
+          prodDict = {prodDict}
+          pData = {pData}/>
       ) : null}
     </motion.div>
   );
