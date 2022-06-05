@@ -91,7 +91,8 @@ export default function Home() {
 
   // Function to put user's name for the review in a list
   function reviewUser(users) {
-    let usersList = users.toString().split("*");
+    let s = users + "";
+    let usersList = s.split("*");
     return usersList;
   }
 
