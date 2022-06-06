@@ -37,12 +37,17 @@ button:hover {
 }
 
 .btnclose {
+    height: 28px;
     transition: 0.5s;
     animation: ease-in;
+    border-radius: 5px;
     background-color: #B38B59;
+    border: 0px solid;
     left: 2px;
     position: sticky;
     margin-top: 20px;
+    margin-left: 10px;
+    color: white;
     top: 0;
 }
 
@@ -54,7 +59,13 @@ button:hover {
 .btnadd {
     transition: 0.5s;
     animation: ease-in;
+    height: 28px;
     font-weight: bold;
+    background-color: #B38B59;
+    border-radius: 3px;
+    border: 0px solid;
+    color: white;
+    margin-bottom: 50px;
 }
 
 .btnReview {
@@ -219,6 +230,7 @@ img {
 .btnsearch {
     transition: 0.5s;
     animation: ease-in;
+    color: white; 
     height: 28px;
     border-radius: 3px;
     background-color: #B38B59;
@@ -504,7 +516,7 @@ input[type="radio"] {
 }
 
 .prodCarousel{
-    margin-left: 20%;
-    margin-right: 20%;
+    margin-left: 10%;
+    margin-right: 10%;
 
 }
