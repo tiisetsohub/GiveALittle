@@ -172,16 +172,13 @@ button:hover {
 }
 
 .indrev{
-    margin-top: -1px;
-    border-bottom : 1px solid #082412;
     padding: 0 10px;
+    border-radius: 20px;
+    border : 0px;
+    background-color: #f5f5f5;
 }
 
 .revcomm{
-    border: 1px solid #113E21;
-    padding: 0 10px;
-    
-    
 }
 
 .starratediv {
@@ -519,4 +516,11 @@ input[type="radio"] {
     margin-left: 10%;
     margin-right: 10%;
 
+}
+
+.allrevshl{
+    background-color: white;
+    padding: 20px;
+    border-radius: 20px;
+    margin: 0 10px;
 }

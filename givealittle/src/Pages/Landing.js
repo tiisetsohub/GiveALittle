@@ -870,7 +870,9 @@ export default function Landing() {
           <br />
           <div className="revdivin">
             <h5>Reviews</h5>
-            <div className="revcomm">{commentList}</div>
+            <div className="allrevshl">
+              <div className="revcomm">{commentList}</div>
+            </div>
           </div>
         </div>
       </div>
