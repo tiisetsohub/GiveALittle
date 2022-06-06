@@ -29,10 +29,6 @@ function Purchased(product) {
             <Typography gutterBottom variant="h6" component="div">
               R {product.price}
             </Typography>
-            <Typography gutterBottom variant="p" component="div">
-              Delivery:{" "}
-              {product.delivery}
-            </Typography>
           </CardContent>
         </CardActionArea>
       </Card>

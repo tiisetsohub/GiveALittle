@@ -13,3 +13,4 @@ export const AddressContext = createContext({});           //sets global context
 export const isEligibleContext = createContext({});        // sets a global variable to check if user has all details
 
 export const CurrentUserContext = createContext({});        // sets a global variable for user details (name , email etc)
+export const TrackContext = createContext({});        // sets a global variable for user details (name , email etc)

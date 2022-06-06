@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { doc, setDoc } from "firebase/firestore";
 import { CardActionArea } from "@mui/material";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { NameContext } from "../Context";
+import { NameContext, TrackContext } from "../Context";
 import "./Sold.css";
 import {
   StepLabel,
@@ -22,6 +22,7 @@ export default function Sold() {
   const [purchased, setItems] = useState([]);
   const itemRef = collection(db, "Bought");
   const { name, setName } = useContext(NameContext);
+  const { trackContext, setTrackContext } = useContext(TrackContext);
   function Navbar() {
     const [showLinks, setShowLinks] = useState(false);
 
@@ -60,7 +61,6 @@ export default function Sold() {
 
     getItems();
   }, []);
-
   function ProductView(item) {
     setShow(true);
     setText(
@@ -68,10 +68,10 @@ export default function Sold() {
         <button className="btnclose" onClick={() => setShow(false)}>
           <KeyboardBackspaceIcon />
         </button>
-        <div className="buyer">Reciever: {item.Cart.Buyer}</div>
+        <div className="buyer">Reciever: {item.Buyer}</div>
         <div className="prodView">
           <div className="left-side">
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 400, boxShadow: 10, borderRadius: 3 }}>
               <CardMedia
                 component="img"
                 height="140"
@@ -93,8 +93,53 @@ export default function Sold() {
           </div>
           <div className="right-side">
             <div className="right-botton">
-              <Card sx={{ maxWidth: 400 }}>
-                <Stepper activeStep={4} orientation="vertical"></Stepper>
+              <Card sx={{ maxWidth: 400, boxShadow: 10, borderRadius: 3 }}>
+                <Stepper
+                  activeStep={
+                    Array.isArray(trackContext) && trackContext.length != 0
+                      ? trackContext[trackContext.length - 1].LocDesc.includes(
+                          "Collected"
+                        )
+                        ? 2
+                        : 0
+                      : ""
+                  }
+                  orientation="vertical"
+                >
+                  {Array.isArray(trackContext) && trackContext.length != 0 ? (
+                    trackContext[trackContext.length - 1].LocDesc.includes(
+                      "Collected"
+                    ) ? (
+                      ["Order Pending", "Order Collected"].map(
+                        (elem, index) => (
+                          <Step className="step">
+                            <StepLabel>
+                              <div className="step-label">
+                                {elem}{" "}
+                                {trackContext[index == 0 ? index : 4].Time}
+                              </div>
+                            </StepLabel>
+                          </Step>
+                        )
+                      )
+                    ) : (
+                      ["Order Pending"].map((elem) => (
+                        <Step className="step">
+                          <StepLabel>
+                            <div className="step-label">
+                              {elem} {trackContext[0].Time}
+                            </div>
+                          </StepLabel>
+                        </Step>
+                      ))
+                    )
+                  ) : (
+                    <div className="step-label">
+                      {" "}
+                      Something went wrong! Please Try again.
+                    </div>
+                  )}
+                </Stepper>
               </Card>
             </div>
           </div>
@@ -128,7 +173,6 @@ export default function Sold() {
                   <h1 className="itemprice">R{item.Cart.Price}</h1>
                 </div>
               );
-            // else return;
           })}
         </div>
       )}

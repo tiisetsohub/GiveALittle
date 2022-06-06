@@ -582,20 +582,10 @@ export default function Landing() {
               <Tooltip
                 TransitionComponent={Fade}
                 TransitionProps={{ timeout: 600 }}
-                title="Open your orders"
+                title="Recent Orders"
               >
                 <Link className="navlink" to="/track">
-                  <p> MyOrders</p>
-                </Link>
-              </Tooltip>
-
-              <Tooltip
-                TransitionComponent={Fade}
-                TransitionProps={{ timeout: 600 }}
-                title="Sold items"
-              >
-                <Link className="navlink" to="/sold">
-                  <p> Sold</p>
+                  <p> Recents</p>
                 </Link>
               </Tooltip>
             </div>

@@ -1,11 +1,13 @@
 import React, { useContext, useState, useEffect } from "react";
 import { db } from "../firebase-config";
-import { collection, getDocs, getDoc } from "firebase/firestore";
+
+import { collection, getDocs, doc, setDoc, getDoc } from "firebase/firestore";
+
 import { Link } from "react-router-dom";
 import { Container, Row } from "reactstrap";
 import Purchased from "../components/Purchased";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { NameContext } from "../Context";
+import { NameContext, TrackContext } from "../Context";
 import "./Track.css";
 import {
   Stepper,
@@ -23,7 +25,9 @@ export default function Track() {
   const [show, setShow] = useState(false);
   const [text, setText] = useState("");
   const { name, setName } = useContext(NameContext);
+  const { trackContext, setTrackContext } = useContext(TrackContext);
 
+  // updateFields();
   useEffect(() => {
     //loads data from database
     const getproducts = async () => {
@@ -33,36 +37,49 @@ export default function Track() {
     };
     getproducts();
   }, []);
-  const [array] = React.useState([
-    "Preparing your order",
-    "Your order is ready",
-    "Your order is on its way",
-    "Your order has arrived",
-    "Order collected",
-  ]);
-  const [displayArray, setDisplayArray] = React.useState([]);
-  const [displayEl, setDisplayEl] = React.useState();
-  const delay = (ms) =>
-    new Promise((res) => {
-      setTimeout(() => {
-        res();
-      }, ms);
-    });
-  React.useEffect(() => {
-    (async function() {
-      for (let el of array) {
-        await delay(1000 * (1 + Math.floor(Math.random() * 3)));
-        setDisplayEl(el + ", " + new Date().toString());
-      }
-      setDisplayEl(undefined);
-    })();
-  }, [array]);
 
-  React.useEffect(() => {
-    displayEl && setDisplayArray((prev) => [...prev, displayEl]);
-  }, [displayEl]);
+  const oldLocDesc = [];
+  const oldTime = [];
+  const newArray = [];
+  const locDescArr = [
+    "Preparing Your Order.",
+    "Your Order Is Ready.",
+    "Your Order Is On its Way.",
+    "Your Order Is Ready For Collection.",
+    "Order Collected.",
+  ];
+  const updateFields = async (id) => {
+    const docRef = doc(db, "Bought", id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.data().LocDesc.length <= 4) {
+      for (let i = 0; i < docSnap.data().LocDesc.length; i++) {
+        oldLocDesc.push(docSnap.data().LocDesc[i]);
+        oldTime.push(docSnap.data().Time[i]);
+      }
+      oldLocDesc.push(locDescArr[oldLocDesc.length]);
+      oldTime.push(new Date().toString());
+      await setDoc(
+        docRef,
+        {
+          LocDesc: oldLocDesc,
+          Time: oldTime,
+        },
+        { merge: true }
+      );
+    }
+    const docSnap2 = await getDoc(docRef);
+    for (let i = 0; i < docSnap2.data().LocDesc.length; i++) {
+      newArray.push({
+        LocDesc: docSnap2.data().LocDesc[i],
+        Time: docSnap2.data().Time[i],
+      });
+    }
+    await setTrackContext(newArray);
+  };
 
   function ProductView(product) {
+    console.log(trackContext);
+    updateFields(product.id);
     setShow(true);
     setText(
       <div>
@@ -72,42 +89,53 @@ export default function Track() {
         <h3 className="heading"> My Orders </h3>
         <div className="cont-div">
           <div className="left">
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 400, boxShadow: 10, borderRadius: 3 }}>
               <CardMedia
                 component="img"
                 height="130"
-                image={product.Image}
+                image={product.Cart.Image}
                 alt=""
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
-                  {product.Name}
+                  {product.Cart.Name}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {product.Description}
+                  {product.Cart.Description}
                 </Typography>
                 <Typography gutterBottom variant="h6" component="div">
-                  R {product.Price}
+                  R {product.Cart.Price}
                 </Typography>
               </CardContent>
             </Card>
           </div>
 
           <div className="right">
-            <Card sx={{ maxWidth: 400 }}>
+            <Card sx={{ maxWidth: 400, boxShadow: 10, borderRadius: 3 }}>
               <Stepper
                 activeStep={
-                  displayArray.length == 5
-                    ? displayArray.length
-                    : displayArray.length - 1
+                  trackContext.length == 5
+                    ? trackContext.length
+                    : trackContext.length - 1
                 }
                 orientation="vertical"
               >
-                {displayArray.map((elem) => (
-                  <Step>
-                    <StepLabel>{elem}</StepLabel>
-                  </Step>
-                ))}
+                {Array.isArray(trackContext) && trackContext.length != 0 ? (
+                  trackContext.map((elem) => (
+                    <Step className="step">
+                      <StepLabel>
+                        <div className="step-label">
+                          {elem.LocDesc} : {elem.Time}
+                        </div>
+                      </StepLabel>
+                    </Step>
+                  ))
+                ) : (
+                  <div className="step-label">
+                    {" "}
+                    Something went wrong! Please Try again.
+                  </div>
+                )}
               </Stepper>
             </Card>
           </div>
@@ -135,9 +163,9 @@ export default function Track() {
                     }}
                   >
                     <Purchased
-                      image={product.Image}
-                      name={product.Name}
-                      price={product.Price}
+                      image={product.Cart.Image}
+                      name={product.Cart.Name}
+                      price={product.Cart.Price}
                     />
                   </div>
                 );

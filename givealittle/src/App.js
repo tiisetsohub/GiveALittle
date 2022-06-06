@@ -25,6 +25,7 @@ import {
   AddressContext,
   isEligibleContext,
   CurrentUserContext,
+  TrackContext,
 } from "./Context"; //imports all global contexts in here where they will be initialized
 import { useState, useLocation } from "react";
 import Profile from "./Pages/Profile";
@@ -45,6 +46,7 @@ function App() {
   const [address, setAddress] = useState(""); //global context for address
 
   const [isEligible, setIsEligible] = useState(""); //global context for address
+  const [trackContext, setTrackContext] = useState(""); //global context for address
 
   //const location = useLocation(); // location hook for page transition
 
@@ -63,95 +65,99 @@ function App() {
                   {" "}
                   {/*provider for global name*/}
                   <CarddetailsContext.Provider value={{ cardno, setCardNo }}>
-                    <Router>
-                      {" "}
-                      {/*stores all the routes to all pages*/}
-                      <Switch>
+                    <TrackContext.Provider
+                      value={{ trackContext, setTrackContext }}
+                    >
+                      <Router>
                         {" "}
-                        {/*allows for different routes*/}
-                        <Route exact path="/">
+                        {/*stores all the routes to all pages*/}
+                        <Switch>
                           {" "}
-                          {/*route to home page*/}
-                          <Home />
-                        </Route>
-                        <Route path="/login">
-                          {" "}
-                          {/*route to login page*/}
-                          <Login />
-                        </Route>
-                        <Route path="/review">
-                          {" "}
-                          {/*route to signup page*/}
-                          <Review />
-                        </Route>
-                        <Route path="/signup">
-                          {" "}
-                          {/*route to signup page*/}
-                          <Signup />
-                        </Route>
-                        <Route path="/sold">
-                          {" "}
-                          {/*route to about page*/}
-                          <Sold />
-                        </Route>
-                        <Route path="/landing">
-                          {" "}
-                          {/*route to landing page*/}
-                          <Landing />
-                        </Route>
-                        <Route path="/sellerslanding">
-                          {" "}
-                          {/*route to sellers landing page*/}
-                          <SellersLanding />
-                        </Route>
-                        <Route path="/sell">
-                          {" "}
-                          {/*route to sell page*/}
-                          <Sell />
-                        </Route>
-                        <Route path="/about">
-                          {" "}
-                          {/*route to about page*/}
-                          <About />
-                        </Route>
-                        <Route path="/track">
-                          {" "}
-                          {/*route to track page*/}
-                          <Track />
-                        </Route>
-                        <Route path="/maketransactionaddress">
-                          {" "}
-                          {/*route to maketransaction page*/}
-                          <MakeTransactionAddress />
-                        </Route>
-                        <Route path="/maketransactionpayment">
-                          {" "}
-                          {/*route to maketransaction page*/}
-                          <MakeTransactionPayment />
-                        </Route>
-                        <Route path="/payment">
-                          {" "}
-                          {/*route to payment page*/}
-                          <Payment />
-                        </Route>
-                        <Route path="/profile">
-                          {" "}
-                          {/*route to profile page*/}
-                          <Profile />
-                        </Route>
-                        <Route path="/contact">
-                          {" "}
-                          {/*route to contact page*/}
-                          <Contact />
-                        </Route>
-                        <Route path="/homeabout">
-                          <HomeAbout />
-                        </Route>
-                        <Route path="/homecontact">
-                          <HomeContact />
-                        </Route>
-                      </Switch>
-                    </Router>
+                          {/*allows for different routes*/}
+                          <Route exact path="/">
+                            {" "}
+                            {/*route to home page*/}
+                            <Home />
+                          </Route>
+                          <Route path="/login">
+                            {" "}
+                            {/*route to login page*/}
+                            <Login />
+                          </Route>
+                          <Route path="/review">
+                            {" "}
+                            {/*route to signup page*/}
+                            <Review />
+                          </Route>
+                          <Route path="/signup">
+                            {" "}
+                            {/*route to signup page*/}
+                            <Signup />
+                          </Route>
+                          <Route path="/sold">
+                            {" "}
+                            {/*route to about page*/}
+                            <Sold />
+                          </Route>
+                          <Route path="/landing">
+                            {" "}
+                            {/*route to landing page*/}
+                            <Landing />
+                          </Route>
+                          <Route path="/sellerslanding">
+                            {" "}
+                            {/*route to sellers landing page*/}
+                            <SellersLanding />
+                          </Route>
+                          <Route path="/sell">
+                            {" "}
+                            {/*route to sell page*/}
+                            <Sell />
+                          </Route>
+                          <Route path="/about">
+                            {" "}
+                            {/*route to about page*/}
+                            <About />
+                          </Route>
+                          <Route path="/track">
+                            {" "}
+                            {/*route to track page*/}
+                            <Track />
+                          </Route>
+                          <Route path="/maketransactionaddress">
+                            {" "}
+                            {/*route to maketransaction page*/}
+                            <MakeTransactionAddress />
+                          </Route>
+                          <Route path="/maketransactionpayment">
+                            {" "}
+                            {/*route to maketransaction page*/}
+                            <MakeTransactionPayment />
+                          </Route>
+                          <Route path="/payment">
+                            {" "}
+                            {/*route to payment page*/}
+                            <Payment />
+                          </Route>
+                          <Route path="/profile">
+                            {" "}
+                            {/*route to profile page*/}
+                            <Profile />
+                          </Route>
+                          <Route path="/contact">
+                            {" "}
+                            {/*route to contact page*/}
+                            <Contact />
+                          </Route>
+                          <Route path="/homeabout">
+                            <HomeAbout />
+                          </Route>
+                          <Route path="/homecontact">
+                            <HomeContact />
+                          </Route>
+                        </Switch>
+                      </Router>
+                    </TrackContext.Provider>
                   </CarddetailsContext.Provider>
                 </NameContext.Provider>
               </LoginContext.Provider>
