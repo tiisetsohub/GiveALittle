@@ -125,6 +125,7 @@ export default function Sell({ allTabs, setAllTabs }) {
       Image: newImg,
       Stars: "",
       Review: "",
+      ReviewUser: "",
       Seller: name,
       Specs: Specs,
       Categories: productCategories,

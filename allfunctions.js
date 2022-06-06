@@ -22,7 +22,7 @@ function login(email, password, repass) {
 //function for valid sign up details
 function signup(name,cell, email, password,repass) {
     if (password === repass) {
-        if (name.length > 2 && cell.length === 10 && email.length > 0 && password.length > 4) {
+        if (name.length > 2 && cell.length === 10 && email.length > 6 && password.length > 4) {
             return true;
         }
         else if (email.length <= 6 && password.length <= 4 && cell.length !=10 && name.length <2) {

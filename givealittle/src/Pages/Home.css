@@ -46,10 +46,11 @@ button:hover {
     left: 2px;
     position: sticky;
     margin-top: 20px;
-    color : white;
+    margin-left: 10px;
+    color: white;
     top: 0;
-
 }
+
 .clod{
     display: flex;
     position: sticky;
@@ -229,11 +230,11 @@ img {
 .btnsearch {
     transition: 0.5s;
     animation: ease-in;
+    color: white; 
     height: 28px;
     border-radius: 3px;
     background-color: #B38B59;
     border: 0px solid;
-    color: white;
 }
 
 .btnthings {
@@ -502,4 +503,20 @@ input[type="radio"] {
     height: 28px;
     width: 200px;
     border: 1px solid #B38B59;
+}
+
+.descr{
+    width: 750px;
+    margin-left: auto;
+    margin-right:auto;
+}
+
+.user{
+    font-weight: bold;
+}
+
+.prodCarousel{
+    margin-left: 10%;
+    margin-right: 10%;
+
 }

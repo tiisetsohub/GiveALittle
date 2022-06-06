@@ -22,6 +22,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Fade from "@mui/material/Fade";
+import StarRatings from "react-star-ratings";
 
 export default function Home() {
   const [cartitems, setCartItems] = useState([]); //state for local cart array
@@ -85,12 +86,19 @@ export default function Home() {
   function review(reviews) {
     let reviewList = reviews.toString().split("*");
     reviewList.shift();
-    reviewList.unshift("Stars");
     return reviewList;
   }
 
+  // Function to put user's name for the review in a list
+  function reviewUser(users) {
+    let s = users + "";
+    let usersList = s.split("*");
+    return usersList;
+  }
+
   function starsL(stars, starCount) {
-    const starsList = stars.toString().split("*");
+    const s = stars + "";
+    const starsList = s.split("*");
     starsList.shift();
     starsList.unshift(starCount);
     return starsList;
@@ -116,7 +124,6 @@ export default function Home() {
     for (let i = 0; i < review.length; i++) {
       if (review[i] == "*") {
         counter++;
-        console.log(i);
       }
     }
     if (counter == 0) {
@@ -210,7 +217,7 @@ export default function Home() {
 
       setSummary(
         //set summary to all items in cart array
-        cartitems.map(function(currentValue, index, array) {
+        cartitems.map(function (currentValue, index, array) {
           return index >= 0 ? (
             <div className="cartitemdiv">
               <div className="cartleft">
@@ -365,19 +372,29 @@ export default function Home() {
     setCart(cartitems);
   }, [cartitems]);
 
-  function viewReviews(item, stars) {
-    const starCount = avgStars(stars);
-    const reviewStars = starsL(stars, starCount);
+  function viewReviews(item) {
+    const starCount = avgStars(item.Stars);
+    const reviewStars = starsL(item.Stars, starCount);
     const comments = review(item.Review);
+    const users = reviewUser(item.ReviewUser);
 
     //combine comment with a star
-    let zip = (comments, reviewStars) =>
-      comments.map((x, i) => [x, reviewStars[i]]);
-    const clist = zip(comments, reviewStars);
-
+    let zip = (users, comments, reviewStars) =>
+      comments.map((x, i) => [x, reviewStars[i], users[i]]);
+    const clist = zip(users, comments, reviewStars);
     const commentList = clist.map((comment) => (
       <div className="indrev">
-        {comment[0]} &emsp; <BsStarFill className="initemsstar" /> {comment[1]}
+        <div className="user">{comment[2]}</div>
+
+        {comment[0]}
+        <div style={{}}>
+          <StarRatings
+            rating={parseFloat(comment[1])}
+            starRatedColor="yellow"
+            starDimension="20px"
+            name="rating"
+          />
+        </div>
       </div>
     ));
     setShowReview(true);
@@ -400,10 +417,13 @@ export default function Home() {
             <img
               style={{ boxShadow: "0px 0px 10px 0px rgb(200, 200, 200)" }}
               src={item.Image}
+              alt=""
             />
           </div>
-          <h3>{item.Name}</h3>
-          <p>{item.Description}</p>
+          <div className="descr">
+            <h3>{item.Name}</h3>
+            <p>{item.Description}</p>
+          </div>
           <br />
           <div className="revdivin">
             <h5>Reviews</h5>
@@ -434,12 +454,12 @@ export default function Home() {
               TransitionProps={{ timeout: 600 }}
               title="Close Product View"
             >
-              <button className="btnclose" onClick={() => setShow(false)}>
+              <button variant="success" className="btnclose" onClick={() => setShow(false)}>
                 Close
               </button>
             </Tooltip>
           </motion.div>
-          <Carousel>
+          <Carousel variant="dark" className="prodCarousel">
             {/* Images */}
             <Carousel.Item>
               <img
@@ -466,10 +486,12 @@ export default function Home() {
             </Carousel.Item>
           </Carousel>
           {Users.map((user, idx) =>
-            user.Email == item.Seller ? <p>Sold By : {user.Name}</p> : null
+            user.Email === item.Seller ? <p>Sold By : {user.Name}</p> : null
           )}
-          <h3>{item.Name}</h3>
-          <p>{item.Description}</p>
+          <div className="descr">
+            <h3>{item.Name}</h3>
+            <p>{item.Description}</p>
+          </div>
           <h1 className="product-view-price">R{item.Price}</h1>
           <div>
             <input
@@ -479,7 +501,7 @@ export default function Home() {
               min="0"
               max={item.Quantity}
             />
-            <button className="btnadd" onClick={() => handleCartItems(item)}>
+            <button variant="warning" className="btnadd" onClick={() => handleCartItems(item)}>
               Add to cart
             </button>
           </div>
@@ -521,13 +543,25 @@ export default function Home() {
             }
           >
             <div className="inprodstar">
-              <BsStarFill className="initemsstar" />
-              {avgStars(item.Stars)}
+              {/* <BsStarFill className="initemsstar" />
+              {avgStars(item.Stars)} */}
 
               <Link onClick={() => viewReviews(item)}>
                 {reviewNumberIn(item.Review)}
                 {correctReview(item.Review)}
               </Link>
+              <div
+                style={{
+                  marginTop: "10px",
+                }}
+              >
+                <StarRatings
+                  rating={parseFloat(avgStars(item.Stars))}
+                  starRatedColor="yellow"
+                  starDimension="20px"
+                  name="rating"
+                />
+              </div>
             </div>
           </HtmlTooltip>
         </div>

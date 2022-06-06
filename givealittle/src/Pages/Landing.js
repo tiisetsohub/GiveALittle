@@ -45,6 +45,7 @@ import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import Fade from "@mui/material/Fade";
+import StarRatings from "react-star-ratings";
 
 //identical to home.js
 
@@ -68,6 +69,15 @@ export default function Landing() {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [suggestionDropdown, setSuggestionDropdown] = useState(true);
+
+  const [userName, setUserName] = useState("");
+  useEffect(() => {
+    for (let i in Users) {
+      if (Users[i].Email == name) {
+        setUserName(Users[i].Name);
+      }
+    }
+  }, [Users]);
 
   // This is for loading spinner
   let [loading, setLoading] = useState(true);
@@ -382,13 +392,16 @@ export default function Landing() {
   let add = "";
   let rev = "";
 
-  const AddReview = async (item, star, review) => {
+  let user = "";
+
+  const AddReview = async (item, star, review, user) => {
     //handles adding a review to database
     await setDoc(
       doc(db, "Inventory", item.id),
       {
         Review: review,
         Stars: star,
+        ReviewUser: user,
       },
       { merge: true }
     );
@@ -421,6 +434,19 @@ export default function Landing() {
   function review(reviews) {
     const reviewList = reviews.toString().split("*");
     return reviewList;
+  }
+
+  // Function to put user's name for the review in a list
+  function reviewUser(users) {
+    let usersList = users.toString().split("*");
+    return usersList;
+  }
+  function starsL(stars, starCount) {
+    const s = stars + "";
+    const starsList = s.split("*");
+    starsList.shift();
+    starsList.unshift(starCount);
+    return starsList;
   }
 
   // Funtion that returns the number of reviews
@@ -538,7 +564,7 @@ export default function Landing() {
     function CartView() {
       setShowCart(!showcart);
       setSummary(
-        cartitems.map(function(currentValue, index, array) {
+        cartitems.map(function (currentValue, index, array) {
           return index >= 0 ? (
             <div className="cartitemdiv">
               <div className="cartleft">
@@ -727,6 +753,8 @@ export default function Landing() {
   function handleReviews(item) {
     const ratingChanged = (rating) => {
       str = "" + item.Stars + "*" + rating.toString();
+      user = "" + item.ReviewUser + "*" + userName.toString();
+      console.log(name);
     };
     setShowReview(true);
     setText(
@@ -777,7 +805,7 @@ export default function Landing() {
               className="btnclose"
               onClick={() => {
                 rev = "" + item.Review + add;
-                AddReview(item, str, rev);
+                AddReview(item, str, rev, user);
                 setShowReview(false);
                 ProductView(item);
               }}
@@ -791,9 +819,29 @@ export default function Landing() {
   }
 
   function viewReviews(item) {
+    const starCount = avgStars(item.Stars);
+    const reviewStars = starsL(item.Stars, starCount);
     const comments = review(item.Review);
-    const commentList = comments.map((comment) => (
-      <div className="indrev">{comment} </div>
+    const users = reviewUser(item.ReviewUser);
+
+    //combine comment with a star
+    let zip = (users, comments, reviewStars) =>
+      comments.map((x, i) => [x, reviewStars[i], users[i]]);
+    const clist = zip(users, comments, reviewStars);
+    const commentList = clist.map((comment) => (
+      <div className="indrev">
+        <div className="user">{comment[2]}</div>
+
+        {comment[0]}
+        <div style={{}}>
+          <StarRatings
+            rating={parseFloat(comment[1])}
+            starRatedColor="yellow"
+            starDimension="20px"
+            name="rating"
+          />
+        </div>
+      </div>
     ));
     setShowReview(true);
     setText(
@@ -851,7 +899,7 @@ export default function Landing() {
             </Tooltip>
           </motion.div>
 
-          <Carousel>
+          <Carousel variant = "dark">
             {/* Images */}
             <Carousel.Item>
               <img
