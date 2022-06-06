@@ -32,7 +32,11 @@ export default function Payment() {
     let canSendEmail = false; //you don't want to  an send email if the countity is zero
     const [move, setMove] = useState(false); 
     const [status, setStatus] = useState(false);
+    var today = new Date();
 
+  
+    const tracking = ["Preparing Order"];
+    const currenttime = [today];
 
 
   function onStatus() {
@@ -80,6 +84,8 @@ export default function Payment() {
 
 
 
+
+
   // update the row(quantity) after a user has purchased
   const UpDateRow = async (item ,index) => {
     //handles adding a review to database
@@ -109,7 +115,7 @@ export default function Payment() {
        }
 
       const addItems = async (Cart) => {           //handles adding an item to database
-        await addDoc(itemRef, Object.assign({Buyer:name ,Cart}));      
+        await addDoc(itemRef, Object.assign({Buyer:name ,Cart , LocDesc:tracking , Time: currenttime , Date:currenttime}));      
       }
   
   
