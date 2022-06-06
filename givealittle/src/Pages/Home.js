@@ -459,7 +459,7 @@ export default function Home() {
               </button>
             </Tooltip>
           </motion.div>
-          <Carousel>
+          <Carousel variant="dark">
             {/* Images */}
             <Carousel.Item>
               <img
