@@ -115,7 +115,7 @@ export default function Payment() {
        }
 
       const addItems = async (Cart) => {           //handles adding an item to database
-        await addDoc(itemRef, Object.assign({Buyer:name ,Cart , LocDesc:tracking , Time: currenttime , Date:currenttime}));      
+        await addDoc(itemRef, Object.assign({Buyer:name ,Cart , LocDesc:tracking , Time: currenttime , Date:String(today)}));      
       }
   
   
