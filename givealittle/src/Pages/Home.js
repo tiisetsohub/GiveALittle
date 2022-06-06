@@ -15,7 +15,7 @@ import { CartContext } from "../Context";
 import { LoginContext } from "../Context";
 import { BsStarFill } from "react-icons/bs";
 import { NameContext } from "../Context";
-import { Carousel, ProgressBar } from "react-bootstrap";
+import { Carousel, ProgressBar, Button } from "react-bootstrap";
 import HashLoader from "react-spinners/HashLoader";
 import { motion } from "framer-motion";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
@@ -402,7 +402,7 @@ export default function Home() {
       <div>
         <div className="item-container">
           <div className="clod">
-            <button
+            <Button variant="success"
               className="btnclose"
               onClick={() => {
                 setShowReview(false);
@@ -410,7 +410,7 @@ export default function Home() {
               }}
             >
               Close Reviews
-            </button>
+            </Button>
           </div>
 
           <div>
@@ -454,12 +454,12 @@ export default function Home() {
               TransitionProps={{ timeout: 600 }}
               title="Close Product View"
             >
-              <button className="btnclose" onClick={() => setShow(false)}>
+              <Button variant="success" className="btnclose" onClick={() => setShow(false)}>
                 Close
-              </button>
+              </Button>
             </Tooltip>
           </motion.div>
-          <Carousel variant="dark">
+          <Carousel variant="dark" className="prodCarousel">
             {/* Images */}
             <Carousel.Item>
               <img
@@ -501,9 +501,9 @@ export default function Home() {
               min="0"
               max={item.Quantity}
             />
-            <button className="btnadd" onClick={() => handleCartItems(item)}>
+            <Button variant="warning" className="btnadd" onClick={() => handleCartItems(item)}>
               Add to cart
-            </button>
+            </Button>
           </div>
 
           <HtmlTooltip
